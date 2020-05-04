@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <div>
+        <h2>Welcome to gnomeo and juliet</h2>
+        {% for vara in listi %}
+            <a href="{{ vara }}"><h3>{{ vara }}</h3></a>
+        {% endfor %}
+    </div>
+{% endblock %}
+
