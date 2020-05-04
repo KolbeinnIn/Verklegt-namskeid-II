@@ -1,4 +1,4 @@
-# Verklegt-namskeid-2
+# Verklegt-namskeid-II
 Repository fyrir Verklegt námskeið 2 - Hópur 28
 #
 Ágúst Örn Eiðsson<br>
