@@ -1,14 +1,17 @@
 from django.db import models
 
+
 class Category(models.Model):
     name = models.CharField(max_length=255)
     status = models.BooleanField(default=True)
     URL_keyword = models.CharField(max_length=255, blank=True)
     parent_id = models.ForeignKey('self', on_delete=models.DO_NOTHING)
 
+
 class Image(models.Model):
     name = models.CharField(max_length=255)
-    relative_path = models.CharField(max_length=255)
+    relative_path = models.CharField(max_length=1024)
+
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
