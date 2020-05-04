@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 
 def index(request):
-    return render(request, "CC/index.html", context={"listi": ["vara1", "vara2", "vara3", "vara4"]})
+    return render(request, "CC/index.html", context={"listi": {999: "vara1", 2: "vara2", 3: "vara3", 4: "vara4", }})
 
 
 
