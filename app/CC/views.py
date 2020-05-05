@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+
 # Create your views here.
 
 
 def index(request):
-    return HttpResponse("Ayy fam")
+    return render(request, "CC/index.html", context={"listi": {999: "vara1", 2: "vara2", 3: "vara3", 4: "vara4", }})
 
 
 
