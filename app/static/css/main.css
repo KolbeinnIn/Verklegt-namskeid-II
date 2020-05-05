@@ -3,5 +3,24 @@
 }
 
 .main_logo{
-    height:50px;
+    height:70px;
+}
+
+.vara{
+    background-color: blue;
+}
+.btn-custom{
+    background-color: #FFF89C !important;
+}
+
+.fa-user{
+    font-size:30px;
+}
+
+.fa-user, ion-icon{
+    color: #FFEC01 !important;
+}
+ion-icon{
+    --ionicon-stroke-width: 40px;
+    font-size: 40px;
 }
