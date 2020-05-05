@@ -17,10 +17,20 @@
     font-size:30px;
 }
 
+.categories{
+    background-color: #FFF89C !important;
+}
+
 .fa-user,.fa-shopping-cart, ion-icon{
     color: #FFEC01 !important;
 }
+
 ion-icon{
     --ionicon-stroke-width: 40px;
     font-size: 40px;
+}
+
+.bottom-of-header{
+    position: relative;
+    bottom:0;
 }

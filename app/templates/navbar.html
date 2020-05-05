@@ -1,38 +1,55 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary static-top">
-    <div class="container">
-        <a class="navbar-brand" href="#">
-            <img src="{% static 'images/logo.png' %}" class="main_logo rounded-lg" alt="Brand">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <div class="container justify-content-md-center">
+        <div class="row justify-content-md-center">
+            <div class="row col col-12">
+                <a class="navbar-brand" href="/">
+                    <img src="{% static 'images/logo.png' %}" class="main_logo rounded-lg" alt="Captain Console logo">
+                </a>
+                <!--button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button-->
 
-        <div class="navbar-collapse collapse row justify-content-md-center" id="navbarResponsive">
-            <form class="mx-3 my-auto d-inline col">
-                <div class="input-group">
-                    <input class="form-control border-dark border-right-0" type="text" placeholder="Leita..." aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-default btn-custom border-dark border-left-0" type="button">
-                            <i class="fas fa-search"></i>
-                        </button>
+                <div class="row">
+                    <form class="mx-3 my-auto d-inline col">
+                        <div class="input-group">
+                            <input class="form-control border-dark border-right-0" type="text" placeholder="Leita..." aria-label="Search">
+                            <div class="input-group-append">
+                                <button class="btn btn-default btn-custom border-dark border-left-0" type="button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <ul class="navbar-nav col col-md-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="mt-2 mx-2 far fa-user"></i>
+                                Account
+                            </a>
+                        </li>
+                        <li class="ml-3 nav-item">
+                            <a class="nav-link" href="#">
+                                <!--i class="mt-2 mx-2 fa fa-shopping-cart"></i-->
+                                <ion-icon class="mt-1" name="cart-outline"></ion-icon>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col col-12 bottom-of-header">
+                <div class="row justify-contend-md-center categories text-center">
+                    <div class="col-sm">
+                        <h4>Leikjatölvur</h4>
+                    </div>
+                    <div class="col-sm">
+                        <h4>Leikir</h4>
+                    </div>
+                    <div class="col-sm">
+                        <h4>Aukahlutir</h4>
                     </div>
                 </div>
-            </form>
-            <ul class="navbar-nav col col-md-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="mt-2 mx-2 far fa-user"></i>
-                        Account
-                    </a>
-                </li>
-                <li class="ml-3 nav-item">
-                    <a class="nav-link" href="#">
-                        <!--i class="mt-2 mx-2 fa fa-shopping-cart"></i-->
-                        <ion-icon class="mt-1" name="cart-outline"></ion-icon>
-                    </a>
-                </li>
-            </ul>
+            </div>
         </div>
     </div>
 </nav>
