@@ -7,55 +7,83 @@ lg: 992px
 -->
 
 <nav class="navbar navbar-expand-md navbar-dark bg-primary static-top">
-    <div class="container justify-content-center mx-auto">
-        <div class="row mx-auto justify-content-center">
-            <div class="row col-12">
-                <div class="col text-center text-md-left">
-                    <a class="" href="/">
-                        <img src="{% static 'images/logo.png' %}" class="main_logo rounded-lg" alt="Captain Console logo">
-                    </a>
-                </div>
-                <div class="row col-md-auto mx-auto">
-                    <form class="col my-auto d-inline">
-                        <div class="input-group">
-                            <input class="form-control border-dark border-right-0" type="text" placeholder="Leita..." aria-label="Search">
-                            <div class="input-group-append">
-                                <button class="btn btn-default btn-custom border-dark border-left-0" type="button">
-                                    <i class="fas fa-search"></i>
+    <div class="container justify-content-center">
+        <div class="row">
+            <div class="col-12">
+                <div class="row justify-content-center mx-auto">
+                    <div class="col-12 col-md-3 order-md-1 order-1 text-center ">
+                        <a class="" href="/">
+                            <img src="{% static 'images/logo.png' %}" class="main_logo rounded-lg" alt="Captain Console logo">
+                        </a>
+                    </div><!--Logo-->
+                    <div class="col-12 col-md-6 order-md-2 order-3 align-self-center px-0 px-md-3">
+                        <div class="row justify-content-between justify-content-md-start">
+                            <div class="col-10 col-md-12 align-self-center">
+                                <form class="">
+                                    <div class="input-group">
+                                        <input class="form-control border-dark border-right-0" type="text" placeholder="Leita..." aria-label="Search">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-default btn-custom border-dark border-left-0" type="button">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-2 col-md-0 order-last d-md-none align-self-center text-center">
+                                <button class="navbar-toggler mx-auto btn yellow-background" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                                    <svg class="bi bi-list menu-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 013 11h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 7h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 3h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
+                                    </svg>
                                 </button>
+                            </div><!--Navigation button for mobile-->
+                        </div>
+                    </div><!--Searchbar-->
+                    <div class="col-12 col-md-3 order-md-3 order-2 text-md-center align-self-center">
+                        <div class="row">
+                            <div class="col-6 col-md-8 text-center p-0">
+                                <a href="#">
+                                    <div class="row">
+                                        <div class="col-12 col-md-3">
+                                            <svg class="bi bi-person icon account-icon" viewBox="0 0 16 16" fill="yellow" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 00.014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 00.022.004zm9.974.056v-.002.002zM8 7a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </div>
+                                        <div class="text-left align-self-center text-dark col-md d-none d-md-block">
+                                            Account
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-6 col-md-4 text-center">
+                                <a href="#" class="">
+                                    <svg class="bi bi-bag icon cart-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M14 5H2v9a1 1 0 001 1h10a1 1 0 001-1V5zM1 4v10a2 2 0 002 2h10a2 2 0 002-2V4H1z" clip-rule="evenodd"/>
+                                        <path d="M8 1.5A2.5 2.5 0 005.5 4h-1a3.5 3.5 0 117 0h-1A2.5 2.5 0 008 1.5z"/>
+                                    </svg>
+                                </a>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="row text-center col-sm-12 col-md-auto">
-                    <div class="col align-self-center">
-                        <a class="row align-self-end" href="#">
-                            <i class="col-4 far fa-user"></i>
-                            <p class="text-dark col-8">Account</p>
-                        </a>
-                    </div>
-                    <div class="col align-self-center">
-                        <a href="#">
-                            <ion-icon class="mt-1" name="cart-outline"></ion-icon>
-                        </a>
-                    </div>
+                    </div><!--Account/cart-->
                 </div>
             </div>
-
-            <button class="navbar-toggler mb-1 mx-auto" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="col col-12">
-                <div class="collapse navbar-collapse row justify-content-sm-center categories text-center mobile_border" id="navbarResponsive">
-                    <div class="row">
-                        <div class="col-md-4 col-sm-12 pt-1 pb-1">
-                            <h4>Leikjatölvur</h4>
+            <div class="col-12 mt-2 p-0">
+                <div class="collapse navbar-collapse mobile_border categories" id="navbarResponsive">
+                    <div class="row mx-0 text-center w-100">
+                        <div class="col-md-4 col-12 pt-1 pb-1 categories">
+                            <a href="#">
+                                <h4 class="my-2">Leikjatölvur</h4>
+                            </a>
                         </div>
-                        <div class="col-md-4 col-sm-12 pt-1 pb-1">
-                           <h4>Leikir</h4>
+                        <div class="col-md-4 col-12 pt-1 pb-1 categories">
+                            <a href="#">
+                                <h4 class="my-2">Leikir</h4>
+                            </a>
                         </div>
-                        <div class="col-md-4 col-sm-12 pt-1 pb-1">
-                            <h4>Aukahlutir</h4>
+                        <div class="col-md-4 col-12 pt-1 pb-1 categories">
+                            <a href="#">
+                                <h4 class="my-2">Aukahlutir</h4>
+                            </a>
                         </div>
                     </div>
                 </div>

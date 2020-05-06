@@ -1,37 +1,58 @@
-.test{
-    background-color:green;
-}
-
 .main_logo{
     height:70px;
 }
 
-.vara{
-    background-color: blue;
-}
 .btn-custom{
     background-color: #FFF89C !important;
 }
 
-.fa-user, .fa-shopping-cart{
-    font-size:30px;
+.yellow-background{
+    background-color: #FFF89C !important;
 }
-
+.yellow-color{
+    color: #FFEC01 !important;
+}
 .categories{
     background-color: #FFF89C !important;
 }
-
-.fa-user,.fa-shopping-cart, ion-icon{
-    color: #FFEC01 !important;
+.icon{
+    fill: #FFEC01 !important;
+}
+.account-icon{
+    width:2.6rem;
+    height:2.6rem;
 }
 
-ion-icon{
-    --ionicon-stroke-width: 40px;
-    font-size: 40px;
+.cart-icon{
+    width:2.3rem;
+    height:2.3rem;
+}
+
+.menu-icon{
+    fill:black !important;
+    width:1.5rem !important;
+    height:1.5rem !important;
+}
+.lala{
+    border: 1px black solid;
 }
 
 .mobile_border div :not(:last-child){
     border-bottom: 1px solid black !important;
+}
+
+
+.categories a, .categories a:hover{
+    text-decoration: none !important;
+    color:unset;
+}
+
+.categories > div > div:hover{
+    color:white !important;
+    background-color: gray !important;
+    /*opacity: 0.5 !important;*/
+    -webkit-transition: color, background-color 200ms ease-out;/* Safari 6.0 - 9.0 */
+    transition: color, background-color 200ms ease-out;
 }
 
 @media only screen and (min-width : 768px) {
