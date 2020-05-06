@@ -3,7 +3,7 @@ from staff.forms.product_form import ProductCreateForm
 
 # Create your views here.
 def create_product(request):
-    if request.method == 'Post':
+    if request.method == 'POST':
         form = ProductCreateForm(data=request.POST)
         if form.is_valid():
             product = form.save()
