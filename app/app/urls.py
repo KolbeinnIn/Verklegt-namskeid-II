@@ -20,5 +20,8 @@ urlpatterns = [
     path('', include("CC.urls")),
     path('products/', include("product_list.urls")),
     path('products/<int:id>', include("product_list.urls")),
+    path('product/', include("product.urls")),
+    path('staff/', include("staff.urls")),
     path('admin/', admin.site.urls),
+    path('User/', include("User.urls"))
 ]

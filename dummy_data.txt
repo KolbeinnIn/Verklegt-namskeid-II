@@ -1,0 +1,4 @@
+INSERT INTO  "CC_image" (name, relative_path) VALUES ('Playstation2','asdagkmasg')
+INSERT INTO "CC_category" (name, status, "URL_keyword") VALUES ('Console',True, 'Console')
+INSERT INTO "CC_product" (name, manufacturer, url, "P_EAN", quantity, price, discount, description, status, category_id, image_id)
+VALUES ('Playstation 1','Sony','URL','PEAN',200,22000,0,'asdasdadadasdada',True,1,1)

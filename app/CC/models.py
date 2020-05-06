@@ -6,6 +6,8 @@ class Category(models.Model):
     status = models.BooleanField(default=True, blank=True)
     URL_keyword = models.CharField(max_length=255, blank=True)
     parent = models.ForeignKey('self', on_delete=models.DO_NOTHING, blank=True, null=True)
+    def __str__(self):
+        return self.name
 
 
 class Image(models.Model):
