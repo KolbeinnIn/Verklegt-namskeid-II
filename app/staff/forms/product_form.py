@@ -1,6 +1,6 @@
 from django.forms import ModelForm, widgets
 from django import forms
-from CC.models import Product,Category
+from CC.models import Product, Category
 
 
 class ProductCreateForm(ModelForm):

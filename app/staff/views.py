@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from staff.forms.product_form import ProductCreateForm,CategoryCreateForm
+from staff.forms.product_form import ProductCreateForm, CategoryCreateForm
 from CC.models import Image
 
 # Create your views here.
