@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
     <div>
-        <h2><u>{{ category_name }}</u></h2>
+        <h2><u>{{ header }}</u></h2>
         {% for product in prod_list %}
             <a href="{{ product.id }}">
                 <h3>{{ product.name }}</h3>
