@@ -9,33 +9,23 @@
 }
 
 #quantity{
-    width: 60px;
-}
-
-#productLeft {
-    text-align: center;
-}
-
-#productRight, .productAmount {
-    display: flex;
-    flex-wrap: wrap;
+    max-width: 60px;
 }
 
 #product_main {
     background-color: #5dbcd2;
-    margin: 0;
     padding: 25px;
-    height: 100%;
 }
 
 #product_main, #productDescription {
     border: 1px solid black;
 }
 
-#addCart {
-    background-color: #FFF89C;
-    color: black;
-    margin-left: 5rem;
+#productDescription {
+    background-color: aliceblue;
+    text-align: left;
+    padding: 5px;
+    height: 250px;
 }
 
 .bottomLeft {
