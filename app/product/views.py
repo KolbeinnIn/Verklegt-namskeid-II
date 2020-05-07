@@ -3,4 +3,4 @@ from django.shortcuts import render
 
 
 def index(request):
-    return render(request, "product/index.html", context={"quantity":100 ,"title":"Ég er vara","price":22000,"image":"logo", "amount":1, "description":"This is the very cool description."})
+    return render(request, "product/index.html", context={"quantity":100 ,"title":"Ég er vara","price":22000,"image":"images/logo.png", "amount":1, "description":"This is the very cool description."})
