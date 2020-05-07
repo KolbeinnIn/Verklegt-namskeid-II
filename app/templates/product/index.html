@@ -1,46 +1,45 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    <div class="container my-5 py-5 z-depth-1" id="product_main">
+    <div class="my-0 z-depth-1" id="product_main">
         <!--Section: Content-->
-        <section class="px-md-5 mx-md-5 dark-grey-text text-center text-lg-left">
+        <section class="dark-grey-text text-center text-md-left">
           <!--Grid row-->
           <div class="row">
             <!--Grid column-->
-            <div class="col-lg-7 mb-4 mb-lg-0">
-                <div class="productLeft">
-                    <img id="productimg" alt="Brand" src="{% static image %}" class="img-fluid mb-5"
-                    alt="">
-                    <h3 class="font-weight-bold">Verð: {{ price }} kr</h3>
-                </div>
-            </div>
-            <div class="col-lg-5 mb-4 mb-lg-0 d-flex align-items-center " id="productRight">
-                <h3 class="font-weight-bold" class="productText" id="productTitle">{{ title }}</h3>
-                <p class="text-muted" class="productText" id="productDescription">{{ description }}</p>
-                <div class="bottomLeft">
-                    <div class="productAmount">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-2">
-                                    <div class="input-group">
-                                        <div class="productAmount">
-                                            <span class="input-group-btn">
-                                                <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">-</button>
-                                            </span>
-                                            <input type="text" id="quantity" name="quantity" class="form-control input-number" value="{{ amount }}" min="1" max="{{ quantity }}">
-                                            <span class="input-group-btn">
-                                                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">+</button>
-                                            </span>
-                                        </div>
-                                    </div>
+            <div class="col-12 mb-4 ">
+                <div class="productLeft row">
+                    <div class="col-md-6 col-12 order-1 order-md-1">
+                        <img id="productimg" alt="Brand" src="{% static image %}" class="img-fluid mb-5" alt="">
+                    </div>
+                    <div class="col-md-6 col-12 order-2 order-md-2 ">
+                        <h3 class="font-weight-bold">{{ title }}</h3>
+                        <p class="text-muted " id="productDescription">{{ description }}</p>
+                    </div>
+                    <div class="col-md-6 order-3 order-md-4">
+                        <h3 class="font-weight-bold">Verð: {{ price }} kr</h3>
+                    </div>
+                    <div class="col-md-6 order-4">
+                        <div class="row ">
+                            <div class="col col-lg col-md-6 mr-md-0">
+                                <div class="input-group ">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">-</button>
+                                        </span>
+                                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="{{ amount }}" min="1" max="{{ quantity }}">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">+</button>
+                                        </span>
                                 </div>
+                            </div>
+                            <div class="px-1 col col-lg col-md-6">
+                                <a id="addCart" class="btn btn-primary text-center text-dark yellow-background" href="/" role="button">Bæta í körfu</a>
                             </div>
                         </div>
                     </div>
-                    <a id="addCart" class="btn btn-primary" href="/" role="button">Bæta í körfu</a>
                 </div>
             </div>
           </div>
         </section>
-      </div>
+    </div>
 {% endblock %}
