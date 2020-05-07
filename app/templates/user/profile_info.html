@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row my-4">
+        <div class="col-md-auto">
+            <a href="{% url 'profile' %}" class="btn d-block yellow-background m-2">
+                <h6 class="font-weight-bold my-2"><span class="fas fa-user mr-2"></span>Mín síða</h6>
+            </a>
+            <a href="#" class="btn d-block yellow-background m-2">
+                <h6 class="font-weight-bold my-2"><span class="fas fa-user-edit mr-2"></span>Notendaupplýsingar</h6>
+            </a>
+            <a id="search_history_btn" href="#" class="btn d-block yellow-background m-2">
+                <h6 class="font-weight-bold my-2"><span class="fas fa-search mr-2"></span>Leitarsaga</h6>
+            </a>
+            <a href="{% url 'logout' %}" class="btn d-block yellow-background m-2">
+                <h6 class="font-weight-bold my-2"><span class="fas fa-sign-out-alt mr-2"></span>Útskrá</h6>
+            </a>
+        </div>
+        <form id="profile_info_template" class="form form-horizontal col" method="POST">
+            <h3 class="font-weight-bold mb-4">Notendaupplýsingar:</h3>
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" class="btn btn-primary mt-3" value="Update" />
+        </form>
+    </div>
+{% endblock %}
