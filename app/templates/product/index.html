@@ -8,33 +8,38 @@
           <div class="row">
             <!--Grid column-->
             <div class="col-lg-7 mb-4 mb-lg-0">
-                <img class="productimg" alt="Brand" src="{% static 'images/logo.png' %}" class="img-fluid mb-5"
-                alt="">
-                <h3 class="font-weight-bold">Verð: {{ price}} kr</h3>
-            </div>
-            <div class="col-lg-5 mb-4 mb-lg-0 d-flex align-items-center" id="productRight">
-                <h3 class="font-weight-bold" class="productText">{{ title }}</h3>
-                <p class="text-muted" class="productText" id="productDescription">{{ description }}</p>
-                <div class="productAmount">
-                    <div class="container">
-                            <div class="col-lg-2">
-                                <div class="input-group">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">-</button>
-                                    </span>
-                                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="{{ amount }}" min="1" max="{{ quantity }}">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">+</button>
-                                    </span>
-                                </div>
-                            </div>
-                        <a id="addCart"class="btn btn-primary" href="/" role="button">Bæta í körfu</a>
-                    </div>
-
+                <div class="productLeft">
+                    <img id="productimg" alt="Brand" src="{% static image %}" class="img-fluid mb-5"
+                    alt="">
+                    <h3 class="font-weight-bold">Verð: {{ price }} kr</h3>
                 </div>
             </div>
-
-
+            <div class="col-lg-5 mb-4 mb-lg-0 d-flex align-items-center " id="productRight">
+                <h3 class="font-weight-bold" class="productText" id="productTitle">{{ title }}</h3>
+                <p class="text-muted" class="productText" id="productDescription">{{ description }}</p>
+                <div class="bottomLeft">
+                    <div class="productAmount">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="input-group">
+                                        <div class="productAmount">
+                                            <span class="input-group-btn">
+                                                <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">-</button>
+                                            </span>
+                                            <input type="text" id="quantity" name="quantity" class="form-control input-number" value="{{ amount }}" min="1" max="{{ quantity }}">
+                                            <span class="input-group-btn">
+                                                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">+</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a id="addCart" class="btn btn-primary" href="/" role="button">Bæta í körfu</a>
+                </div>
+            </div>
           </div>
         </section>
       </div>

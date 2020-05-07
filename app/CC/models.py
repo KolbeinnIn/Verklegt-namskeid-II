@@ -25,7 +25,7 @@ class Product(models.Model):
     discount = models.FloatField(default=0, blank=True)
     description = models.CharField(max_length=1024, blank=True)
     status = models.BooleanField(default=True, blank=True)
-    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, blank=True, null=True)
-    image = models.ForeignKey(Image, on_delete=models.DO_NOTHING, blank=True, null=True)
+    category = models.ManyToManyField(Category, blank=True, null=True)
+    image = models.ManyToManyField(Image, blank=True, null=True)
     def __str__(self):
         return self.name
