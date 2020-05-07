@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from staff.forms.product_form import ProductCreateForm
 from CC.models import Image
 
@@ -8,9 +8,10 @@ def create_product(request):
         form = ProductCreateForm(data=request.POST)
         if form.is_valid():
             product = form.save()
-            image = Image(relative_path=request.POST['image'], product=product)
+            image = Image(name="Placeholder", relative_path=request.POST['image'])
             image.save()
-            return redirect('')
+            product.image.add(image)
+            return redirect('/')
 
     else:
         form = ProductCreateForm()
