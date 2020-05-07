@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row my-4">
+        <div class="col-md-auto">
+            <a href="#" class="btn d-block yellow-background m-2">
+                <h6 class="font-weight-bold my-2"><span class="fas fa-user mr-2"></span>Mín síða</h6>
+            </a>
+            <a href="{% url 'profile_info' %}" class="btn d-block yellow-background m-2">
+                <h6 class="font-weight-bold my-2"><span class="fas fa-user-edit mr-2"></span>Notendaupplýsingar</h6>
+            </a>
+            <a id="search_history_btn" href="#" class="btn d-block yellow-background m-2">
+                <h6 class="font-weight-bold my-2"><span class="fas fa-search mr-2"></span>Leitarsaga</h6>
+            </a>
+            <a href="{% url 'logout' %}" class="btn d-block yellow-background m-2">
+                <h6 class="font-weight-bold my-2"><span class="fas fa-sign-out-alt mr-2"></span>Útskrá</h6>
+            </a>
+        </div>
+        <div class="col">
+            <h3 class="font-weight-bold mb-4">Mín síða:</h3>
+            <div class="text-center">
+                <img class="mx-auto mb-4 img-thumbnail" src="{{ profile.image_path }}" alt="Profile Image">
+                <h4 class="text-dark candidates-profile-name mb-2">{{ user.username }}</h4>
+            </div>
+        </div>
+        <div class="col d-none d-lg-block"></div>
+    </div>
+{% endblock %}

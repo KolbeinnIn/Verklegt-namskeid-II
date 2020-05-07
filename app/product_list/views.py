@@ -27,10 +27,6 @@ def category(request, cat_url):
                       "prod_list": list(Product.objects.all())
                   })
 
-"""
-def prod_by_id(request, id):
-    return render(request, "product_list/prod_details.html", context={"product": get_object_or_404(Product, pk=id)})
-"""
 
 
 
