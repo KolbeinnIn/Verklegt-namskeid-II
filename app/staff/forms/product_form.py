@@ -1,13 +1,13 @@
 from django.forms import ModelForm, widgets
 from django import forms
-from CC.models import Product
+from CC.models import Product,Category
 
 
 class ProductCreateForm(ModelForm):
     image = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     class Meta:
         model = Product
-        exclude = ['id']
+        exclude = ['id', 'image']
         widgets = {
             'name': widgets.TextInput(attrs={'class': 'form-control'}),
             'manufacturer': widgets.TextInput(attrs={'class': 'form-control'}),
@@ -17,6 +17,16 @@ class ProductCreateForm(ModelForm):
             'price': widgets.NumberInput(attrs={'class': 'form-control'}),
             'discount': widgets.NumberInput(attrs={'class': 'form-control'}),
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
+            'status': widgets.Select(attrs={'class': 'form-control'}, choices=((True, 'Enabled'), (False, 'Disabled'))),
+            'category': widgets.SelectMultiple(attrs={'class': 'form-control'}),
+        }
+
+class CategoryCreateForm(ModelForm):
+    class Meta:
+        exclude = ['id']
+        model = Category
+        widgets = {
+            'name': widgets.TextInput(attrs={'class': 'form-control'}),
             'status': widgets.CheckboxInput(attrs={'class': 'checkbox'}),
-            'category': widgets.Select(attrs={'class': 'form-control'}),
+            'URL_keyword': widgets.TextInput(attrs={'class': 'form-control'}),
         }
