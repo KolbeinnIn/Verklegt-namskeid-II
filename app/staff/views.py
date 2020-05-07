@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from staff.forms.product_form import ProductCreateForm
+from CC.models import Image
 
 # Create your views here.
 def create_product(request):
@@ -7,8 +8,9 @@ def create_product(request):
         form = ProductCreateForm(data=request.POST)
         if form.is_valid():
             product = form.save()
-            print(product)
-            return redirect('staff')
+            image = Image(relative_path=request.POST['image'], product=product)
+            image.save()
+            return redirect('')
 
     else:
         form = ProductCreateForm()
