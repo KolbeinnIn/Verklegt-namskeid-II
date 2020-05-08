@@ -52,12 +52,14 @@ def _is_complete_url(cat, url):
         return _is_complete_url(cat.parent, url[:-1])
     return False
 
+
 def _is_product(slug):
     try:
         get_object_or_404(Product, URL_keyword=slug)
         return True
     except Http404:
         return False
+
 
 def category(request, hierarchy):
     categories = request.get_raw_uri().split("/")[3:]
@@ -72,7 +74,6 @@ def category(request, hierarchy):
     if _is_complete_url(cat, categories):
         header = cat.name
         elder = get_object_or_404(Category, URL_keyword=categories[0])
-        print(elder.URL_keyword)
         return render(request,
                       "product_list/prod_list.html",
                       context={
