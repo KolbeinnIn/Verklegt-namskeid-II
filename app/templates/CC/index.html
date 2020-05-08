@@ -29,39 +29,94 @@
             </a>
         </div>
 
-        <div class="container my-4 p-0 rounded bg-white">
-            <h1 class="upper-case font-weight-bold p-3 m-0" style="background-color: #5dbcd2 !important">Vinsælar vörur:</h1>
-            <div id="popularProductsBanner" class="carousel" data-interval="false">
-                <div class="carousel-inner w-75 mx-auto row">
-                    {% for product in prod_list %}
-                        {%  if forloop.counter0 == 0 %}
-                            <div class="carousel-item active mx-0">
-                                <div id="product_list" class="row mx-0">
-                        {% elif forloop.counter0 == 3 %}
+        <div class="container blue-background my-4 p-0 rounded">
+            <h2 class="upper-case font-weight-bold p-3 m-0">Vinsælar vörur:</h2>
+            {% if popular_product_list %}
+                <div id="popularProductsBanner" class="carousel my-2" data-interval="false">
+                    <div class="carousel-inner w-75 mx-auto">
+                        {% for product in popular_product_list %}
+                            {%  if forloop.counter0 == 0 %}
+                                <div class="carousel-item active">
+                                    <div id="product_list" class="row mx-0">
+                            {% elif forloop.counter0 == 3 %}
+                                    </div>
                                 </div>
+                                <div class="carousel-item mx-0">
+                                    <div id="product_list" class="row mx-0">
+                            {% endif %}
+
+                            {% if forloop.counter0 == 0 or forloop.counter0 == 3 %}
+                                <a class="col-12 col-md-6 col-lg-4 rounded text-center p-1" href="{{ product.URL_keyword }}">
+                            {% elif forloop.counter0 == 1 or forloop.counter0 == 4 %}
+                                <a class="d-none d-md-block col-6 col-lg-4 rounded text-center p-1" href="{{ product.URL_keyword }}">
+                            {% elif forloop.counter0 == 2 or forloop.counter0 == 5 %}
+                                <a class="d-none d-lg-block col-4 rounded text-center p-1" href="{{ product.URL_keyword }}">
+                            {% endif %}
+                                <img class="img-responsive max-height-img my-3" src="{{ product.image.first.relative_path }}" alt="Image of {{ product.name }}"/>
+                                <h3>{{ product.name }}</h3>
+                                <h4 class="mb-3">{{ product.price }} kr</h4>
+                            </a>
+                        {% endfor %}
                             </div>
-                            <div class="carousel-item mx-0">
-                                <div id="product_list" class="row mx-0">
-                        {% endif %}
-                        <a class="col-12 col-md-4 rounded text-center p-1 m-0" href="{{ product.URL_keyword }}">
-                            <img class="img-responsive max-height-img my-3" src="{{ product.image.first.relative_path }}" alt="Image of {{ product.name }}"/>
-                            <h3>{{ product.name }}</h3>
-                            <h4 class="mb-3">{{ product.price }} kr</h4>
-                        </a>
-                    {% endfor %}
                         </div>
                     </div>
+                    <a class="carousel-control-prev carousel-control-btn" href="#popularProductsBanner" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next carousel-control-btn" href="#popularProductsBanner" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
-                <a class="carousel-control-prev carousel-control-btn" href="#popularProductsBanner" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next carousel-control-btn" href="#popularProductsBanner" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
+            {% else %}
+                <h4 class="p-4 m-0">Engar vinsælar vörur fundust</h4>
+            {% endif %}
+        </div>
+
+        <div class="container my-4 p-0 rounded blue-background">
+            <h2 class="upper-case font-weight-bold p-3 m-0">Nýjar vörur:</h2>
+            {% if new_product_list %}
+                <div id="newProductsBanner" class="carousel" data-interval="false">
+                    <div class="carousel-inner w-75 mx-auto">
+                        {% for product in new_product_list %}
+                            {%  if forloop.counter0 == 0 %}
+                                <div class="carousel-item active mx-0">
+                                    <div id="product_list" class="row mx-0">
+                            {% elif forloop.counter0 == 3 %}
+                                    </div>
+                                </div>
+                                <div class="carousel-item mx-0">
+                                    <div id="product_list" class="row mx-0">
+                            {% endif %}
+
+                            {% if forloop.counter0 == 0 or forloop.counter0 == 3 %}
+                                <a class="col-12 col-md-6 col-lg-4 rounded text-center p-1 m-0" href="{{ product.URL_keyword }}">
+                            {% elif forloop.counter0 == 1 or forloop.counter0 == 4 %}
+                                <a class="d-none d-md-block col-6 col-lg-4 rounded text-center p-1 m-0" href="{{ product.URL_keyword }}">
+                            {% elif forloop.counter0 == 2 or forloop.counter0 == 5 %}
+                                <a class="d-none d-lg-block col-4 rounded text-center p-1 m-0" href="{{ product.URL_keyword }}">
+                            {% endif %}
+                                <img class="img-responsive max-height-img my-3" src="{{ product.image.first.relative_path }}" alt="Image of {{ product.name }}"/>
+                                <h3>{{ product.name }}</h3>
+                                <h4 class="mb-3">{{ product.price }} kr</h4>
+                            </a>
+                        {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev carousel-control-btn" href="#newProductsBanner" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next carousel-control-btn" href="#newProductsBanner" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+             {% else %}
+                <h4 class="p-4 m-0">Engar nýjar vörur fundust</h4>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
-

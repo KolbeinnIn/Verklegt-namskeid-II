@@ -8,37 +8,47 @@ class URL:
         self.replace_with_dash = ['/', '\\', ' ', '*', '+', '=', '\n', '\r', '\t']
         self.replace_with_empty = ['%', '&', "'", '"', '(', ')', ',', '.']
 
-    def _change_url(self, object_list):
-        print(1)
+    # Make sure the url does not exist. Adds number if url already exists
+    def _does_url_exist_questionmark(self, url):
+        categories = Category.objects.all()
+        products = Product.objects.all()
+        i = 0
+        while True:
+            not_changed = True
+            # TODO Breyta forloops í function
+            for category in categories:
+                if url == category.URL_keyword:
+                    i += 1
+                    if i > 1:
+                        url = url[:-1] + str(i)
+                    else:
+                        url += "-" + str(i)
+                    not_changed = False
+                    break
+            if not_changed:
+                for product in products:
+                    if url == product.URL_keyword:
+                        i += 1
+                        if i > 1:
+                            url = url[:-1] + str(i)
+                        else:
+                            url += "-" + str(i)
+                        not_changed = False
+                        break
+            if not_changed:
+                break
+        return url
+
     def _make_url(self, name):
         url = name.lower()
+        # Replace symbols and icelandic letters
         for x in self.replace_arr:
             url = url.replace(x[0], x[1])
         for i in self.replace_with_dash:
             url = url.replace(i, '-')
         for y in self.replace_with_empty:
             url = url.replace(y, '')
-        categories = Category.objects.all()
-        products = Product.objects.all()
-        # Make sure the url does not exist
-        while True:
-            i = 1
-            not_changed = True
-            for category in categories:
-                if url == category.URL_keyword:
-                    url += "-" + str(i)
-                    i += 1
-                    not_changed = False
-                    break
-            if not_changed:
-                for product in products:
-                    if url == product.url:
-                        url += "-" + str(i)
-                        i += 1
-                        not_changed = False
-                        break
-            if not_changed:
-                break
+        url = self._does_url_exist_questionmark(url)
         return url
 
 

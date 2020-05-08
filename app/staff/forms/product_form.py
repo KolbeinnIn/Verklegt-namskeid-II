@@ -11,7 +11,7 @@ class ProductCreateForm(ModelForm):
         widgets = {
             'name': widgets.TextInput(attrs={'class': 'form-control'}),
             'manufacturer': widgets.TextInput(attrs={'class': 'form-control'}),
-            'url': widgets.TextInput(attrs={'class': 'form-control'}),
+            'URL_keyword': widgets.TextInput(attrs={'class': 'form-control'}),
             'P_EAN': widgets.TextInput(attrs={'class': 'form-control'}),
             'quantity': widgets.NumberInput(attrs={'class': 'form-control'}),
             'price': widgets.NumberInput(attrs={'class': 'form-control'}),
