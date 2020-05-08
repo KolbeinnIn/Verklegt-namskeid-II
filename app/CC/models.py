@@ -8,6 +8,8 @@ class URL:
         self.replace_with_dash = ['/', '\\', ' ', '*', '+', '=', '\n', '\r', '\t']
         self.replace_with_empty = ['%', '&', "'", '"', '(', ')', ',', '.']
 
+    def _change_url(self, object_list):
+        print(1)
     def _make_url(self, name):
         url = name.lower()
         for x in self.replace_arr:
@@ -16,6 +18,27 @@ class URL:
             url = url.replace(i, '-')
         for y in self.replace_with_empty:
             url = url.replace(y, '')
+        categories = Category.objects.all()
+        products = Product.objects.all()
+        # Make sure the url does not exist
+        while True:
+            i = 1
+            not_changed = True
+            for category in categories:
+                if url == category.URL_keyword:
+                    url += "-" + str(i)
+                    i += 1
+                    not_changed = False
+                    break
+            if not_changed:
+                for product in products:
+                    if url == product.url:
+                        url += "-" + str(i)
+                        i += 1
+                        not_changed = False
+                        break
+            if not_changed:
+                break
         return url
 
 
@@ -55,7 +78,7 @@ class Image(models.Model):
 class Product(models.Model, URL):
     name = models.CharField(max_length=255)
     manufacturer = models.CharField(max_length=255, blank=True)
-    url = models.CharField(max_length=255, blank=True)
+    URL_keyword = models.CharField(max_length=255, blank=True)
     P_EAN = models.CharField(max_length=255)
     quantity = models.IntegerField()
     price = models.IntegerField()
