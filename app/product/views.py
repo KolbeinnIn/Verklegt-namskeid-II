@@ -1,6 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from CC.models import Product
 # Create your views here.
 
 
-def index(request):
-    return render(request, "product/index.html", context={"quantity":100 ,"title":"Ég er vara","price":22000,"image":"images/logo.png", "amount":1, "description":"This is the very cool description."})
+def index(request, prod_url):
+    product = get_object_or_404(Product, url=prod_url)
+    prod_dict = {
+        "title": product.name,
+        "price": product.price,
+        "quantity": product.quantity,
+        "image": "images/logo.png",  # TODO: have many images
+        "description": product.description
+    }
+    return render(request, "product/index.html", context=prod_dict)
+
+
+
