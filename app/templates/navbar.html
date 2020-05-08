@@ -1,18 +1,18 @@
 {% load static %}
 <nav class="navbar navbar-expand-md navbar-dark bg-primary static-top pb-0 px-0 mx-0">
     <div class="container-fluid justify-content-center mx-auto">
-        <div class="row w-100 justify-content-center" style="max-width: 77em;">
+        <div id="inner_navbar" class="row w-100 justify-content-center">
             <div class="col-12">
                 <div class="row justify-content-center mx-auto">
                     <div class="col-12 col-md-3 order-md-1 order-1 text-center">
-                        <a class="" href="/">
+                        <a href="/">
                             <img src="{% static 'images/logo.png' %}" class="main_logo rounded-lg" alt="Captain Console logo">
                         </a>
                     </div><!--Logo-->
                     <div class="col-12 col-md-6 order-md-2 order-3 align-self-center px-0 px-md-3">
-                        <div class="row justify-content-between justify-content-md-start">
-                            <div class="col-10 col-md-11 align-self-center">
-                                <form class="">
+                        <div class="row mx-auto justify-content-between justify-content-md-start px-sm-4">
+                            <div class="col-10 col-md-11 align-self-center pl-0">
+                                <form>
                                     <div class="input-group">
                                         <input class="form-control border-dark border-right-0" type="text" placeholder="Leita..." aria-label="Search">
                                         <div class="input-group-append">
@@ -23,8 +23,8 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="col-2 col-md-0 order-last d-md-none align-self-center text-center">
-                                <button class="navbar-toggler mx-auto btn yellow-background" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                            <div class="col-2 d-md-none align-self-center text-center px-0" style="max-width:60px;">
+                                <button class="navbar-toggler mx-auto btn yellow-background w-100 px-0" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                                     <svg class="bi bi-list menu-icon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 013 11h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 7h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5zm0-4A.5.5 0 013 3h10a.5.5 0 010 1H3a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
                                     </svg>
@@ -35,7 +35,7 @@
                     <div class="col-12 col-md-3 order-md-3 order-2 text-md-center align-self-center">
                         <div class="row">
                             <div class="col-6 col-md-8 text-center p-0">
-                                <a href="#">
+                                    <a href="{% url 'profile' %}">
                                     <div class="row">
                                         <div class="col-12 col-md-3">
                                             <svg class="bi bi-person icon account-icon" viewBox="0 0 16 16" fill="yellow" xmlns="http://www.w3.org/2000/svg">
@@ -43,7 +43,11 @@
                                             </svg>
                                         </div>
                                         <div class="text-left align-self-center text-dark col-md d-none d-md-block">
-                                            Account
+                                            {% if user.is_authenticated %}
+                                                {{ user.username }}
+                                            {% else %}
+                                                Log in
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </a>
@@ -64,18 +68,18 @@
                 <div class="collapse navbar-collapse mobile_border categories border-bottom border-dark" id="navbarResponsive">
                     <div class="row mx-0 text-center w-100">
                         <div class="col-md-4 col-12 pt-1 pb-1 categories">
-                            <a href="#">
-                                <h4 class="my-2">Leikjatölvur</h4>
+                            <a href="/flokkur/{{ default_context.cat_1.URL_keyword }}">
+                                <h4 class="my-2">{{ default_context.cat_1 }}</h4>
                             </a>
                         </div>
                         <div class="col-md-4 col-12 pt-1 pb-1 categories">
-                            <a href="#">
-                                <h4 class="my-2">Leikir</h4>
+                            <a href="/flokkur/{{ default_context.cat_2.URL_keyword }}">
+                                <h4 class="my-2">{{ default_context.cat_2 }}</h4>
                             </a>
                         </div>
                         <div class="col-md-4 col-12 pt-1 pb-1 categories">
-                            <a href="#">
-                                <h4 class="my-2">Aukahlutir</h4>
+                            <a href="/flokkur/{{ default_context.cat_3.URL_keyword }}">
+                                <h4 class="my-2">{{ default_context.cat_3 }}</h4>
                             </a>
                         </div>
                     </div>
