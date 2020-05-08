@@ -62,7 +62,8 @@ def _is_product(slug):
 
 
 def category(request, hierarchy):
-    categories = request.get_raw_uri().split("/")[3:]
+    categories = request.get_raw_uri().split("/")[4:]
+    print(categories)
 
     if categories[-1] == "":
         categories = categories[:-1]
