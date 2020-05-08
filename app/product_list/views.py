@@ -42,7 +42,7 @@ def _is_parent(parent, child):
 
 
 def _is_complete_url(cat, url):
-    if url == [] and cat is None:
+    if (url == [] and cat is None):
         return True
     if url == []:
         return False
@@ -63,14 +63,13 @@ def _is_product(slug):
 
 def category(request, hierarchy):
     categories = request.get_raw_uri().split("/")[4:]
-    print(categories)
-
     if categories[-1] == "":
         categories = categories[:-1]
 
     last_url = categories[-1]
     if _is_product(last_url):
         return redirect(last_url)
+
     cat = Category.objects.get(URL_keyword=last_url)
     if _is_complete_url(cat, categories):
         header = cat.name
@@ -85,7 +84,7 @@ def category(request, hierarchy):
                       })
     else:
         if _does_cat_exist(last_url):
-            new_url_string = _get_parent(cat)
+            new_url_string = "/flokkur"+_get_parent(cat)
             return redirect(new_url_string)
 
 
