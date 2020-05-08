@@ -2,7 +2,7 @@
 {% block content %}
     <div>
         <h2>Create Category</h2>
-        <form class = "form" action="{% url 'create_product' %}" method = "post">
+        <form class = "form" action="{% url 'create_category' %}" method = "post">
             {% csrf_token %}
             {{ form }}
             <input type="submit" value="Create">
