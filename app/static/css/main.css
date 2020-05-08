@@ -124,6 +124,10 @@
     object-fit: contain !important;
 }
 
+
+.carousel-control-btn{
+    width:10%;
+
 #map{
     width:250px;
     height:150px
