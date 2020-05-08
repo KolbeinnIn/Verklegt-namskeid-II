@@ -111,17 +111,12 @@
     color:black;
     text-decoration: none !important;
 }
+
 #product_list > a:hover{
     box-shadow:0px 0px 0px 2px black inset;
     -webkit-transition: box-shadow 200ms ease-out;/* Safari 6.0 - 9.0 */
     transition: box-shadow 200ms ease-out;
 }
-/*
-#product_list img{
-    max-width: 100%;
-    max-height: 150px !important;
-}
-*/
 
 #product_list img{
     width: 100%;
@@ -129,6 +124,14 @@
     object-fit: contain !important;
 }
 
+
 .carousel-control-btn{
     width:10%;
+
+#map{
+    width:250px;
+    height:150px
+}
+#inner_navbar{
+    max-width: 77em;
 }
