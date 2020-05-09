@@ -10,14 +10,14 @@
             <div class="col-12 mb-4 ">
                 <div class="productLeft row">
                     <div class="col-md-6 col-12 order-1 order-md-1">
-                        <img id="productimg" alt="Brand" src="{% static image %}" class="img-fluid mb-5" alt="">
+                        <img id="productimg" alt="Brand" src="{{ product.image.first.relative_path }}" class="img-fluid mb-5" alt="">
                     </div>
                     <div class="col-md-6 col-12 order-2 order-md-2 ">
-                        <h3 class="font-weight-bold">{{ title }}</h3>
-                        <p class="text-muted " id="productDescription">{{ description }}</p>
+                        <h3 class="font-weight-bold">{{ product.name }}</h3>
+                        <p class="text-muted mx-auto mx-md-0 overflow-auto" id="productDescription">{{ product.description }}</p>
                     </div>
                     <div class="col-md-6 order-3 order-md-4">
-                        <h3 class="font-weight-bold">Verð: {{ price }} kr</h3>
+                        <h3 class="font-weight-bold">Verð: {{ product.price }} kr</h3>
                     </div>
                     <div class="col-md-6 order-4">
                         <div class="row ">
@@ -26,7 +26,7 @@
                                         <span class="input-group-btn">
                                             <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">-</button>
                                         </span>
-                                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="{{ amount }}" min="1" max="{{ quantity }}">
+                                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="{{ product.quantity }}">
                                         <span class="input-group-btn">
                                             <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">+</button>
                                         </span>

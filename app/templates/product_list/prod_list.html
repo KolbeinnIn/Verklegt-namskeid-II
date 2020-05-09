@@ -5,7 +5,7 @@
         <h2 class="text-center text-md-left"><u>{{ header }}</u></h2>
         <div id="product_list" class="row">
             {% for product in prod_list %}
-                <a class="col-md-3 col-6 rounded text-center px-1" href="{{ product.url }}">
+                <a class="col-md-3 col-6 rounded text-center px-1" href="/vara/{{ product.URL_keyword }}">
                     <img class="img-responsive max-height-img my-3" src="{{ product.image.first.relative_path }}"/>
                     <h3>{{ product.name }}</h3>
                     <h4 class="mb-3">{{ product.price }} kr</h4>

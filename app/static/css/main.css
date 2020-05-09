@@ -17,6 +17,10 @@
     padding: 25px;
 }
 
+.blue-background{
+    background-color: #5dbcd2 !important;
+}
+
 #product_main, #productDescription {
     border: 1px solid black;
 }

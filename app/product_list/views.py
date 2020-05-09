@@ -68,7 +68,7 @@ def category(request, hierarchy):
 
     last_url = categories[-1]
     if _is_product(last_url):
-        return redirect(last_url)
+        return redirect("/vara/"+last_url)
 
     cat = Category.objects.get(URL_keyword=last_url)
     if _is_complete_url(cat, categories):

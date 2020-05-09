@@ -1,8 +1,7 @@
 $(document).ready(function(){
 
-var quantitiy=0;
+var quantity=0;
    $('.quantity-right-plus').click(function(e){
-
         // Stop acting like a button
         e.preventDefault();
         // Get the field name
@@ -10,11 +9,13 @@ var quantitiy=0;
 
         // If is not undefined
 
-            $('#quantity').val(quantity + 1);
-
-
             // Increment
-
+            if(quantity<1000){
+                $('#quantity').val(quantity + 1);
+            }
+            else{
+                $('#quantity').val(1000);
+            }
     });
 
      $('.quantity-left-minus').click(function(e){
