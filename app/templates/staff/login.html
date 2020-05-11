@@ -6,10 +6,10 @@
         </div>
         <form method="POST" class="px-lg-5">
             {% csrf_token %}
-            <input type="text" id="username" class="form-input d-block mx-auto my-3 text-left" name="username" placeholder="Notendanafn">
+            <input type="text" id="username" class="form-input d-block mx-auto my-3" name="username" placeholder="Notendanafn">
             <input type="password" id="password" class="form-input d-block mx-auto my-3" name="password" placeholder="Lykilorð">
             {% if form.errors %}
-                <p>Your username and password didn't match. Please try again.</p>
+                <p>Username and password invalid. Please try again.</p>
             {% endif %}
             <input type="submit" class="py-2 my-2" value="Innskrá">
         </form>

@@ -1,22 +1,24 @@
+from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
 from staff.forms.product_form import ProductCreateForm, CategoryCreateForm
 from CC.models import Image, Category
+from staff.forms.staff_login_form import StaffLoginForm
 
-# Create your views here.
-def login_staff(request):
-    if request.method == "POST":
-        form = RegisterForm(data=request.POST)
+
+def login_view(request):
+    if request.method == 'Post':
+        form = StaffLoginForm(date=request.POST)
         if form.is_valid():
-            form.save()
-            return redirect("login")
-        else:
-            return render(request, "user/register.html", {
-                "form": RegisterForm(),
-                "form_errors": form.errors
-            })
-    return render(request, "user/register.html", {
-        "form": RegisterForm()
+            username = request.get("username")
+            password = request.get("password")
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                return redirect("dashboard")
+
+    return render(request, "staff/login.html", {
+        'form': StaffLoginForm()
     })
+
 
 def create_product(request):
     if request.method == 'POST':
@@ -28,7 +30,6 @@ def create_product(request):
             image.save()
             product.image.add(image)
             return redirect('/')
-
     else:
         form = ProductCreateForm()
     return render(request, "staff/create_product.html", {
