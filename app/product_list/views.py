@@ -62,6 +62,22 @@ def _is_product(slug):
         return False
 
 
+def _get_sub_categories(category, all):
+    cat_list = list(all.filter(parent=category))
+    if not cat_list:
+        return []
+    temp_list = []
+    for sub in cat_list:
+        temp_list.append({sub: _get_sub_categories(sub, all)})
+    return temp_list
+
+def print_thing(categories, indent=""):
+    for cat, subs in categories.items():
+        print(indent, cat)
+        for sub in subs:
+            if sub:
+                print_thing(sub, indent+"-")
+
 def category(request, hierarchy):
     categories = request.get_raw_uri().split("/")[4:]
     if categories[-1] == "":
@@ -72,6 +88,17 @@ def category(request, hierarchy):
         return redirect("/vara/" + last_url)
 
     cat = Category.objects.get(URL_keyword=last_url)
+    cat1 = Category.objects.get(URL_keyword="leikjatolvur")
+    cat2 = Category.objects.get(URL_keyword="leikir")
+    cat3 = Category.objects.get(URL_keyword="aukahlutir")
+
+    all = Category.objects.all()
+    category_sidebar = {
+        cat1: _get_sub_categories(cat1, all),
+        cat2: _get_sub_categories(cat2, all),
+        cat3: _get_sub_categories(cat3, all)
+    }
+
     if not cat.status:  # if the category is disabled
         return render(request, "sida fannst ekki.html")
 
@@ -84,6 +111,8 @@ def category(request, hierarchy):
                           "header": header,
                           "prod_list": list(Product.objects.filter(category=cat)),
                           "elder": elder,  # TODO: elder dæmið
+                          "categories": category_sidebar,
+                          "parent": ""
                       })
     else:
         if _does_cat_exist(last_url):

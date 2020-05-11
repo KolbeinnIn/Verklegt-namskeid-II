@@ -3,22 +3,29 @@
 {% block content %}
     <div class="container">
         <h2 class="my-3 text-center text-md-left"><u>{{ header }}</u> {{ query }}</h2>
-        <div id="product_list" class="row">
-            {% if prod_list %}
-                {% for product in prod_list %}
-                    <a class="col-md-3 col-6 rounded text-center px-1" href="/vara/{{ product.URL_keyword }}">
-                        <img class="img-responsive my-3" src="{{ product.image.first.relative_path }}"/>
-                        <h3>{{ product.name }}</h3>
-                        <h4 class="mb-3">{{ product.price }} kr</h4>
-                    </a>
-                {% endfor %}
-            {% else %}
-                {% if search %}
-                    <h3>Engar vörur fundust í leitinni "{{ query }}"</h3>
-                {% else %}
-                    <h3>Engar vörur fundust í flokknum "{{ header }}"</h3>
-                {% endif %}
-            {% endif %}
+        <div class="row">
+            <div class="col-12 col-md-3">
+                {% include 'product_list/new-sidebar.html'%}
+            </div>
+            <div id="product_list" class="col-12 col-md-9">
+                <div class="row">
+                    {% if prod_list %}
+                        {% for product in prod_list %}
+                            <a class="col-md-4 col-6 rounded text-center px-1" href="/vara/{{ product.URL_keyword }}">
+                                <img class="img-responsive my-3" src="{{ product.image.first.relative_path }}"/>
+                                <h3>{{ product.name }}</h3>
+                                <h4 class="mb-3">{{ product.price }} kr</h4>
+                            </a>
+                        {% endfor %}
+                    {% else %}
+                        {% if search %}
+                            <h3>Engar vörur fundust í leitinni "{{ query }}"</h3>
+                        {% else %}
+                            <h3>Engar vörur fundust í flokknum "{{ header }}"</h3>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
     <div></div>

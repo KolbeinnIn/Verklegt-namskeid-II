@@ -1,0 +1,7 @@
+<div class="container-fluid text-left border rounded">
+    <div id="accordion" class="pl-3 collapse py-3">
+        {% with categories=categories %}
+            {% include 'product_list/child.html' %}
+        {% endwith %}
+    </div>
+</div>
