@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'CC.apps.CcConfig',
     'user.apps.UserConfig',
     'product.apps.ProductConfig',
+    'product_list.apps.ProductListConfig',
     'staff.apps.StaffConfig'
 ]
 

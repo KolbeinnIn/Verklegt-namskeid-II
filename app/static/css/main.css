@@ -17,6 +17,10 @@
     padding: 25px;
 }
 
+.blue-background{
+    background-color: #5dbcd2 !important;
+}
+
 #product_main, #productDescription {
     border: 1px solid black;
 }
@@ -135,4 +139,28 @@
 }
 #inner_navbar{
     max-width: 77em;
+}
+
+/* FORM */
+.formContent {
+    border-radius: 25px;
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    text-align: center;
+}
+.form-input {
+    background-color: #f6f6f6;
+    border: 2px solid #f6f6f6;
+    border-radius: 10px;
+    width: 85%;
+    padding: 1em;
+}
+input[type=submit]  {
+    background-color: #56baed;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 10px;
+}
+input[type=submit]:hover  {
+    background-color: #39ace7;
 }

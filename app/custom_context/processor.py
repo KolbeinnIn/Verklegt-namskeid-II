@@ -1,7 +1,6 @@
 from CC.models import Category
 
 
-
 CONTEXT = {
     "cat_1": Category.objects.get(pk=1),
     "cat_2": Category.objects.get(pk=3),
