@@ -31,7 +31,7 @@ def dashboard(request):
 
 def products(request):
     product = Product.objects.all()
-    return render(request, "staff/products.html", {'products': product})
+    return render(request, "staff/view_all_products.html", {'products': product})
 
 
 def create_product(request):
@@ -44,17 +44,17 @@ def create_product(request):
                 image = Image(name="Placeholder", relative_path=request.POST['image'])
                 image.save()
                 product.image.add(image)
-                return redirect('/')
+                return redirect("view_all_products")
         else:
             form = ProductCreateForm()
-        return render(request, "staff/create_product.html", {'form': form})
+        return render(request, "staff/create_product.html", {'form': form, 'Title': 'Búa til vöru'})
     else:
         return redirect("login_staff")
 
 
 def update_product(request, slug):
-    product = Product.objects.get(id=slug)
     if request.user.is_staff or request.user.is_superuser:
+        product = Product.objects.get(id=slug)
         if request.method == 'POST':
             form = ProductCreateForm(data=request.POST)
             if form.is_valid():
@@ -63,10 +63,10 @@ def update_product(request, slug):
                 image = Image(name="Placeholder", relative_path=request.POST['image'])
                 image.save()
                 product.image.add(image)
-                return redirect('/')
+                return redirect("view_all_products")
         else:
             form = ProductCreateForm(instance=product)
-        return render(request, "staff/create_product.html", {'form': form})
+        return render(request, "staff/create_product.html", {'form': form, 'Title': 'Breyta upplýsingum'})
     else:
         return redirect("login_staff")
 
@@ -94,7 +94,7 @@ def view_staff(request):
     for user in all_users:
         if user.is_superuser or user.is_staff:
             staff_list.append(user)
-    return render(request, "staff/view_staff.html", {
+    return render(request, "staff/view_all_staff.html", {
         'staff_list': staff_list
     })
 
@@ -104,7 +104,7 @@ def register_staff(request):
         form = RegisterStaffForm(data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect("view_staff")
+            return redirect("view_all_staff")
         else:
             return render(request, "staff/register_staff.html", {
                 "form": RegisterStaffForm(),
@@ -149,7 +149,7 @@ def view_customers(request):
     for user in all_users:
         if not user.is_superuser and not user.is_staff:
             customer_list.append(user)
-    return render(request, "staff/view_customers.html", {
+    return render(request, "staff/view_all_customers.html", {
         'customer_list': customer_list
     })
 
@@ -159,7 +159,7 @@ def register_customer(request):
         form = RegisterCustomerForm(data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect("view_customers")
+            return redirect("view_all_customers")
         else:
             return render(request, "staff/register_customer.html", {
                 "form": RegisterCustomerForm(),

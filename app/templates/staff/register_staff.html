@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row my-5 mx-0">
             <h1 class="col-9 p-0">Búa til starfsmann</h1>
-            <a class="col-3 btn bg-danger text-light" href=" {% url 'view_staff' %}"><h5 class="my-2">Til baka</h5></a>
+            <a class="col-3 btn bg-danger text-light" href=" {% url 'view_all_staff' %}"><h5 class="my-2">Til baka</h5></a>
         </div>
         <form method="POST" class="px-lg-5">
             {% csrf_token %}
@@ -32,9 +32,7 @@
                     {% endfor %}
                 </div>
             {% endif %}
-            <div class="row mx-3 justify-content-center">
-                <input type="submit" class="col-10 col-sm-5 order-first order-sm-2 py-2 my-2" value="Búa til aðgang">
-            </div>
+            <input type="submit" class="bg-success float-right py-3 px-4 mx-5" value="Búa til aðgang">
         </form>
     </div>
 {% endblock %}

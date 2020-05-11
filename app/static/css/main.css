@@ -122,10 +122,9 @@
     object-fit: contain !important;
 }
 
-<<<<<<< HEAD
 .staff_product_img{
     width: 100%;
-    height: 32px;
+    height: 64px;
     object-fit: contain !important;
 }
 
@@ -133,13 +132,11 @@
     box-sizing: border-box;
     border: 1px black solid;
 }
-=======
 .productimg{
     width: 100%;
     height: 300px;
     object-fit: contain !important;
 }
->>>>>>> 1cb69fdf8f501f435708f0127d74c18c4a0ee338
 
 .carousel-control-btn {
     width: 10%;

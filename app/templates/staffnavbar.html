@@ -7,17 +7,17 @@
         <a class="col text-light" href="#">
             <h3 class="my-3">Pantanir</h3>
         </a>
-        <a class="col text-light" href="#">
+        <a class="col text-light" href="{% url 'view_all_products' %}">
             <h3 class="my-3">Vörur</h3>
         </a>
         <a class="col text-light" href="#">
             <h3 class="my-3">Flokkar</h3>
         </a>
         {% if user.is_superuser %}
-            <a class="col text-light" href="{% url 'view_customers' %}">
+            <a class="col text-light" href="{% url 'view_all_customers' %}">
                 <h3 class="my-3">Viðskiptavinir</h3>
             </a>
-            <a class="col text-light" href="{% url 'view_staff' %}">
+            <a class="col text-light" href="{% url 'view_all_staff' %}">
                 <h3 class="my-3">Starfsmenn</h3>
             </a>
         {% endif %}

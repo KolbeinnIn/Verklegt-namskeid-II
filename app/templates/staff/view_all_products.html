@@ -1,0 +1,25 @@
+{% extends "staffbase.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row my-5">
+            <h1 class="col-8 col-md-9">Vörur</h1>
+            <a class="col-4 col-md-3 btn bg-success text-light" href="{% url 'create_product' %}"><h5 class="my-2">Búa til vöru</h5></a>
+        </div>
+        <div class="row border-bottom border-dark">
+            <h5 class="col-2 text-weight-bold mb-0 py-2">Mynd</h5>
+            <h5 class="col-4 border-left border-dark text-weight-bold mb-0 py-2">Nafn</h5>
+            <h5 class="col-3 border-left border-dark text-weight-bold mb-0 py-2">Verð</h5>
+            <h5 class="col-2 border-left border-dark text-weight-bold mb-0 py-2">Magn</h5>
+            <h5 class="col-1 border-left border-dark text-weight-bold mb-0 py-2">Breyta</h5>
+        </div>
+        {% for product in products %}
+            <div class="row border-bottom border-dark">
+                <img class="col-2 staff_product_img" src="{{ product.image.first.relative_path }}"/>
+                <p class="col-4 border-left border-dark mb-0 py-3">{{ product.name }}</p>
+                <p class="col-3 border-left border-dark mb-0 py-3">{{ product.price }} kr</p>
+                <p class="col-2 border-left border-dark mb-0 py-3">{{ product.quantity }}</p>
+                <a class="col-1 border-left border-dark text-dark" href="{%url 'update-product' product.id %}"><span class="fas fa-pencil-alt my-4 mx-md-4"></span></a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
