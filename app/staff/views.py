@@ -26,6 +26,10 @@ def login_staff_view(request):
         return render(request, "staff/login.html", {'form': form})
 
 
+def dashboard(request):
+    return render(request, "staff/dashboard.html")
+
+
 def products(request):
     product = Product.objects.all()
     return render(request, "staff/products.html", {'products': product})
@@ -69,14 +73,17 @@ def update_product(request, slug):
 
 
 def create_category(request):
-    if request.method == 'POST':
-        form = CategoryCreateForm(data=request.POST)
-        if form.is_valid():
-            category = form.save()
-            category.initialize()
-            return redirect('/')
+    if request.user.is_staff or request.user.is_superuser:
+        if request.method == 'POST':
+            form = CategoryCreateForm(data=request.POST)
+            if form.is_valid():
+                category = form.save()
+                category.initialize()
+                return redirect('/')
+        else:
+            form = CategoryCreateForm()
+        return render(request, "staff/create_category.html", {
+            'form': form
+        })
     else:
-        form = CategoryCreateForm()
-    return render(request, "staff/create_category.html", {
-        'form': form
-    })
+        return redirect("login_staff")

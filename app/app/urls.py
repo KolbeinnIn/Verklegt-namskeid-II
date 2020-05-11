@@ -17,7 +17,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('', include("CC.urls")),
-    path('flokkur/', include("product_list.urls")),
+    path('', include("product_list.urls")),
     path('vara/', include("product.urls")),
     path('admin/', include("staff.urls")),
     path('user/', include("user.urls"))

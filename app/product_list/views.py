@@ -1,19 +1,29 @@
-from django.shortcuts import render
-
-# Create your views here.
 from CC.models import Product
 from CC.models import Category
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
-# Create your views here.
 
 
 def search(request):
+    org_query = request.GET.get("leit")
+    query = org_query.split(" ")
+    all_products = Product.objects.all()
+    prod_list = list(all_products.filter(name__icontains=org_query))
+    for word in query:
+        result = list(all_products.filter(name__icontains=word)) +\
+                 list(all_products.filter(description__icontains=word))
+
+        for product in result:
+            if product not in prod_list:
+                prod_list.append(product)
+
     return render(request,
                   "product_list/prod_list.html",
                   context={
-                      "header": "Search",
-                      "prod_list": list(Product.objects.all())
+                      "header": "Leit:",
+                      "prod_list": prod_list,
+                      "search": True,
+                      "query": "'{}'".format(org_query)
                   })
 
 
@@ -21,7 +31,7 @@ def _get_parent(category, url_string=""):
     if category is None:
         return url_string
 
-    return _get_parent(category.parent, url_string) + "/" +category.URL_keyword
+    return _get_parent(category.parent, url_string) + "/" + category.URL_keyword
 
 
 def _does_cat_exist(category):
@@ -30,15 +40,6 @@ def _does_cat_exist(category):
         return True
     except Http404:
         return False
-
-
-def _is_parent(parent, child):
-    if child is None:
-        return False
-    if parent == child:
-        return True
-    child = Category.objects.get(URL_keyword=child).parent.URL_keyword
-    return _is_parent(parent, child)
 
 
 def _is_complete_url(cat, url):
@@ -68,9 +69,12 @@ def category(request, hierarchy):
 
     last_url = categories[-1]
     if _is_product(last_url):
-        return redirect("/vara/"+last_url)
+        return redirect("/vara/" + last_url)
 
     cat = Category.objects.get(URL_keyword=last_url)
+    if not cat.status:  # if the category is disabled
+        return render(request, "sida fannst ekki.html")
+
     if _is_complete_url(cat, categories):
         header = cat.name
         elder = get_object_or_404(Category, URL_keyword=categories[0])
@@ -78,13 +82,10 @@ def category(request, hierarchy):
                       "product_list/prod_list.html",
                       context={
                           "header": header,
-                          # "prod_list": list(Category.objects.get(URL_keyword=cat_url).product.all()),
-                          "prod_list": list(Product.objects.all()),
-                          "elder": elder
+                          "prod_list": list(Product.objects.filter(category=cat)),
+                          "elder": elder,  # TODO: elder dæmið
                       })
     else:
         if _does_cat_exist(last_url):
-            new_url_string = "/flokkur"+_get_parent(cat)
+            new_url_string = "/flokkur" + _get_parent(cat)
             return redirect(new_url_string)
-
-
