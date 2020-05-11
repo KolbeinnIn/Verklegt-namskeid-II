@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'CC.apps.CcConfig',
     'user.apps.UserConfig',
     'product.apps.ProductConfig',
-    'staff.apps.StaffConfig'
+    'product_list.apps.ProductListConfig',
+    'staff.apps.StaffConfig',
+    'user.apps.UserConfig'
 ]
 
 MIDDLEWARE = [
