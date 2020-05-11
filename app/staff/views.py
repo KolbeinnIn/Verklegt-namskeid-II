@@ -16,10 +16,11 @@ def create_product(request):
 
     else:
         form = ProductCreateForm()
-    return render(request, "staff/create_product.html", {
+
+    asd = render(request, "staff/create_product.html", {
         'form': form
     })
-
+    return asd
 
 def create_category(request):
     if request.method == 'POST':
