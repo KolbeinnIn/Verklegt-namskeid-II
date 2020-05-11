@@ -128,6 +128,16 @@
     object-fit: contain !important;
 }
 
+.staff_product_img{
+    width: 100%;
+    height: 32px;
+    object-fit: contain !important;
+}
+
+.product_row div{
+    box-sizing: border-box;
+    border: 1px black solid;
+}
 
 .carousel-control-btn {
     width: 10%;

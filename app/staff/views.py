@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from staff.forms.product_form import ProductCreateForm, CategoryCreateForm
-from CC.models import Image, Category
+from CC.models import Image, Category, Product
 
 
 def login_staff_view(request):
@@ -26,6 +26,11 @@ def login_staff_view(request):
         return render(request, "staff/login.html", {'form': form})
 
 
+def products(request):
+    product = Product.objects.all()
+    return render(request, "staff/products.html", {'products': product})
+
+
 def create_product(request):
     if request.user.is_staff or request.user.is_superuser:
         if request.method == 'POST':
@@ -39,6 +44,25 @@ def create_product(request):
                 return redirect('/')
         else:
             form = ProductCreateForm()
+        return render(request, "staff/create_product.html", {'form': form})
+    else:
+        return redirect("login_staff")
+
+
+def update_product(request, slug):
+    product = Product.objects.get(id=slug)
+    if request.user.is_staff or request.user.is_superuser:
+        if request.method == 'POST':
+            form = ProductCreateForm(data=request.POST)
+            if form.is_valid():
+                product = form.save()
+                product.check_url()
+                image = Image(name="Placeholder", relative_path=request.POST['image'])
+                image.save()
+                product.image.add(image)
+                return redirect('/')
+        else:
+            form = ProductCreateForm(instance=product)
         return render(request, "staff/create_product.html", {'form': form})
     else:
         return redirect("login_staff")
