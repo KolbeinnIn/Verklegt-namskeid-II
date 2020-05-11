@@ -3,6 +3,21 @@ from staff.forms.product_form import ProductCreateForm, CategoryCreateForm
 from CC.models import Image, Category
 
 # Create your views here.
+def login_staff(request):
+    if request.method == "POST":
+        form = RegisterForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("login")
+        else:
+            return render(request, "user/register.html", {
+                "form": RegisterForm(),
+                "form_errors": form.errors
+            })
+    return render(request, "user/register.html", {
+        "form": RegisterForm()
+    })
+
 def create_product(request):
     if request.method == 'POST':
         form = ProductCreateForm(data=request.POST)
