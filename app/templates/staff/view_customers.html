@@ -1,0 +1,26 @@
+{% extends "staffbase.html" %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <div class="row my-5">
+            <h1 class="col-8 col-md-9">Viðskiptavinir</h1>
+            <a class="col-4 col-md-3 btn bg-success text-light" href=" {% url 'register_customer' %}"><h5 class="my-2">Búa til viðskiptavin</h5></a>
+        </div>
+        <div class="row">
+            <h5 class="col-3 border-bottom border-dark text-weight-bold mb-0 py-2">Notendanafn</h5>
+            <h5 class="col-3 border-bottom border-left border-dark text-weight-bold mb-0 py-2">Fornafn</h5>
+            <h5 class="col-3 border-bottom border-left border-dark text-weight-bold mb-0 py-2">Eftirnafn</h5>
+            <h5 class="col-2 border-bottom border-left border-dark text-weight-bold mb-0 py-2">Netfang</h5>
+            <h5 class="col-1 border-bottom border-left border-dark text-weight-bold mb-0 py-2">Breyta</h5>
+        </div>
+        {% for customer in customer_list %}
+            <div class="row border-bottom border-dark">
+                <p class="col-3 mb-0 py-2">{{ customer.username }}</p>
+                <p class="col-3 border-left border-dark mb-0 py-2">{{ customer.first_name }}</p>
+                <p class="col-3 border-left border-dark mb-0 py-2">{{ customer.last_name }}</p>
+                <p class="col-2 border-left border-dark mb-0 py-2">{{ customer.email }}</p>
+                <a class="col-1 border-left border-dark text-dark" href="{% url 'update_customer' customer.username %}"><span class="fas fa-user-edit my-2 mx-md-4"></span></a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -5,6 +5,7 @@ from staff.forms.product_form import ProductCreateForm, CategoryCreateForm
 from CC.models import Image, Category, Product
 from django.contrib.auth.models import User
 from staff.forms.staff_register_form import RegisterStaffForm
+from user.forms.user_register_form import RegisterCustomerForm
 
 
 def login_staff_view(request):
@@ -114,20 +115,81 @@ def register_staff(request):
     })
 
 
-def update_staff(request, staff):
+def update_staff(request, slug):
+    staff = User.objects.get(username=slug)
     if request.method == "POST":
-        form = RegisterStaffForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            return render(request, "staff/register_staff.html", {
-                "form": RegisterStaffForm(staff)
+        first_name = request.POST["first_name"]
+        last_name = request.POST["last_name"]
+        is_superuser = request.POST.get("is_superuser")
+        if first_name != "" and last_name != "":
+            staff.first_name = first_name
+            staff.last_name = last_name
+            if is_superuser == "on":
+                staff.is_superuser = True
+            else:
+                staff.is_superuser = False
+            staff.save()
+            return render(request, "staff/update_staff.html", {
+                "staff": staff,
+                "success": "Upplýsingar hafa verið vistaðar"
             })
         else:
-            return render(request, "staff/register_staff.html", {
-                "form": RegisterStaffForm(staff),
-                "form_errors": form.errors
+            return render(request, "staff/update_staff.html", {
+                "staff": staff,
+                "error": "Fornafn og eftirnafn verða að vera fylltir inn"
             })
     return render(request, "staff/update_staff.html", {
-        "form": RegisterStaffForm(staff)
+        "staff": staff
     })
 
+
+def view_customers(request):
+    all_users = User.objects.all()
+    customer_list = []
+    for user in all_users:
+        if not user.is_superuser and not user.is_staff:
+            customer_list.append(user)
+    return render(request, "staff/view_customers.html", {
+        'customer_list': customer_list
+    })
+
+
+def register_customer(request):
+    if request.method == "POST":
+        form = RegisterCustomerForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("view_customers")
+        else:
+            return render(request, "staff/register_customer.html", {
+                "form": RegisterCustomerForm(),
+                "form_errors": form.errors
+            })
+    return render(request, "staff/register_customer.html", {
+        "form": RegisterCustomerForm()
+    })
+
+
+def update_customer(request, slug):
+    customer = User.objects.get(username=slug)
+    if request.method == "POST":
+        first_name = request.POST["first_name"]
+        last_name = request.POST["last_name"]
+        email = request.POST.get("email")
+        if first_name != "" and last_name != "" and email != "":
+            customer.first_name = first_name
+            customer.last_name = last_name
+            customer.email = email
+            customer.save()
+            return render(request, "staff/update_customer.html", {
+                "customer": customer,
+                "success": "Upplýsingar hafa verið vistaðar"
+            })
+        else:
+            return render(request, "staff/update_customer.html", {
+                "customer": customer,
+                "error": "Fornafn og eftirnafn verða að vera fylltir inn"
+            })
+    return render(request, "staff/update_customer.html", {
+        "customer": customer
+    })

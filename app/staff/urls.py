@@ -12,5 +12,8 @@ urlpatterns = [
     path("update-product/<str:slug>", views.update_product, name="update-product"),
     path("view-staff", views.view_staff, name="view_staff"),
     path("register-staff", views.register_staff, name="register_staff"),
-    path("update-staff", views.update_staff, name="update_staff"),
+    path("update-staff/<str:slug>", views.update_staff, name="update_staff"),
+    path("view-customers", views.view_customers, name="view_customers"),
+    path("register-customers", views.register_customer, name="register_customer"),
+    path("update-customer/<str:slug>", views.update_customer, name="update_customer"),
 ]

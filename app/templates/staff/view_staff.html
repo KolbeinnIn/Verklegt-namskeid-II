@@ -3,9 +3,8 @@
 {% block content %}
     <div class="container">
         <div class="row my-5">
-            <h1 class="col-6">Starfsmenn</h1>
-            <div class="col col-md-4"></div>
-            <a class="col-4 col-md-2 btn bg-success text-light" href=" {% url 'register_staff' %}"><h5 class="my-2">Búa til starfsmann</h5></a>
+            <h1 class="col-8 col-md-9">Starfsmenn</h1>
+            <a class="col-4 col-md-3 btn bg-success text-light" href=" {% url 'register_staff' %}"><h5 class="my-2">Búa til starfsmann</h5></a>
         </div>
         <div class="row">
             <h5 class="col-3 border-bottom border-dark text-weight-bold mb-0 py-2">Notendanafn</h5>
@@ -24,7 +23,7 @@
                 {% else %}
                     <p class="col-2 border-left border-dark mb-0 py-2">X</p>
                 {% endif %}
-                <a class="col-1 text-dark" href="{% url 'update_staff' %}"><span class="fas fa-user-edit my-2 mx-md-4"></span></a>
+                <a class="col-1 border-left border-dark text-dark" href="{% url 'update_staff' staff.username %}"><span class="fas fa-user-edit my-2 mx-md-4"></span></a>
             </div>
         {% endfor %}
     </div>
