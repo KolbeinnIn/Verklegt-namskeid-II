@@ -97,7 +97,7 @@
                             {% elif forloop.counter0 == 2 or forloop.counter0 == 5 %}
                                 <a class="d-none d-lg-block col-4 rounded text-center p-1 m-0" href="/vara/{{ product.URL_keyword }}">
                             {% endif %}
-                                <img class="img-responsive max-height-img my-3" src="/vara/{{ product.image.first.relative_path }}" alt="Image of {{ product.name }}"/>
+                                <img class="img-responsive max-height-img my-3" src="{{ product.image.first.relative_path }}" alt="Image of {{ product.name }}"/>
                                 <h3>{{ product.name }}</h3>
                                 <h4 class="mb-3">{{ product.price }} kr</h4>
                             </a>

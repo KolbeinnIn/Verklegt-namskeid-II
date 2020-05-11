@@ -2,12 +2,6 @@
     height:70px;
 }
 
-#productimg {
-    height: 100%;
-    width: 90%;
-    padding-bottom: 15px;
-}
-
 #quantity{
     max-width: 60px;
 }
@@ -87,12 +81,12 @@
     border-bottom: 1px solid black !important;
 }
 
-.categories a, .categories a:hover{
+.categories, .categories:hover{
     text-decoration: none !important;
     color:unset;
 }
 
-.categories > div > div:hover{
+.categories:hover{
     color:white !important;
     background-color: gray !important;
     -webkit-transition: color, background-color 200ms ease-out;/* Safari 6.0 - 9.0 */
@@ -128,6 +122,11 @@
     object-fit: contain !important;
 }
 
+.productimg{
+    width: 100%;
+    height: 300px;
+    object-fit: contain !important;
+}
 
 .carousel-control-btn {
     width: 10%;
@@ -139,6 +138,10 @@
 }
 #inner_navbar{
     max-width: 77em;
+}
+
+.max-60{
+    "max-width:60px;"
 }
 
 /* FORM */

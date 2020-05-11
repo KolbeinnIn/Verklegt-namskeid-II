@@ -4,6 +4,6 @@ from . import views
 
 urlpatterns = [
     path("leit", views.search, name="leit"),
-    url(r'(?P<hierarchy>.+)/', views.category, name="category"),
+    url(r'^flokkur/(?P<hierarchy>.+)/', views.category, name="category"),
 ]
 
