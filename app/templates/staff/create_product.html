@@ -1,11 +1,15 @@
-{% extends "staff/staff_navbar.html" %}
+{% extends "staffbase.html" %}
 {% block content %}
-    <div>
-        <h2>Create Product</h2>
-        <form class = "form" action="{% url 'create_product' %}" method = "post">
+    <div class="container pb-5">
+        <div class="row my-5">
+            <h1 class="col-8 col-md-9">{{ Title }}</h1>
+            <a class="col-4 col-md-3 btn bg-danger text-light" href="{% url 'view_all_products' %}"><h5 class="my-2">Til baka</h5></a>
+        </div>
+        <form class="form my-5" action="{% url 'create_product' %}" method = "post">
             {% csrf_token %}
             {{ form }}
-            <input type="submit" value="Create" class="btn btn-primary">
+            <input type="submit" class="bg-success float-right py-3 px-4 mx-5 mt-3" value="Búa til vöru">
         </form>
     </div>
+    <div class="p-5"></div>
 {% endblock %}

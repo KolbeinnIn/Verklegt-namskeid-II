@@ -5,9 +5,10 @@ from CC.models import Product, Category
 
 class ProductCreateForm(ModelForm):
     image = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+
     class Meta:
         model = Product
-        exclude = ['id', 'image']
+        exclude = ['id', 'image', 'total']
         widgets = {
             'name': widgets.TextInput(attrs={'class': 'form-control'}),
             'manufacturer': widgets.TextInput(attrs={'class': 'form-control'}),

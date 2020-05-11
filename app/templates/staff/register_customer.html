@@ -1,0 +1,38 @@
+{% extends "staffbase.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row my-5 mx-0">
+            <h1 class="col-9 p-0">Búa til viðskiptavin</h1>
+            <a class="col-3 btn bg-danger text-light" href=" {% url 'view_all_customers' %}"><h5 class="my-2">Til baka</h5></a>
+        </div>
+        <form method="POST" class="px-lg-5">
+            {% csrf_token %}
+            <input type="text" name="username" required autofocus autocomplete="username" class="form-input d-block mx-auto my-3 text-left" placeholder="Notendanafn">
+            <input type="text" name="email" required autocomplete="email" class="form-input d-block mx-auto my-3 text-left" placeholder="Netfang">
+            <input type="text" name="first_name" required autocomplete="first_name" class="form-input d-block mx-auto my-3 text-left" placeholder="Fornafn">
+            <input type="text" name="last_name" required autocomplete="last_name" class="form-input d-block mx-auto my-3 text-left" placeholder="Eftirnafn">
+            <input type="password" name="password1" required autocomplete="password1" class="form-input d-block mx-auto my-3" placeholder="Lykilorð">
+            <input type="password" name="password2" required autocomplete="password2" class="form-input d-block mx-auto my-3" placeholder="Staðfesta lykilorð">
+            {% if form_errors %}
+                <div class="m-2 text-left">
+                    <h5>Ekki tókst að búa til aðgang!</h5>
+                    <h6>Ástæður gætu verið:</h6>
+                    {% for error in form_errors %}
+                        {% if error == "username" %}
+                            <p>*Notandi er til í kerfniu með þessu notendanafni</p>
+                        {% elif error == "email" %}
+                            <p>*Þarf að vera gilt netfang</p>
+                        {% elif error == "password2" %}
+                            <p>*Lykilorð má ekki vera of líkt öðrum upplýsingum.</p>
+                            <p>*Lykilorð þarf að vera að minnsta kosti 8 stafir að lengd.</p>
+                            <p>*Lykilorð er of algengt</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="row mx-3 justify-content-center">
+                <input type="submit" class="col-10 col-sm-5 order-first order-sm-2 py-2 my-2" value="Búa til aðgang">
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "staffbase.html" %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <div class="row my-5 mx-0">
+            <h1 class="col-9 p-0">Breyta upplýsingum</h1>
+            <a class="col-3 btn bg-danger text-light" href=" {% url 'view_all_customers' %}"><h5 class="my-2">Til baka</h5></a>
+        </div>
+        <h5>Viðskiptavinur: {{ customer.username }}</h5>
+        <form method="POST" class="px-lg-5">
+            {% csrf_token %}
+            <div class="row mx-0 my-4">
+                <p class="col-3 col-md-2 col-lg-1 my-3">Fornafn: </p>
+                <input type="text" name="first_name" class="form-input col-9 col-md-10 col-lg-11 text-left" placeholder="{{ customer.first_name }}" value="{{ customer.first_name }}">
+            </div>
+            <div class="row mx-0 my-3">
+                <p class="col-3 col-md-2 col-lg-1 my-3">Eftirnafn: </p>
+                <input type="text" name="last_name" class="form-input col-9 col-md-10 col-lg-11 text-left" placeholder="{{ customer.last_name }}" value="{{ customer.last_name }}">
+            </div>
+            <div class="row mx-0 my-3">
+                <p class="col-3 col-md-2 col-lg-1 my-3">Netfang: </p>
+                <input type="text" name="email" class="form-input col-9 col-md-10 col-lg-11 text-left" placeholder="{{ customer.email }}" value="{{ customer.email }}">
+            </div>
+            {% if success %}
+                <div class="text-success my-2">
+                    <h4>{{ success }}</h4>
+                </div>
+            {% elif error %}
+                <div class="text-danger my-2">
+                    <h4>{{ error }}</h4>
+                </div>
+            {% endif %}
+            <input type="submit" class="bg-success float-right py-3 px-4 mx-5" value="Vista upplýsingar">
+        </form>
+    </div>
+{% endblock %}

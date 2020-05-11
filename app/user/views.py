@@ -1,23 +1,23 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from user.forms.profile_info_form import ProfileForm
-from user.forms.user_register_form import RegisterForm
+from user.forms.user_register_form import RegisterCustomerForm
 from user.models import profile_info
 
 
 def register(request):
     if request.method == "POST":
-        form = RegisterForm(data=request.POST)
+        form = RegisterCustomerForm(data=request.POST)
         if form.is_valid():
             form.save()
             return redirect("login")
         else:
             return render(request, "user/register.html", {
-                "form": RegisterForm(),
+                "form": RegisterCustomerForm(),
                 "form_errors": form.errors
             })
     return render(request, "user/register.html", {
-        "form": RegisterForm()
+        "form": RegisterCustomerForm()
     })
 
 

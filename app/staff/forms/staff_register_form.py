@@ -2,17 +2,18 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
-class RegisterCustomerForm(UserCreationForm):
+class RegisterStaffForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ("username", "email", "first_name", "last_name")
+        fields = ("username", "first_name", "last_name", "is_superuser")
 
     def save(self, commit=True):
-        user = super(RegisterCustomerForm, self).save(commit=False)
+        user = super(RegisterStaffForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         user.first_name = self.cleaned_data["first_name"]
         user.last_name = self.cleaned_data["last_name"]
-        user.email = self.cleaned_data["email"]
+        user.is_superuser = self.cleaned_data["is_superuser"]
+        user.is_staff = True
         if commit:
             user.save()
         return user

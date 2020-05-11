@@ -1,0 +1,30 @@
+{% extends "staffbase.html" %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <div class="row my-5">
+            <h1 class="col-8 col-md-9">Starfsmenn</h1>
+            <a class="col-4 col-md-3 btn bg-success text-light" href=" {% url 'register_staff' %}"><h5 class="my-2">Búa til starfsmann</h5></a>
+        </div>
+        <div class="row border-bottom border-dark">
+            <h5 class="col-3 text-weight-bold mb-0 py-2">Notendanafn</h5>
+            <h5 class="col-3 border-left border-dark text-weight-bold mb-0 py-2">Fornafn</h5>
+            <h5 class="col-3 border-left border-dark text-weight-bold mb-0 py-2">Eftirnafn</h5>
+            <h5 class="col-2 border-left border-dark text-weight-bold mb-0 py-2">Admin</h5>
+            <h5 class="col-1 border-left border-dark text-weight-bold mb-0 py-2">Breyta</h5>
+        </div>
+        {% for staff in staff_list %}
+            <div class="row border-bottom border-dark">
+                <p class="col-3 mb-0 py-2">{{ staff.username }}</p>
+                <p class="col-3 border-left border-dark mb-0 py-2">{{ staff.first_name }}</p>
+                <p class="col-3 border-left border-dark mb-0 py-2">{{ staff.last_name }}</p>
+                {% if staff.is_superuser %}
+                    <p class="col-2 border-left border-dark mb-0 py-2">&#x2714;</p>
+                {% else %}
+                    <p class="col-2 border-left border-dark mb-0 py-2">&#x274C;</p>
+                {% endif %}
+                <a class="col-1 border-left border-dark text-dark" href="{% url 'update_staff' staff.username %}"><span class="fas fa-user-edit my-2 mx-md-4"></span></a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

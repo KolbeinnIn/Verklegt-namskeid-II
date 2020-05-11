@@ -122,6 +122,16 @@
     object-fit: contain !important;
 }
 
+.staff_product_img{
+    width: 100%;
+    height: 64px;
+    object-fit: contain !important;
+}
+
+.product_row div{
+    box-sizing: border-box;
+    border: 1px black solid;
+}
 .productimg{
     width: 100%;
     height: 300px;

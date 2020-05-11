@@ -1,0 +1,40 @@
+{% extends "staffbase.html" %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <div class="row my-5 mx-0">
+            <h1 class="col-9 p-0">Breyta upplýsingum</h1>
+            <a class="col-3 btn bg-danger text-light" href=" {% url 'view_all_staff' %}"><h5 class="my-2">Til baka</h5></a>
+        </div>
+        <h5>Starfsmaður: {{ staff.username }}</h5>
+        <form method="POST" class="px-lg-5">
+            {% csrf_token %}
+            <div class="row mx-0 my-4">
+                <p class="col-3 col-md-2 col-lg-1 my-3">Fornafn: </p>
+                <input type="text" name="first_name" class="form-input col-9 col-md-10 col-lg-11 text-left" placeholder="{{ staff.first_name }}" value="{{ staff.first_name }}">
+            </div>
+            <div class="row mx-0 my-3">
+                <p class="col-3 col-md-2 col-lg-1 my-3">Eftirnafn: </p>
+                <input type="text" name="last_name" class="form-input col-9 col-md-10 col-lg-11 text-left" placeholder="{{ staff.last_name }}" value="{{ staff.last_name }}">
+            </div>
+            <div class="row my-3 mx-5">
+                <h5 class="col-6 col-sm-4 col-md-2 col-lg-1 mb-0 ml-lg-4">Admin:</h5>
+                {% if staff.is_superuser %}
+                    <input type="checkbox" name="is_superuser" checked class="col-1 my-2">
+                {% else %}
+                    <input type="checkbox" name="is_superuser" class="col-1 my-2">
+                {% endif %}
+            </div>
+            {% if success %}
+                <div class="text-success my-2">
+                    <h4>{{ success }}</h4>
+                </div>
+            {% elif error %}
+                <div class="text-danger my-2">
+                    <h4>{{ error }}</h4>
+                </div>
+            {% endif %}
+            <input type="submit" class="bg-success float-right py-3 px-4 mx-5" value="Vista upplýsingar">
+        </form>
+    </div>
+{% endblock %}
