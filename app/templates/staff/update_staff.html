@@ -1,0 +1,37 @@
+{% extends "staffbase.html" %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <h1 class="my-5">Breyta upplýsingum um starfsmann</h1>
+        <form method="POST" class="px-lg-5">
+            {% csrf_token %}
+            <input type="text" name="username" required autofocus autocomplete="username" class="form-input d-block mx-auto my-3 text-left" placeholder="Notendanafn">
+            <input type="text" name="first_name" required autocomplete="first_name" class="form-input d-block mx-auto my-3 text-left" placeholder="Fornafn">
+            <input type="text" name="last_name" required autocomplete="last_name" class="form-input d-block mx-auto my-3 text-left" placeholder="Eftirnafn">
+            <input type="password" name="password1" required autocomplete="password1" class="form-input d-block mx-auto my-3" placeholder="Lykilorð">
+            <input type="password" name="password2" required autocomplete="password2" class="form-input d-block mx-auto my-3" placeholder="Staðfesta lykilorð">
+            <div class="row my-3 mx-5">
+                <h5 class="col-6 col-sm-4 col-md-2 col-lg-1 mb-0 ml-lg-4">Admin:</h5>
+                <input type="checkbox" id="is_superuser" name="Admin" value="is_superuser" class="col-1 my-2">
+            </div>
+            {% if form_errors %}
+                <div class="m-2 text-left">
+                    <h5>Ekki tókst að búa til aðgang!</h5>
+                    <h6>Ástæður gætu verið:</h6>
+                    {% for error in form_errors %}
+                        {% if error == "username" %}
+                            <p>Notandi með þessu nafni er nú þegar til í kerfinu</p>
+                        {% elif error == "password2" %}
+                            <p>*Lykilorð má ekki vera of líkt öðrum upplýsingum.</p>
+                            <p>*Lykilorð þarf að vera að minnsta kosti 8 stafir að lengd.</p>
+                            <p>*Lykilorð er of algengt</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="row mx-3 justify-content-center">
+                <input type="submit" class="col-10 col-sm-5 order-first order-sm-2 py-2 my-2" value="Búa til aðgang">
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -3,6 +3,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from staff.forms.product_form import ProductCreateForm, CategoryCreateForm
 from CC.models import Image, Category, Product
+from django.contrib.auth.models import User
+from staff.forms.staff_register_form import RegisterStaffForm
 
 
 def login_staff_view(request):
@@ -15,12 +17,8 @@ def login_staff_view(request):
             if user.is_staff or user.is_superuser:
                 login(request, user)
                 return redirect("dashboard")
-            else:
-                form = AuthenticationForm(request.POST)
-                return render(request, "staff/login.html", {'form': form})
-        else:
-            form = AuthenticationForm(request.POST)
-            return render(request, "staff/login.html", {'form': form})
+        form = AuthenticationForm(request.POST)
+        return render(request, "staff/login.html", {'form': form})
     else:
         form = AuthenticationForm()
         return render(request, "staff/login.html", {'form': form})
@@ -87,3 +85,49 @@ def create_category(request):
         })
     else:
         return redirect("login_staff")
+
+
+def view_staff(request):
+    all_users = User.objects.all()
+    staff_list = []
+    for user in all_users:
+        if user.is_superuser or user.is_staff:
+            staff_list.append(user)
+    return render(request, "staff/view_staff.html", {
+        'staff_list': staff_list
+    })
+
+
+def register_staff(request):
+    if request.method == "POST":
+        form = RegisterStaffForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("view_staff")
+        else:
+            return render(request, "staff/register_staff.html", {
+                "form": RegisterStaffForm(),
+                "form_errors": form.errors
+            })
+    return render(request, "staff/register_staff.html", {
+        "form": RegisterStaffForm()
+    })
+
+
+def update_staff(request, staff):
+    if request.method == "POST":
+        form = RegisterStaffForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, "staff/register_staff.html", {
+                "form": RegisterStaffForm(staff)
+            })
+        else:
+            return render(request, "staff/register_staff.html", {
+                "form": RegisterStaffForm(staff),
+                "form_errors": form.errors
+            })
+    return render(request, "staff/update_staff.html", {
+        "form": RegisterStaffForm(staff)
+    })
+
