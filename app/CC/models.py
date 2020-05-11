@@ -58,6 +58,8 @@ class Category(models.Model, URL):
     URL_keyword = models.CharField(max_length=255, blank=True)
     parent = models.ForeignKey('self', on_delete=models.DO_NOTHING, blank=True, null=True)
     full_name = models.CharField(max_length=255, blank=True, null=True)
+
+
     def _get_full_name_rec(self, category):
         if category.parent_id is not None:
             string = self._get_full_name_rec(category.parent)
@@ -84,6 +86,11 @@ class Category(models.Model, URL):
     def __lt__(self, other):
         return self.name < other.name
 
+    def initialize(self):
+        self.check_url()
+        self._get_full_name()
+        self.save()
+
 
 class Image(models.Model):
     name = models.CharField(max_length=255)
@@ -102,6 +109,10 @@ class Product(models.Model, URL):
     status = models.BooleanField(default=True, blank=True)
     category = models.ManyToManyField(Category)
     image = models.ManyToManyField(Image)
+    total = models.IntegerField(blank=True, null=True)
+
+    def calculate_total(self):
+        self.total = self.price * ((100 - self.discount)/100)
 
     def check_url(self):
         if self.URL_keyword is not None:
@@ -112,3 +123,8 @@ class Product(models.Model, URL):
 
     def __str__(self):
         return self.name
+
+    def initialize(self):
+        self.check_url()
+        self.calculate_total()
+        self.save()

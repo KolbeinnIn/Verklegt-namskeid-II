@@ -23,7 +23,7 @@ def create_product(request):
         form = ProductCreateForm(data=request.POST)
         if form.is_valid():
             product = form.save()
-            product.check_url()
+            product.initialize()
             image = Image(name="Placeholder", relative_path=request.POST['image'])
             image.save()
             product.image.add(image)
@@ -42,7 +42,7 @@ def create_category(request):
         form = CategoryCreateForm(data=request.POST)
         if form.is_valid():
             category = form.save()
-            category.check_url()
+            category.initialize()
             return redirect('/')
     else:
         form = CategoryCreateForm()
