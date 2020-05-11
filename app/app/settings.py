@@ -41,8 +41,7 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'product.apps.ProductConfig',
     'product_list.apps.ProductListConfig',
-    'staff.apps.StaffConfig',
-    'user.apps.UserConfig'
+    'staff.apps.StaffConfig'
 ]
 
 MIDDLEWARE = [

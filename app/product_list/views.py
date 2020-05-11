@@ -42,9 +42,9 @@ def _is_parent(parent, child):
 
 
 def _is_complete_url(cat, url):
-    if (url == [] and cat is None):
+    if not url and cat is None:
         return True
-    if url == []:
+    if not url:
         return False
     if cat is None:
         return False
