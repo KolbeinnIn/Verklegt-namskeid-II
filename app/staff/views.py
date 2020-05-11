@@ -32,11 +32,9 @@ def create_product(request):
             return redirect('/')
     else:
         form = ProductCreateForm()
-
-    asd = render(request, "staff/create_product.html", {
+    return render(request, "staff/create_product.html", {
         'form': form
     })
-    return asd
 
 def create_category(request):
     if request.method == 'POST':
