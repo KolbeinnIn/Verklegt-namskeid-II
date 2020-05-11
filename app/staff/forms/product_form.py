@@ -25,7 +25,7 @@ class ProductCreateForm(ModelForm):
 class CategoryCreateForm(ModelForm):
     class Meta:
         model = Category
-        exclude = ['id']
+        exclude = ['id', 'full_name']
         widgets = {
             'name': widgets.TextInput(attrs={'class': 'form-control'}),
             'status': widgets.Select(attrs={'class': 'form-control'}, choices=[(True, 'Enabled'), (False, 'Disabled')]),
