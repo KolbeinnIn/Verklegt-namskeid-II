@@ -1,9 +1,11 @@
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LogoutView
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("", LoginView.as_view(template_name="staff/login.html"), name="login_staff"),
+    path("", views.login_staff_view, name="login_staff"),
+    path("logout", LogoutView.as_view(next_page="login_staff"), name="logout"),
+    path("dashboard", views.create_product, name="dashboard"),
     path("create_product", views.create_product, name="create_product"),
     path("create_category", views.create_category, name="create_category"),
 ]
