@@ -49,7 +49,7 @@ def create_category(request):
         form = CategoryCreateForm(data=request.POST)
         if form.is_valid():
             category = form.save()
-            category.check_url()
+            category.initialize()
             return redirect('/')
     else:
         form = CategoryCreateForm()
