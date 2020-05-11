@@ -58,9 +58,8 @@ class Category(models.Model, URL):
     URL_keyword = models.CharField(max_length=255, blank=True)
     parent = models.ForeignKey('self', on_delete=models.DO_NOTHING, blank=True, null=True)
     full_name = models.CharField(max_length=255, blank=True, null=True)
-    # TODO SAVE FULL NAME
     def _get_full_name_rec(self, category):
-        if category.parent_id != None:
+        if category.parent_id is not None:
             string = self._get_full_name_rec(category.parent)
             string += ' > ' + category.name
             return string
@@ -71,14 +70,14 @@ class Category(models.Model, URL):
         self.full_name = self._get_full_name_rec(self)
 
     def check_url(self):
-        if self.URL_keyword != None:
+        if self.URL_keyword is not None:
             self.URL_keyword = self._make_url(self.name)
         else:
             self.URL_keyword = self._make_url(self.name)
         self.save()
 
     def __str__(self):
-        if self.full_name == None:
+        if self.full_name is None:
             self._get_full_name()
         return self.full_name
 
@@ -105,7 +104,7 @@ class Product(models.Model, URL):
     image = models.ManyToManyField(Image)
 
     def check_url(self):
-        if self.URL_keyword != None:
+        if self.URL_keyword is not None:
             self.URL_keyword = self._make_url(self.name)
         else:
             self.URL_keyword = self._make_url(self.name)
