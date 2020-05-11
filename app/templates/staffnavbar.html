@@ -1,25 +1,28 @@
 {% load static %}
-<nav class="container-fluid bg-primary static-top p-0 mx-0">
-    <div class="row text-center py-4">
-        <a class="col text-light" href="#">
-            <h4 class="my-2">Pantanir</h4>
+<nav class="container-fluid bg-primary static-top p-0">
+    <div class="row text-center py-4 mx-3">
+        <a class="col" href="/">
+            <img src="{% static 'images/logo.png' %}" class="main_logo rounded-lg" alt="Captain Console logo">
         </a>
         <a class="col text-light" href="#">
-            <h4 class="my-2">Vörur</h4>
+            <h3 class="my-3">Pantanir</h3>
         </a>
         <a class="col text-light" href="#">
-            <h4 class="my-2">Flokkar</h4>
+            <h3 class="my-3">Vörur</h3>
+        </a>
+        <a class="col text-light" href="#">
+            <h3 class="my-3">Flokkar</h3>
         </a>
         {% if user.is_superuser %}
             <a class="col text-light" href="#">
-                <h4 class="my-2">Viðskiptavinir</h4>
+                <h3 class="my-3">Viðskiptavinir</h3>
             </a>
             <a class="col text-light" href="#">
-                <h4 class="my-2">Starfsmenn</h4>
+                <h3 class="my-3">Starfsmenn</h3>
             </a>
         {% endif %}
         <a class="col text-light" href="{% url 'logout_staff' %}">
-            <h4 class="my-2">Útskráning</h4>
+            <h3 class="my-3">Útskráning</h3>
         </a>
     </div>
 </nav>
