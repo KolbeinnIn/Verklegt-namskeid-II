@@ -19,6 +19,6 @@ class profile_info(models.Model):
     country = models.ForeignKey(country, on_delete=models.DO_NOTHING)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, null=True)
 
-class search_history(models.Model):
+class SearchHistory(models.Model):
     search_query = models.CharField(max_length=999)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
