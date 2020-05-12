@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from user.forms.profile_info_form import ProfileForm
 from user.forms.user_register_form import RegisterCustomerForm
-from user.models import profile_info
+from user.models import profile_info, SearchHistory
 
 
 def register(request):
@@ -38,4 +38,12 @@ def info(request):
             return redirect("profile")
     return render(request, "user/profile_info.html", {
         "form": ProfileForm(instance=profile)
+    })
+
+
+@login_required
+def search_history(request):
+    s = SearchHistory.objects.filter(user=request.user.id)
+    return render(request, "user/search_history.html", {
+        "search_history": s
     })
