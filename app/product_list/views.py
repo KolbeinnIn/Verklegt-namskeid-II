@@ -1,5 +1,4 @@
-from CC.models import Product
-from CC.models import Category
+from CC.models import Product, Category
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
 
@@ -18,7 +17,7 @@ def search(request):
                 prod_list.append(product)
 
     if request.user.is_authenticated:
-        pass
+
 
     all = Category.objects.all()
     category_sidebar = get_category_sidebar(all)
