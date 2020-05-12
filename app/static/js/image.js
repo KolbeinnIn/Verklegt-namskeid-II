@@ -47,5 +47,5 @@ function create_img_input(){
 }
 
 function intitialize_iamages(){
-	let 
+	console(log)
 }
