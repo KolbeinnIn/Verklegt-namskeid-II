@@ -17,6 +17,9 @@ def search(request):
             if product not in prod_list:
                 prod_list.append(product)
 
+    if request.user.is_authenticated:
+        pass
+
     all = Category.objects.all()
     category_sidebar = get_category_sidebar(all)
 
