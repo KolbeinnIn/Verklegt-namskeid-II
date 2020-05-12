@@ -3,34 +3,16 @@
     <h1 class="jumbotron-heading">Persónuupplýsingar</h1>
  </div>
 <div class="mb-4 px-0">
-    <div class="row">
-        <form>
-          <div class="form-column">
-            <label>Fullt nafn</label>
-            <input type="text" class="form-control">
-            <label>Heimilisfang</label>
-            <input type="text" class="form-control">
-            <div class="col-md-6">
-              <label>Póstnúmer</label>
-              <input type="text" class="form-control">
+    <div class="my-3">
+        {{ personal_info_form }}
+    </div>
+    <div class="col mb-2">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 text-center">
+                <button class="btn btn-primary text-center text-dark yellow-background prevBtn" type="button">Til baka</button>
             </div>
-            <label>Borg/bær</label>
-            <input type="text" class="form-control">
-            <label>Land</label>
-            <select id="inputState" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
-            </select>
-          </div>
-        </form>
-        <div class="col mb-2">
-            <div class="row">
-                <div class="col-sm-12 col-md-6 text-center">
-                    <button class="btn btn-primary text-center text-dark yellow-background prevBtn" type="button">Til baka</button>
-                </div>
-                <div class="col-sm-12 col-md-6 text-center">
-                    <button class="btn btn-primary text-center text-dark yellow-background nextBtn" type="button">Áfram</button>
-                </div>
+            <div class="col-sm-12 col-md-6 text-center">
+                <button class="btn btn-primary text-center text-dark yellow-background nextBtn" type="button">Áfram</button>
             </div>
         </div>
     </div>

@@ -23,7 +23,7 @@ def register(request):
 
 @login_required
 def profile(request):
-    return render(request, "user/profile.html", context={"profile": profile_info.objects.filter(user=request.user.id).first()})
+    return render(request, "user/profile.html", context={"profile": profile_info.objects.filter(user=request.user.id)})
 
 
 @login_required

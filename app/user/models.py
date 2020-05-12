@@ -9,11 +9,12 @@ class country(models.Model):
 
 
 class profile_info(models.Model):
-    image_path = models.CharField(max_length=9999)
+    first_name = models.CharField(max_length=100, default="")
+    last_name = models.CharField(max_length=100, default="")
+    image_path = models.CharField(max_length=9999, blank=True, null=True)
     phone_nr = models.CharField(max_length=20)
     city = models.CharField(max_length=100)
     zip_code = models.CharField(max_length=20)
-    street_name = models.CharField(max_length=100)
-    house_no = models.CharField(max_length=20)
+    address = models.CharField(max_length=100)
     country = models.ForeignKey(country, on_delete=models.DO_NOTHING)
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, null=True)
