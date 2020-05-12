@@ -1,6 +1,7 @@
 from CC.models import Product, Category
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
+from user.models import SearchHistory
 
 
 def search(request):
@@ -17,8 +18,11 @@ def search(request):
                 prod_list.append(product)
 
     if request.user.is_authenticated:
-
-
+        s = SearchHistory(user=request.user, search_query=org_query)
+        s.save()
+        a = SearchHistory.objects.filter(user=request.user)
+        for x in list(a):
+            print(x.search_query)
     all = Category.objects.all()
     category_sidebar = get_category_sidebar(all)
 
