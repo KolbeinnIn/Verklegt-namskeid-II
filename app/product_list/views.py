@@ -20,9 +20,6 @@ def search(request):
     if request.user.is_authenticated:
         s = SearchHistory(user=request.user, search_query=org_query)
         s.save()
-        a = SearchHistory.objects.filter(user=request.user)
-        for x in list(a):
-            print(x.search_query)
     all = Category.objects.all()
     category_sidebar = get_category_sidebar(all)
 
