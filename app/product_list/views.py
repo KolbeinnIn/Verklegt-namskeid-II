@@ -54,14 +54,6 @@ def _is_complete_url(cat, url):
     return False
 
 
-def _is_product(slug):
-    try:
-        get_object_or_404(Product, URL_keyword=slug)
-        return True
-    except Http404:
-        return False
-
-
 def _get_sub_categories(category, all):
     cat_list = list(all.filter(parent=category))
     if not cat_list:
@@ -71,12 +63,6 @@ def _get_sub_categories(category, all):
         temp_list.append({sub: _get_sub_categories(sub, all)})
     return temp_list
 
-def print_thing(categories, indent=""):
-    for cat, subs in categories.items():
-        print(indent, cat)
-        for sub in subs:
-            if sub:
-                print_thing(sub, indent+"-")
 
 def category(request, hierarchy):
     categories = request.get_raw_uri().split("/")[4:]
@@ -84,15 +70,14 @@ def category(request, hierarchy):
         categories = categories[:-1]
 
     last_url = categories[-1]
-    if _is_product(last_url):
-        return redirect("/vara/" + last_url)
-
-    cat = Category.objects.get(URL_keyword=last_url)
-    cat1 = Category.objects.get(URL_keyword="leikjatolvur")
-    cat2 = Category.objects.get(URL_keyword="leikir")
-    cat3 = Category.objects.get(URL_keyword="aukahlutir")
 
     all = Category.objects.all()
+
+    cat = all.get(URL_keyword=last_url)
+    cat1 = all.get(URL_keyword="leikjatolvur")
+    cat2 = all.get(URL_keyword="leikir")
+    cat3 = all.get(URL_keyword="aukahlutir")
+
     category_sidebar = {
         cat1: _get_sub_categories(cat1, all),
         cat2: _get_sub_categories(cat2, all),

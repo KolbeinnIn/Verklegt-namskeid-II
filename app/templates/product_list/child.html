@@ -1,14 +1,27 @@
 {% for curr, children in categories.items %}
-<div id="{{ curr.URL_keyword }}" class="collapse{% if parent %} pl-3 c-{{ parent.URL_keyword }} {% endif %}" aria-labelledby="{{ parent.URL_keyword }}" data-parent="{% if parent %}#{{ parent.URL_keyword }}{% endif %}">
-
-    <a href="#" data-toggle="collapse" data-target=".c-{{ curr.URL_keyword }}">{{ curr.name }}</a>
-    {% if children %}
-        {% for child in children %}
-            <script>console.log("child {{ child }}")</script>
-            {% with categories=child parent=curr filename='product_list/child.html' %}
-                {% include filename %}
-            {% endwith %}
-        {% endfor %}
-    {% endif %}
+<div id="{{ curr.URL_keyword }}"
+     class="collapse
+        {% if parent %}
+         c-{{ parent.URL_keyword }}
+        {% else %} show
+        {% endif %}"
+     aria-labelledby="{{ parent.URL_keyword }}"
+     data-parent="{% if parent %}#{{ parent.URL_keyword }}{% endif %}"
+>
+    <div class="row w-100 mx-0 justify-content-between px-0">
+        <a href="{% url 'category' curr.URL_keyword %}" class="col-9 text-left w-100 px-0 py-0">{{ indent }}{{ curr.name }}</a>
+        {% if children %}
+            <a href="#" data-toggle="collapse" class="col-3 text-right w-100 px-0 py-0" data-target=".c-{{ curr.URL_keyword }}"><i class="fas fa-plus"></i></a>
+        {% endif %}
+        <div class="col-12 pr-0">
+            {% if children %}
+                {% for child in children %}
+                    {% with categories=child parent=curr indent=indent|add:' ' filename='product_list/child.html' %}
+                        {% include filename %}
+                    {% endwith %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
 </div>
 {% endfor %}
