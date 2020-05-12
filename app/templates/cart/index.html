@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <!-- Stepper -->
+    <div class="pt-5">
+        <div class="steps-form">
+          <div class="steps-row setup-panel">
+            <div class="steps-step">
+              <a href="#step-1" type="button" class="btn btn-indigo btn-circle yellow-background">1</a>
+              <p>Karfa</p>
+            </div>
+            <div class="steps-step">
+              <a href="#step-2" type="button" class="btn btn-default btn-circle yellow-background" disabled="disabled">2</a>
+              <p>Persónuupplýsingar</p>
+            </div>
+            <div class="steps-step">
+              <a href="#step-3" type="button" class="btn btn-default btn-circle yellow-background" disabled="disabled">3</a>
+              <p>Greiðsluupplýsingar</p>
+            </div>
+            <div class="steps-step">
+              <a href="#step-4" type="button" class="btn btn-default btn-circle yellow-background" disabled="disabled">4</a>
+              <p>Yfirlit</p>
+            </div>
+          </div>
+        </div>
+
+        <form role="form" action="" method="post">
+          <!-- First Step -->
+          <div class="row setup-content" id="step-1">
+            <div class="col-md-12">
+                {% include 'cart/cart.html' %}
+            </div>
+          </div>
+
+          <!-- Second Step -->
+          <div class="row setup-content" id="step-2">
+            <div class="col-md-12">
+                {% include 'cart/personal.html' %}
+            </div>
+          </div>
+
+          <!-- Third Step -->
+          <div class="row setup-content" id="step-3">
+            <div class="col-md-12">
+                {% include 'cart/payment.html' %}
+            </div>
+          </div>
+
+          <div class="row setup-content" id="step-4">
+            <div class="col-md-12">
+                {% include 'cart/review.html' %}
+            </div>
+          </div>
+
+        </form>
+    </div>
+
+
+{% endblock %}
