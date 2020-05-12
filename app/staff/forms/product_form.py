@@ -4,7 +4,7 @@ from CC.models import Product, Category
 
 
 class ProductCreateForm(ModelForm):
-    image = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    image = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'img'}))
 
     class Meta:
         model = Product

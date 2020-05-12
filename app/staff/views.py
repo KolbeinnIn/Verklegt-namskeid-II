@@ -40,10 +40,12 @@ def create_product(request):
             form = ProductCreateForm(data=request.POST)
             if form.is_valid():
                 product = form.save()
-                product.check_url()
-                image = Image(name="Placeholder", relative_path=request.POST['image'])
-                image.save()
-                product.image.add(image)
+                product.initialize()
+                images = dict(request.POST)['image']
+                for img in images:
+                    image = Image(name='Placeholder', relative_path=img)
+                    image.save()
+                    product.image.add(image)
                 return redirect("view_all_products")
         else:
             form = ProductCreateForm()

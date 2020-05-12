@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+     <div class="container blue-background">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <div class="pb-5">
+                <h1 class="mt-5">Greiðsla tókst</h1>
+                <svg class="bi bi-check" width="5rem" height="5rem" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3.5-3.5a.5.5 0 11.708-.708L6.5 10.293l6.646-6.647a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+            <div class="pb-5">
+                <h3 class="lead">Nóta hefur verið sent á</h3>
+                <h3 class="lead font-weight-bold">{{ email }}</h3>
+            </div>
+            <div class="pb-3">
+                <h3 class="lead pb-2">Pöntun móttekinn</h3>
+                <a class="btn btn-primary text-center text-dark yellow-background" href="/" role="button">Aftur á forsíðu</a>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}
