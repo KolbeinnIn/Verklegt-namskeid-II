@@ -45,3 +45,7 @@ function create_img_input(){
 	element.appendChild(button)
 	img_counter +=1;
 }
+
+function intitialize_iamages(){
+	let 
+}
