@@ -1,6 +1,6 @@
 {% for curr, children in categories.items %}
 <div id="{{ curr.URL_keyword }}"
-     class="collapse
+     class="collapse my-2
         {% if parent %}
          c-{{ parent.URL_keyword }}
         {% else %} show
@@ -9,14 +9,14 @@
      data-parent="{% if parent %}#{{ parent.URL_keyword }}{% endif %}"
 >
     <div class="row w-100 mx-0 justify-content-between px-0">
-        <a href="{% url 'category' curr.URL_keyword %}" class="col-9 text-left w-100 px-0 py-0">{{ indent }}{{ curr.name }}</a>
+        <a href="{% url 'category' curr.URL_keyword %}" class="{% if children %}col-9{% else %}col-12{% endif %} text-left w-100 px-0 py-0">{{ curr.name }}</a>
         {% if children %}
-            <a href="#" data-toggle="collapse" class="col-3 text-right w-100 px-0 py-0" data-target=".c-{{ curr.URL_keyword }}"><i class="fas fa-plus"></i></a>
+            <a href="#" data-toggle="collapse" class="col-3 text-right w-100 pl-0 px-md-0 py-0" data-target=".c-{{ curr.URL_keyword }}"><i class="fas fa-plus"></i></a>
         {% endif %}
         <div class="col-12 pr-0">
             {% if children %}
                 {% for child in children %}
-                    {% with categories=child parent=curr indent=indent|add:' ' filename='product_list/child.html' %}
+                    {% with categories=child parent=curr filename='product_list/child.html' %}
                         {% include filename %}
                     {% endwith %}
                 {% endfor %}

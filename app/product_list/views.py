@@ -17,13 +17,18 @@ def search(request):
             if product not in prod_list:
                 prod_list.append(product)
 
+    all = Category.objects.all()
+    category_sidebar = get_category_sidebar(all)
+
     return render(request,
                   "product_list/prod_list.html",
                   context={
                       "header": "Leit:",
                       "prod_list": prod_list,
                       "search": True,
-                      "query": "'{}'".format(org_query)
+                      "query": "'{}'".format(org_query),
+                      "categories": category_sidebar,
+                      "sidebars": True
                   })
 
 
@@ -64,6 +69,18 @@ def _get_sub_categories(category, all):
     return temp_list
 
 
+def get_category_sidebar(all):
+    cat1 = all.get(URL_keyword="leikjatolvur")
+    cat2 = all.get(URL_keyword="leikir")
+    cat3 = all.get(URL_keyword="aukahlutir")
+
+    return {
+        cat1: _get_sub_categories(cat1, all),
+        cat2: _get_sub_categories(cat2, all),
+        cat3: _get_sub_categories(cat3, all)
+    }
+
+
 def category(request, hierarchy):
     categories = request.get_raw_uri().split("/")[4:]
     if categories[-1] == "":
@@ -72,22 +89,13 @@ def category(request, hierarchy):
     last_url = categories[-1]
 
     all = Category.objects.all()
-
     cat = all.get(URL_keyword=last_url)
-    cat1 = all.get(URL_keyword="leikjatolvur")
-    cat2 = all.get(URL_keyword="leikir")
-    cat3 = all.get(URL_keyword="aukahlutir")
-
-    category_sidebar = {
-        cat1: _get_sub_categories(cat1, all),
-        cat2: _get_sub_categories(cat2, all),
-        cat3: _get_sub_categories(cat3, all)
-    }
 
     if not cat.status:  # if the category is disabled
         return render(request, "sida fannst ekki.html")
 
     if _is_complete_url(cat, categories):
+        category_sidebar = get_category_sidebar(all)
         header = cat.name
         elder = get_object_or_404(Category, URL_keyword=categories[0])
         return render(request,
@@ -97,7 +105,8 @@ def category(request, hierarchy):
                           "prod_list": list(Product.objects.filter(category=cat)),
                           "elder": elder,  # TODO: elder dæmið
                           "categories": category_sidebar,
-                          "parent": ""
+                          "parent": "",
+                          "sidebars": True
                       })
     else:
         if _does_cat_exist(last_url):

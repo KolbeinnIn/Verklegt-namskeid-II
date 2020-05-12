@@ -12,9 +12,9 @@
                     <div class="col-12 col-md-6 order-md-2 order-3 align-self-center px-0 px-md-3">
                         <div class="row mx-auto justify-content-between justify-content-md-start px-sm-4">
                             <div class="col-10 col-md-11 align-self-center pl-0">
-                                <form>
+                                <form action="{% url 'leit' %}">
                                     <div class="input-group">
-                                        <input class="form-control border-dark border-right-0" type="text" placeholder="Leita..." aria-label="Search">
+                                        <input class="form-control border-dark border-right-0" type="text" placeholder="Leita..." name="leit" aria-label="Search">
                                         <div class="input-group-append">
                                             <button class="btn btn-default btn-custom border-dark border-left-0" type="button">
                                                 <i class="fas fa-search"></i>
