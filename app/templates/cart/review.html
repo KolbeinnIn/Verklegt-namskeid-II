@@ -1,57 +1,79 @@
 {% load static %}
-<div class="container text-center">
-    <h1 class="jumbotron-heading">Yfirlit</h1>
- </div>
-<div class="mb-4 px-0">
-    <div class="row">
-        <div class="col-12">
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Mynd</th>
-                            <th scope="col">Nafn</th>
-                            <th scope="col" class="text-center">Magn</th>
-                            <th scope="col">Verð</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Setja for loop frá hér -->
-                        <tr class="col-12">
-                            <td>
-                                <img src="https://dummyimage.com/50x50/55595c/fff"/>
-                            </td>
-                            <td>{{ name }}</td>
-                            <td class="text-center">
-                                {{ amount }}
-                            </td>
-                            <td>{{ price }} kr</td>
-                        </tr>
-                        <!-- Til hér -->
-                        <tr class="column">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td class="column">
-                                <strong>Verð</strong>
-                                <strong class="text-right">{{ total }} kr</strong>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <div class="container text-center">
+        <h1 class="jumbotron-heading">Yfirlit</h1>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Mynd</th>
+                <th scope="col">Nafn</th>
+                <th scope="col" class="text-center">Magn</th>
+                <th scope="col">Verð</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Setja for loop frá hér -->
+            <tr class="col-12">
+                <td>
+                    <img src="https://dummyimage.com/50x50/55595c/fff"/>
+                </td>
+                <td>{{ name }}</td>
+                <td class="text-center">
+                    {{ amount }}
+                </td>
+                <td>{{ price }} kr</td>
+            </tr>
+            <!-- Til hér -->
+            <tr class="column">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="column">
+                    <strong>Verð</strong>
+                    <strong class="text-right">{{ total }} kr</strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row mx-0">
+        <div class="col-12 col-md-6">
+            <h4><u>Persónuupplýsingar</u></h4>
+            <p>Fornafn: <b>{{ personal_info_form.first_name.value }}</b></p>
+            <p>Eftirnafn: <b>{{ personal_info_form.last_name.value }}</b></p>
+            <p>Símanúmer: <b>{{ personal_info_form.phone_nr.value }}</b></p>
+            <p>Borg/bær: <b>{{ personal_info_form.city.value }}</b></p>
+            <p>Póstnúmer: <b>{{ personal_info_form.zip_code.value }}</b></p>
+            <p>Heimilisfang: <b>{{ personal_info_form.address.value }}</b></p>
+            <p>Land: <b>{{ personal_info_form.country.value }}</b></p>
         </div>
-        <div class="col mb-2">
-            <div class="row">
-                <div class="col-sm-12 col-md-6 text-center">
-                    <button class="btn btn-primary text-center text-dark yellow-background prevBtn" type="button">Til baka</button>
-                </div>
-                <div class="col-sm-12 col-md-6 text-center">
-                    <button class="btn text-uppercase">
-                        <a class="btn btn-primary text-center text-dark yellow-background" href="/" role="button">Staðfesta</a>
-                    </button>
-                </div>
-            </div>
+        <div class="col-12 col-md-6">
+            <h4><u>Greiðsluupplýsingar</u></h4>
+            <p>Nafn korthafa:
+                {% if payment_info_form.cardholder_name.value %}
+                    <b>{{ payment_info_form.cardholder_name.value }}</b>
+                {% endif %}
+            </p>
+            <p>Kortanúmer:
+                {% if payment_info_form.card_number.value %}
+                    <b>{{ payment_info_form.card_number.value }}</b></p>
+                {% endif %}
+            <p>Gildistími:
+                {% if payment_info_form.card_number.value %}
+                    <b>{{ payment_info_form.expiration_date.value }}</b>
+                {% endif %}
+            </p>
+            <p>CVC:
+                {% if payment_info_form.card_number.value %}
+                    <b>{{ payment_info_form.cvc.value }}</b>
+                {% endif %}
+            </p>
         </div>
     </div>
-</div>
+    <div class="row my-3">
+        <div class="col-12 col-md-6 text-center">
+            <a class="btn btn-primary text-center text-dark yellow-background prevBtn" type="button">Til baka</a>
+        </div>
+        <div class="col-12 col-md-6 text-center">
+            <a class="btn btn-primary text-center text-dark yellow-background" role="button">Staðfesta</a>
+        </div>
+    </div>

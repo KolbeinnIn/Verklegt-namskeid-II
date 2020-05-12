@@ -15,7 +15,6 @@ class PersonalInfoForm(ProfileForm):
             "city": widgets.TextInput(attrs={"class": "form-control"}),
             "zip_code": widgets.TextInput(attrs={"class": "form-control"}),
             "address": widgets.TextInput(attrs={"class": "form-control"}),
-            "house_no": widgets.TextInput(attrs={"class": "form-control"}),
             "country": widgets.Select(attrs={"class": "form-control"})
         }
 
