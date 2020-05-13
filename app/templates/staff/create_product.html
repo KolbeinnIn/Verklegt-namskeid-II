@@ -1,4 +1,5 @@
 {% extends "staffbase.html" %}
+{% load static %}
 {% block content %}
     <div class="container pb-5">
         <div class="row my-5">
@@ -20,6 +21,8 @@
     </div>
 
     <div class="p-5"></div>
-    <script src="../../static/js/image.js"></script>
 
+{% endblock %}
+{% block script %}
+    <script src="{% static 'js/image.js' %}"></script>
 {% endblock %}
