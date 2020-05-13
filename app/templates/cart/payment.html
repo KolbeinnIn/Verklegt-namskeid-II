@@ -1,15 +1,15 @@
 {% load static %}
 <div class="container text-center">
     <h1 class="jumbotron-heading">Greiðsluupplýsingar</h1>
- </div>
-<div class="mb-4 px-0">
+</div>
+<div id="payment_form_parent" class="mb-4 px-0">
     {{ payment_info_form }}
     <div class="row my-3">
         <div class="col-sm-12 col-md-6 text-center">
             <a class="btn btn-primary text-center text-dark yellow-background prevBtn" type="button">Til baka</a>
         </div>
         <div class="col-sm-12 col-md-6 text-center">
-            <a onclick="get_info()" class="btn btn-primary text-center text-dark yellow-background nextBtn" type="button">Áfram</a>
+            <a id="review_btn" class="btn btn-primary text-center text-dark yellow-background" type="button">Áfram</a>
         </div>
     </div>
 </div>

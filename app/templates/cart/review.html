@@ -37,29 +37,12 @@
     </table>
     <div class="row mx-0">
         <div id="personal_info_review" class="col-12 col-md-6">
+            <h4><u>Persónuupplýsingar</u></h4>
 
         </div>
-        <div class="col-12 col-md-6">
+        <div id="payment_info_review" class="col-12 col-md-6">
             <h4><u>Greiðsluupplýsingar</u></h4>
-            <p>Nafn korthafa:
-                {% if payment_info_form.cardholder_name.value %}
-                    <b>{{ payment_info_form.cardholder_name.value }}</b>
-                {% endif %}
-            </p>
-            <p>Kortanúmer:
-                {% if payment_info_form.card_number.value %}
-                    <b>{{ payment_info_form.card_number.value }}</b></p>
-                {% endif %}
-            <p>Gildistími:
-                {% if payment_info_form.card_number.value %}
-                    <b>{{ payment_info_form.expiration_date.value }}</b>
-                {% endif %}
-            </p>
-            <p>CVC:
-                {% if payment_info_form.card_number.value %}
-                    <b>{{ payment_info_form.cvc.value }}</b>
-                {% endif %}
-            </p>
+
         </div>
     </div>
     <div class="row my-3">
