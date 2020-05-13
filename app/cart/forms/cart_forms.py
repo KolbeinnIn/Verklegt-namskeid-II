@@ -7,7 +7,6 @@ from user.models import profile_info
 class PersonalInfoForm(ProfileForm):
     class Meta:
         model = profile_info
-        id = "sicc"
         exclude = ["user", "image_path"]
         widgets = {
             "first_name": widgets.TextInput(attrs={"class": "form-control"}),
