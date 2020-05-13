@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 var quantity=0;
-   $('.quantity-right-plus').click(function(e){
+    $('.quantity-right-plus').click(function(e){
         // Stop acting like a button
         e.preventDefault();
         // Get the field name
@@ -18,7 +18,7 @@ var quantity=0;
             }
     });
 
-     $('.quantity-left-minus').click(function(e){
+    $('.quantity-left-minus').click(function(e){
         // Stop acting like a button
         e.preventDefault();
         // Get the field name
@@ -26,10 +26,9 @@ var quantity=0;
 
         // If is not undefined
 
-            // Increment
-            if(quantity>0){
-            $('#quantity').val(quantity - 1);
-            }
+        // Increment
+        if(quantity>0){
+        $('#quantity').val(quantity - 1);
+        }
     });
-
 });
