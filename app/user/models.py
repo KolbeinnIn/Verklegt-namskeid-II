@@ -16,7 +16,7 @@ class profile_info(models.Model):
     city = models.CharField(max_length=100)
     zip_code = models.CharField(max_length=20)
     address = models.CharField(max_length=100)
-    country = models.ForeignKey(country, on_delete=models.DO_NOTHING)
+    country = models.ForeignKey(country, on_delete=models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, null=True)
 
 class SearchHistory(models.Model):
