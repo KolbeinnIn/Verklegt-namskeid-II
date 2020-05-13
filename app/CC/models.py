@@ -1,4 +1,5 @@
 from django.db import models
+from user.models import profile_info
 
 
 class URL:
@@ -127,3 +128,29 @@ class Product(models.Model, URL):
         self.check_url()
         self.calculate_total()
         self.save()
+
+
+class Shipping(models.Model):
+    type = models.CharField(max_length=100)
+
+
+class OrderStatus(models.Model):
+    status = models.CharField(max_length=100)
+
+
+class Cart(models.Model):
+    person_info = models.ForeignKey(profile_info, on_delete=models.DO_NOTHING)
+
+
+class CartItem(models.Model):
+    quantity = models.IntegerField()
+    unit_price = models.IntegerField()
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+    cart = models.ForeignKey(Cart, on_delete=models.DO_NOTHING)
+
+
+class Order(models.Model):
+    total = models.IntegerField()
+    cart = models.ForeignKey(Cart, on_delete=models.DO_NOTHING)
+    shipping = models.ForeignKey(Shipping, on_delete=models.DO_NOTHING)
+    status = models.ForeignKey(OrderStatus, on_delete=models.DO_NOTHING)
