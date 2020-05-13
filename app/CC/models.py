@@ -58,8 +58,6 @@ class Category(models.Model, URL):
     URL_keyword = models.CharField(max_length=255, blank=True)
     parent = models.ForeignKey('self', on_delete=models.DO_NOTHING, blank=True, null=True)
     full_name = models.CharField(max_length=255, blank=True, null=True)
-    children = models.ManyToManyField('self')
-
 
     def _get_full_name_rec(self, category):
         if category.parent_id is not None:
