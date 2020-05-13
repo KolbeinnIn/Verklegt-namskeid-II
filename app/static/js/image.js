@@ -27,7 +27,7 @@ function delete_input(element){
 		}
 	}
 
-function create_img_input(){
+function create_img_input(value = ''){
 	let element = document.getElementById('image_input');
 	var input = document.createElement('input');
 	input.setAttribute('id',img_counter);
@@ -35,6 +35,7 @@ function create_img_input(){
 	input.setAttribute('name','image');
 	input.setAttribute('class','col-9 form-control mt-2 align-self-center');
 	input.setAttribute('oninput','load_img(this)');
+	input.value = value;
 	let button = document.createElement('button');
 	button.innerHTML = 'x';
 	button.setAttribute('id','btn_'+img_counter)
@@ -42,10 +43,23 @@ function create_img_input(){
 	button.setAttribute('type', 'button')
 	button.setAttribute('onclick','delete_input(this)')
 	element.appendChild(input);
-	element.appendChild(button)
+	element.appendChild(button);
 	img_counter +=1;
 }
 
-function intitialize_iamages(){
-	console(log)
+function initialize_images(){
+	let container = document.getElementById('image_input');
+	let children = [...container.children];
+	let input;
+	for (let i = 0; i < children.length; i++){
+		console.log(children[i].src);
+		create_img_input(children[i].src);
+		children[i].remove();
+	}
+	for (let i = 0; i < children.length; i++){
+		input = document.getElementById(i);
+		console.log(input)
+		load_img(input);
+	}
 }
+initialize_images();
