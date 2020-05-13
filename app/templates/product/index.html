@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    <button onclick="{{ lmao product }}">Press me</button>
     <div class="my-0 z-depth-1" id="product_main">
         <section class="dark-grey-text text-center text-md-left">
             <div class="row">
@@ -53,7 +52,7 @@
                                     </div>
                                 </div>
                                 <div class="px-1 col col-lg col-md-6">
-                                    <a id="addCart" class="btn btn-primary text-center text-dark yellow-background" href="{% url 'add-to-cart' %}?vara={{ product.URL_keyword }}" role="button">Bæta í körfu</a>
+                                    <a id="addCart" class="btn btn-primary text-center text-dark yellow-background" custom-link="{% url 'add-to-cart' %}?prod={{ product.id }}" role="button">Bæta í körfu</a>
                                 </div>
                             </div>
                         </div>

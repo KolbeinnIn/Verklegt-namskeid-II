@@ -139,13 +139,15 @@ class OrderStatus(models.Model):
 
 
 class Cart(models.Model):
-    person_info = models.ForeignKey(profile_info, on_delete=models.DO_NOTHING)
+    session_id = models.CharField(max_length=999, blank=True, null=True)
+    person_info = models.ForeignKey(profile_info, on_delete=models.DO_NOTHING, blank=True, null=True)
 
 
 class CartItem(models.Model):
+    prod_id = models.IntegerField(default=-1)
+    prod_name = models.CharField(max_length=255, default="")
     quantity = models.IntegerField()
     unit_price = models.IntegerField()
-    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
     cart = models.ForeignKey(Cart, on_delete=models.DO_NOTHING)
 
 

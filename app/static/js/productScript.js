@@ -1,11 +1,10 @@
 $(document).ready(function(){
 
-var quantity=0;
-   $('.quantity-right-plus').click(function(e){
+
+    $('.quantity-right-plus').click(function(e){
         // Stop acting like a button
         e.preventDefault();
-        // Get the field name
-        var quantity = parseInt($('#quantity').val());
+        let quantity = parseInt($('#quantity').val());
 
         // If is not undefined
 
@@ -18,19 +17,23 @@ var quantity=0;
             }
     });
 
-     $('.quantity-left-minus').click(function(e){
+    $('.quantity-left-minus').click(function(e){
         // Stop acting like a button
         e.preventDefault();
-        // Get the field name
-        var quantity = parseInt($('#quantity').val());
-
+        let quantity = parseInt($('#quantity').val());
         // If is not undefined
 
-            // Increment
-            if(quantity>0){
-            $('#quantity').val(quantity - 1);
-            }
+        // Increment
+        if(quantity>0){
+        $('#quantity').val(quantity - 1);
+        }
     });
      $('')
 
+    $('#addCart').click(function(e){
+        let quantity = $('#quantity').val();
+        let custom = $(this).attr("custom-link") + "&quantity=" + quantity
+        console.log(custom)
+        $('#addCart').attr("href", custom);
+    });
 });
