@@ -31,5 +31,6 @@ var quantity=0;
             $('#quantity').val(quantity - 1);
             }
     });
+     $('')
 
 });

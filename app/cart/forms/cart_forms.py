@@ -9,7 +9,7 @@ class PersonalInfoForm(ProfileForm):
         model = profile_info
         exclude = ["user", "image_path"]
         widgets = {
-            "first_name": widgets.TextInput(attrs={"class": "form-control"}),
+            "first_name": widgets.TextInput(attrs={"class": "form-control", 'required': True}),
             "last_name": widgets.TextInput(attrs={"class": "form-control"}),
             "phone_nr": widgets.TextInput(attrs={"class": "form-control"}),
             "city": widgets.TextInput(attrs={"class": "form-control"}),

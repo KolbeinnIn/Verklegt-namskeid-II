@@ -24,8 +24,7 @@ review.addEventListener("click", function(){
     else{
         get_personal_info()
         get_payment_info(number)
-        $("#step-3").hide()
-        $("#step-4").show()
+        next_step()
         $("#payment_warning").remove()
 
     }

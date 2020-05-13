@@ -1,108 +1,50 @@
-$(document).ready(function () {
-    var navListItems = $('div.setup-panel div p'),
+var navListItems = $('div.setup-panel div p:first-child'),
         allWells = $('.setup-content'),
         allNextBtn = $('.nextBtn'),
         allPrevBtn = $('.prevBtn');
 
+allWells.hide();
+allPrevBtn.click(function(){
+    let next = get_next_step()
+    let uppi_takki_c = navListItems[next-1]
+    let uppi_takki_prev = navListItems[next-2]
+    $(uppi_takki_c).removeClass('grey-background').addClass('yellow-background');
+    $(uppi_takki_prev).addClass('grey-background').removeClass('yellow-background').removeAttr('disabled');
     allWells.hide();
-
-    navListItems.click(function (e) {
-        e.preventDefault();
-        var $target = $($(this).attr('custom')),
-            $item = $(this);
-
-        if (!$item.hasClass('disabled')) {
-            navListItems.removeClass('grey-background').addClass('yellow-background');
-            $item.addClass('grey-background');
-            allWells.hide();
-            $target.show();
-            //$target.find('input:eq(0)').focus();
-        }
-    });
-
-    allPrevBtn.click(function(){
-        var curStep = $(this).closest(".setup-content"),
-            curStepBtn = curStep.attr("id"),
-            prevStepSteps = $('div.setup-panel div p[custom="#' + curStepBtn + '"]').parent().prev().children("p");
-
-            prevStepSteps.removeAttr('disabled').trigger('click');
-    });
-
-    allNextBtn.click(function(){
-        var curStep = $(this).closest(".setup-content"),
-            curStepBtn = curStep.attr("id"),
-            nextStepWizard = $('div.setup-panel div p[custom="#' + curStepBtn + '"]').parent().next().children("p"),
-            curInputs = curStep.find("input[type='text'],input[type='url']"),
-            isValid = true;
-
-
-        $(".form-group").removeClass("has-error");
-        for(var i=0; i< curInputs.length; i++){
-            if (!curInputs[i].validity.valid){
-                isValid = false;
-                $(curInputs[i]).closest(".form-group").addClass("has-error");
-            }
-        }
-
-        if (isValid)
-            nextStepWizard.removeAttr('disabled').trigger('click');
-    });
-    
-    $("#step-1").show()
-    $('div.setup-panel div p.grey-background').trigger('click');
+    $(allWells[next-2]).show()
 });
 
-/*
-$(document).ready(function () {
-    var navListItems = $('div.setup-panel div p'),
-        allWells = $('.setup-content'),
-        allNextBtn = $('.nextBtn'),
-        allPrevBtn = $('.prevBtn');
+allNextBtn.click(next_step);
+$("#step-1").show()
 
-    allWells.hide();
 
-    navListItems.click(function (e) {
-        e.preventDefault();
-        var $target = $($(this).attr("custom-step")),
-            $item = $(this);
-        console.log($target)
-        console.log($item)
-        if (!$item.hasClass('disabled')) {
-            navListItems.removeClass('grey-background').addClass('yellow-background');
-            $item.addClass('grey-background');
-            allWells.hide();
-            $target.show();
-            $target.find('input:eq(0)').focus();
+function next_step(){
+    let next = get_next_step()
+    let $item = $(this);
+
+
+    var curStep = $item.closest(".setup-content"),
+        curInputs = curStep.find("input[type='text'],select"),
+        isValid = true;
+
+    for(let i=0; i< curInputs.length; i++){
+        if (!curInputs[i].validity.valid){
+            isValid = false;
+            $(curInputs[i]).closest(".form-group").addClass("has-error");
         }
-    });
+    }
+    if (isValid){
+        let uppi_takki_c = navListItems[next-1]
+        let uppi_takki_n = navListItems[next]
+        $(uppi_takki_c).removeClass('grey-background').addClass('yellow-background');
+        $(uppi_takki_n).addClass('grey-background').removeClass('yellow-background').removeAttr('disabled');
+        allWells.hide();
+        $(allWells[next]).show()
+    }
+}
 
-    allPrevBtn.click(function(){
-        var curStep = $(this).closest(".setup-content"),
-            curStepBtn = curStep.attr("id"),
-            prevStepSteps = $('div.setup-panel div p[custom-step="#' + curStepBtn + '"]').parent().prev().children("a");
-
-            prevStepSteps.removeAttr('disabled').trigger('click');
-    });
-
-    allNextBtn.click(function(){
-        var curStep = $(this).closest(".setup-content"),
-            curStepBtn = curStep.attr("id"),
-            nextStepWizard = $('div.setup-panel div p[custom-step="#' + curStepBtn + '"]').parent().next().children("a"),
-            curInputs = curStep.find("input[type='text'],input[type='url']"),
-            isValid = true;
-
-        $(".form-group").removeClass("has-error");
-        for(var i=0; i< curInputs.length; i++){
-            if (!curInputs[i].validity.valid){
-                isValid = false;
-                $(curInputs[i]).closest(".form-group").addClass("has-error");
-            }
-        }
-        if (isValid)
-            nextStepWizard.removeAttr('disabled').trigger('click');
-    });
-
-    $("#step-1").show()
-    //$('div.setup-panel div a.grey-background').trigger('click');
-});
-* */
+function get_next_step(){
+    let item = $('.setup-panel .grey-background')
+    let step = item[0].attributes.getNamedItem('custom').value
+    return parseInt(step[step.length-1])
+}
