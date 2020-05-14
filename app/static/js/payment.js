@@ -28,9 +28,7 @@ review.addEventListener("click", function(){
         $("#payment_warning").remove()
 
     }
-
 })
-
 
 function create_elem(name, inner){
     let new_elem = document.createElement("p")
@@ -42,7 +40,6 @@ function create_elem(name, inner){
 }
 
 function get_personal_info(){
-
     let sth = $("#personal_info_review")
     sth.children("p").remove()
     let country = document.getElementById("id_country")
@@ -78,3 +75,112 @@ function get_payment_info(card){
         sth.append(info_piece)
     }
 }
+
+
+
+let first_btn = $('a[ref="#step-1"]')[0]
+first_btn.addEventListener("click", get_new_cart)
+
+
+$('.quantity-right-plus').click(function(e){
+    e.preventDefault();
+
+    let qty = get_qty($(this))
+    let quantity = parseInt(qty.value);
+    let table = $($(this).closest("table")[0])
+    let cart = table.attr("cart");
+    let url = table.attr("qty-url")
+    let cart_item_id = $($(this).closest("tr")[0]).attr("cart-item");
+
+    if(quantity<1000){
+        qty.value = quantity + 1;
+        update_qty(cart, cart_item_id, qty.value, url)
+    }
+    else{
+        qty.value = 1000;
+    }
+
+});
+
+$('.quantity-left-minus').click(function(e){
+    e.preventDefault();
+    let qty = get_qty($(this))
+    let quantity = parseInt(qty.value);
+    let table = $($(this).closest("table")[0])
+    let cart = table.attr("cart");
+    let url = table.attr("qty-url")
+    let cart_item_id = $($(this).closest("tr")[0]).attr("cart-item");
+    if(quantity>1){
+            qty.value = quantity - 1;
+            update_qty(cart, cart_item_id, qty.value, url)
+    }
+});
+
+function get_qty(item){
+    return item.parent().parent().children('input[id^="quantity-"]')[0]
+}
+
+function get_new_cart(){
+    let table = $("#og-cart");
+    let cart_id = table.attr("cart")
+    let url = table.attr('change-quantity')
+    let products = $(table.children("tbody")[0]).children("tr");
+    let a = $(table).find(".input-group");
+
+    for (let i=0; i<products.length-1; i++){
+        let quantity = parseInt($(a[i]).find('input[name="quantity"]').val())
+        let unit_price = parseInt($(products[i]).attr("unit-price"))
+        let prod_id = parseInt($(products[i]).attr("prod-id"))
+        let cart_item = parseInt($(products[i]).attr("cart-item"))
+        console.log(quantity, unit_price, prod_id, cart_item)
+    }
+}
+
+function update_qty(cart_id, cart_item_id, quantity, url){
+    let csrf = $('[name="csrfmiddlewaretoken"]')[0].value;
+    $.ajax(url, {
+        type: 'POST',
+        headers: {
+            'X-CSRFToken': csrf
+        },
+        data: {
+            "cart_id": cart_id,
+            "cart_item_id": cart_item_id,
+            "quantity": quantity
+        },
+        success: function(obj){
+            console.log("ayy lmao", obj)
+        }
+    })
+}
+
+
+function recieve_updated_cart(){
+    $.ajax("/recieve-updated-cart", {
+        type: 'GET',
+        success: function(obj){
+            console.log(obj)
+            for (let i of obj){
+                console.log(i.name);
+            }
+        }
+    })
+}
+
+nextBtn = $('.nextBtn')[0].addEventListener("click", recieve_updated_cart)
+console.log(nextBtn)
+
+
+
+/*
+$($('input[id^="quantity-"]')[0]).change(function(e){
+    let qty = get_qty($(this))
+    let quantity = parseInt(qty.value);
+    let table = $($(this).closest("table")[0])
+    let cart = table.attr("cart");
+    let url = table.attr("qty-url")
+    let cart_item_id = $($(this).closest("tr")[0]).attr("cart-item");
+    update_qty(cart, cart_item_id, qty.value, url)
+
+});
+*/
