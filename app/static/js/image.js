@@ -1,4 +1,4 @@
-let img_counter = 1
+let img_counter = 0
 function load_img(element){
 	let id = element.id
 	let img = document.getElementById('img_'+id)
@@ -52,13 +52,11 @@ function initialize_images(){
 	let children = [...container.children];
 	let input;
 	for (let i = 0; i < children.length; i++){
-		console.log(children[i].src);
 		create_img_input(children[i].src);
 		children[i].remove();
 	}
 	for (let i = 0; i < children.length; i++){
 		input = document.getElementById(i);
-		console.log(input)
 		load_img(input);
 	}
 }
