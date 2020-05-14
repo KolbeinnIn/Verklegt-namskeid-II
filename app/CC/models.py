@@ -70,12 +70,13 @@ class Category(models.Model, URL):
 
     def _get_full_name(self):
         self.full_name = self._get_full_name_rec(self)
+        self.save()
 
     def check_url(self):
-        if self.URL_keyword is not None:
+        if self.URL_keyword == "":
             self.URL_keyword = self._make_url(self.name)
         else:
-            self.URL_keyword = self._make_url(self.name)
+            self.URL_keyword = self._make_url(self.URL_keyword)
         self.save()
 
     def __str__(self):
@@ -115,10 +116,10 @@ class Product(models.Model, URL):
         self.total = self.price * ((100 - self.discount)/100)
 
     def check_url(self):
-        if self.URL_keyword is not None:
+        if self.URL_keyword == "":
             self.URL_keyword = self._make_url(self.name)
         else:
-            self.URL_keyword = self._make_url(self.name)
+            self.URL_keyword = self._make_url(self.URL_keyword)
         self.save()
 
     def __str__(self):

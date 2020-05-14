@@ -8,6 +8,18 @@ class ProductCreateForm(ModelForm):
     class Meta:
         model = Product
         exclude = ['id', 'image', 'total']
+        labels = {
+            'name': 'Nafn',
+            'manufacturer': 'Framleiðandi',
+            'URL_keyword': 'URL',
+            'P_EAN': 'Strikamerki',
+            'quantity': 'Magn',
+            'price': 'Verð',
+            'discount': 'Afsláttur',
+            'description': 'Lýsing',
+            'status': 'Staða',
+            'category': 'Flokkar',
+        }
         widgets = {
             'name': widgets.TextInput(attrs={'class': 'form-control'}),
             'manufacturer': widgets.TextInput(attrs={'class': 'form-control'}),

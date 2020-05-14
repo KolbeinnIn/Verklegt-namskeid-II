@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from CC.models import Product, Cart, CartItem, Shipping, Category, Order
+from CC.models import Product, Cart, CartItem, Order
 from user.models import profile_info
 
 
@@ -45,6 +45,7 @@ def add_item_to_cart(request):
         cart_item.prod_name = product.name
         cart_item.unit_price = product.total
         cart_item.save()
+        request.session['cart_quantity'] += int(quantity)
         return redirect("/vara/" + product.URL_keyword)
     else:
         # Item dosnt exist so we send them to the front page
@@ -89,3 +90,15 @@ def create_cart(request):
             cart.save()
 
     return cart
+
+
+def change_quantity(request):
+    cartItem_id = request.POST.get("cart_item_id", None)
+    cart_id = request.POST.get("cart_id", None)
+    quantity = request.POST.get("quantity", None)
+    print(cartItem_id)
+    return
+
+
+def delete_from_cart(request):
+    return
