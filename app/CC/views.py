@@ -136,6 +136,6 @@ def recieve_updated_cart(request):
         actual_product = Product.objects.get(id=item.prod_id)
         image = actual_product.image.first()
         # Create json object and append to updated cart list
-        cart_item = {"name": item.item_name, "quantity": item.quantity, "price": item.unit_price, "image": image}
+        cart_item = {"name": item.prod_name, "quantity": item.quantity, "price": item.unit_price, "image": image.relative_path}
         updated_cart.append(cart_item)
     return JsonResponse(updated_cart, safe=False)
