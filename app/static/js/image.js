@@ -1,4 +1,4 @@
-let img_counter = 1
+let img_counter = 0
 function load_img(element){
 	let id = element.id
 	let img = document.getElementById('img_'+id)
