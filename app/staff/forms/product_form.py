@@ -4,7 +4,9 @@ from CC.models import Product, Category
 
 
 class ProductCreateForm(ModelForm):
-    #image = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'img'}))
+    image = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control col-9 form-control mt-2 align-self-center', 'id': '0', 'oninput': 'load_img(this)'}))
+
     class Meta:
         model = Product
         exclude = ['id', 'image', 'total']
