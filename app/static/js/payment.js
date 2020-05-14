@@ -57,8 +57,10 @@ function get_personal_info(){
         sth.append(info_piece)
     }
 
-    let cart_id = $("#og-cart")[0].getAttribute("cart")
-    update_personal_info(cart_id, info_list)
+    let og_cart = $("#og-cart")[0]
+    let cart_id = og_cart.getAttribute("cart")
+    let url = og_cart.getAttribute("person-info")
+    update_personal_info(cart_id, info_list, url)
 }
 
 
@@ -82,7 +84,7 @@ function get_payment_info(card){
 
 let first_btn = $('a[ref="#step-1"]')[0]
 
-function update_personal_info(cart_id, info_list){
+function update_personal_info(cart_id, info_list, url){
     let csrf = $('[name="csrfmiddlewaretoken"]')[0].value;
     $.ajax(url, {
         type: 'POST',
