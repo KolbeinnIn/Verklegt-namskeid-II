@@ -34,3 +34,6 @@ def success(request):
     return render(request, "cart/success.html", context={"email": "icehot1@hotmail.com"})
 
 
+
+
+

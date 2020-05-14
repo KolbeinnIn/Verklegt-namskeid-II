@@ -87,14 +87,15 @@ $('.quantity-right-plus').click(function(e){
 
     let qty = get_qty($(this))
     let quantity = parseInt(qty.value);
-    let cart = $($(this).closest("table")[0]).attr("cart");
+    let table = $($(this).closest("table")[0])
+    let cart = table.attr("cart");
+    let url = table.attr("qty-url")
     let cart_item_id = $($(this).closest("tr")[0]).attr("cart-item");
 
     if(quantity<1000){
         qty.value = quantity + 1;
-        update_qty(cart, cart_item_id, qty.value, "INSERT URL")
+        update_qty(cart, cart_item_id, qty.value, url)
     }
-
     else{
         qty.value = 1000;
     }
@@ -105,16 +106,19 @@ $('.quantity-left-minus').click(function(e){
     e.preventDefault();
     let qty = get_qty($(this))
     let quantity = parseInt(qty.value);
+    let table = $($(this).closest("table")[0])
+    let cart = table.attr("cart");
+    let url = table.attr("qty-url")
+    let cart_item_id = $($(this).closest("tr")[0]).attr("cart-item");
     if(quantity>1){
             qty.value = quantity - 1;
-            update_qty(cart, cart_item_id, qty.value, "INSERT URL")
+            update_qty(cart, cart_item_id, qty.value, url)
     }
 });
 
 function get_qty(item){
     return item.parent().parent().children('input[id^="quantity-"]')[0]
 }
-
 
 function get_new_cart(){
     let table = $("#og-cart");
@@ -143,10 +147,40 @@ function update_qty(cart_id, cart_item_id, quantity, url){
             "cart_id": cart_id,
             "cart_item_id": cart_item_id,
             "quantity": quantity
+        },
+        success: function(obj){
+            console.log("ayy lmao", obj)
         }
     })
 }
 
+
+function recieve_updated_cart(){
+    $.ajax("/recieve-updated-cart", {
+        type: 'GET',
+        success: function(obj){
+            console.log(obj)
+            for (let i of obj){
+                console.log(i.name);
+            }
+        }
+    })
+}
+
+nextBtn = $('.nextBtn')[0].addEventListener("click", recieve_updated_cart)
+console.log(nextBtn)
+
+
+
+/*
 $($('input[id^="quantity-"]')[0]).change(function(e){
-   console.log("ayy lmao")
+    let qty = get_qty($(this))
+    let quantity = parseInt(qty.value);
+    let table = $($(this).closest("table")[0])
+    let cart = table.attr("cart");
+    let url = table.attr("qty-url")
+    let cart_item_id = $($(this).closest("tr")[0]).attr("cart-item");
+    update_qty(cart, cart_item_id, qty.value, url)
+
 });
+*/

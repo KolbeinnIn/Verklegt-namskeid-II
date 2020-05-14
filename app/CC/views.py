@@ -1,4 +1,6 @@
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
+
 from CC.models import Product, Cart, CartItem, Order
 from user.models import profile_info
 
@@ -97,8 +99,17 @@ def change_quantity(request):
     cart_id = request.POST.get("cart_id", None)
     quantity = request.POST.get("quantity", None)
     print(cartItem_id)
-    return
+    return HttpResponse("Sicc")
 
 
 def delete_from_cart(request):
     return
+
+
+def lala(request):
+    b = ""
+    a = [
+        {"name": b, "price": b, "image": b},
+        {"name": b, "price": b, "image": b}
+    ]
+    return JsonResponse(a, safe=False)

@@ -8,7 +8,7 @@
             <div class="table-responsive">
                 {% if products %}
                     {% csrf_token %}
-                    <table id="og-cart" class="table table-striped" cart="{{ cart_id }}">
+                    <table id="og-cart" class="table table-striped" cart="{{ cart_id }}" qty-url="{% url 'change-quantity' %}" trash-url="{% url 'delete-from-cart' %}">
                         <thead>
                             <tr>
                                 <th scope="col" class="d-none d-md-table-cell">Mynd</th>
