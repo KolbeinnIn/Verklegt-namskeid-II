@@ -1,0 +1,44 @@
+<tr><th><label for="id_name">Name:</label></th><td><input type="text" name="name" value="ananas" class="form-control" maxlength="255" required id="id_name"></td></tr>
+<tr><th><label for="id_manufacturer">Manufacturer:</label></th><td><input type="text" name="manufacturer" value="Sony" class="form-control" maxlength="255" id="id_manufacturer"></td></tr>
+<tr><th><label for="id_URL_keyword">URL keyword:</label></th><td><input type="text" name="URL_keyword" value="ananas" class="form-control" maxlength="255" id="id_URL_keyword"></td></tr>
+<tr><th><label for="id_P_EAN">P EAN:</label></th><td><input type="text" name="P_EAN" value="1234567890129" class="form-control" maxlength="255" required id="id_P_EAN"></td></tr>
+<tr><th><label for="id_quantity">Quantity:</label></th><td><input type="number" name="quantity" value="2" class="form-control" required id="id_quantity"></td></tr>
+<tr><th><label for="id_price">Price:</label></th><td><input type="number" name="price" value="2000000" class="form-control" required id="id_price"></td></tr>
+<tr><th><label for="id_discount">Discount:</label></th><td><input type="number" name="discount" value="0.0" class="form-control" step="any" id="id_discount"></td></tr>
+<tr><th><label for="id_description">Description:</label></th><td><input type="text" name="description" class="form-control" maxlength="1024" id="id_description"></td></tr>
+<tr><th><label for="id_status">Status:</label></th><td><select name="status" class="form-control" id="id_status">
+  <option value="True" selected>Enabled</option>
+
+  <option value="False">Disabled</option>
+
+</select></td></tr>
+<tr><th><label for="id_category">Category:</label></th><td><select name="category" class="form-control" required id="id_category" multiple>
+  <option value="48">Aukahlutir &gt; asdasd</option>
+
+  <option value="49">Leikjatölvur &gt; Playstation &gt; sub sub</option>
+
+  <option value="50">Leikjatölvur &gt; Playstation &gt; test-sub</option>
+
+  <option value="51">Leikjatölvur &gt; sub-leikjatolvur</option>
+
+  <option value="4" selected>Aukahlutir</option>
+
+  <option value="3">Leikir</option>
+
+  <option value="1">Leikjatölvur</option>
+
+  <option value="5">Leikir &gt; Playstation</option>
+
+  <option value="2">Leikjatölvur &gt; Playstation</option>
+
+  <option value="45">Aukahlutir &gt; stýripinnar</option>
+
+  <option value="46">Leikjatölvur &gt; Playstation &gt; test</option>
+
+  <option value="53">Aukahlutir &gt; asdasd &gt; blabla</option>
+
+  <option value="52">Leikir &gt; Playstation2</option>
+
+  <option value="47">Aukahlutir &gt; blabla</option>
+
+</select></td></tr>
