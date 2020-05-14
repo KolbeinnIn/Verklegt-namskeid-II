@@ -158,22 +158,80 @@ function update_qty(cart_id, cart_item_id, quantity, url){
 function recieve_updated_cart(){
     $.ajax("/recieve-updated-cart", {
         type: 'GET',
-        success: function(obj){
-            console.log(obj)
-            for (let i of obj){
-                console.log(i.name);
-            }
-        }
+        success: create_review_table
     })
 }
 
+function create_review_table(products){
+    let table = $("#review-table")
+    let total = 0
+    for (let i of products){
+        let tr = $(document.createElement("tr"))
+        tr.addClass("col-12 align-items-center")
+
+        let td_img = $(document.createElement("td"))
+        td_img.addClass("d-none d-sm-table-cell py-1 text-center")
+        let img = $(document.createElement("img"))
+        img.attr("src", i.image)
+        img.addClass("small_image_thumbnail")
+        td_img.append(img)
+        tr.append(td_img)
+
+        let td_name = $(document.createElement("td"))
+        td_name.text(i.name)
+        tr.append(td_name)
+
+
+        let td_qty = $(document.createElement("td"))
+        let p_qty = $(document.createElement("p"))
+        p_qty.addClass("text-center")
+        p_qty.text(i.quantity)
+        td_qty.append(p_qty)
+        tr.append(td_qty)
+
+        let td_price = $(document.createElement("td"))
+        td_price.addClass("text-center")
+        let price = i.quantity * i.price
+        total = total+price
+        td_price.text(price.toString()+" kr")
+        tr.append(td_price)
+        table.append(tr)
+    }
+    let new_tr = $(document.createElement("tr"))
+    new_tr.addClass("col-12")
+
+    let filler_td = $(document.createElement("td"))
+    filler_td.addClass("d-none d-sm-table-cell")
+
+    let samtals_td = $(document.createElement("td"))
+    samtals_td.addClass("text-right pr-0")
+    let stronk = $(document.createElement("strong"))
+    stronk.text("Samtals:")
+    samtals_td.append(stronk)
+
+    let total_td = $(document.createElement("td"))
+    total_td.addClass("text-center pr-0")
+    let total_stronk = $(document.createElement("strong"))
+    total_stronk.addClass("text-right")
+    total_stronk.text(total.toString()+ " kr")
+    total_td.append(total_stronk)
+
+
+    new_tr.append(filler_td)
+    new_tr.append(document.createElement("td"))
+    new_tr.append(samtals_td)
+    new_tr.append(total_td)
+    table.append(new_tr)
+}
+
 nextBtn = $('.nextBtn')[0].addEventListener("click", recieve_updated_cart)
-console.log(nextBtn)
 
 
 
-/*
+
 $($('input[id^="quantity-"]')[0]).change(function(e){
+    e.preventDefault()
+    /*
     let qty = get_qty($(this))
     let quantity = parseInt(qty.value);
     let table = $($(this).closest("table")[0])
@@ -181,6 +239,6 @@ $($('input[id^="quantity-"]')[0]).change(function(e){
     let url = table.attr("qty-url")
     let cart_item_id = $($(this).closest("tr")[0]).attr("cart-item");
     update_qty(cart, cart_item_id, qty.value, url)
+    */
 
 });
-*/
