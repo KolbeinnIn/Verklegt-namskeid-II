@@ -1,7 +1,6 @@
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from CC.models import Product, Cart, CartItem, Order
-from app.cart import calculate_cart_quantity
 from user.models import profile_info
 
 

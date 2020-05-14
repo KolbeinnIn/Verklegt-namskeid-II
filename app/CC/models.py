@@ -131,14 +131,6 @@ class Product(models.Model, URL):
         self.save()
 
 
-class Shipping(models.Model):
-    type = models.CharField(max_length=100)
-
-
-class OrderStatus(models.Model):
-    status = models.CharField(max_length=100)
-
-
 class Cart(models.Model):
     session_id = models.CharField(max_length=999, blank=True, null=True)
     person_info = models.ForeignKey(profile_info, on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -154,6 +146,5 @@ class CartItem(models.Model):
 
 class Order(models.Model):
     total = models.IntegerField()
+    shipping = models.CharField(max_length=50)
     cart = models.ForeignKey(Cart, on_delete=models.DO_NOTHING)
-    shipping = models.ForeignKey(Shipping, on_delete=models.DO_NOTHING)
-    status = models.ForeignKey(OrderStatus, on_delete=models.DO_NOTHING)
