@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from staff.forms.product_form import ProductCreateForm, CategoryCreateForm
-from CC.models import Image, Category, Product, Order
+from CC.models import Image, Category, Product
 from django.contrib.auth.models import User
 from staff.forms.staff_register_form import RegisterStaffForm
 from user.forms.user_register_form import RegisterCustomerForm
@@ -55,18 +55,23 @@ def create_product(request):
                 return redirect("view_all_products")
         else:
             form = ProductCreateForm()
-        formList = []
-        labelList = []
-        infoBreaker = 4
-        for item in form:
-            formList.append(item)
-            labelList.append(item.label)
+        formList, labelList, infoBreaker = splitForm(form)
         return render(request, "staff/create_product.html", {'generalInfo': formList[:infoBreaker]
-                                                            ,'moreInfo': formList[infoBreaker:]
+                                                            ,'moreInfo': formList[infoBreaker:-1],
+                                                             'image': formList[-1]
                                                             , 'Title': 'Búa til vöru',
                                                             'path': 'create_product', 'slug': ''})
     else:
         return redirect("login_staff")
+
+def splitForm(form):
+    formList = []
+    labelList = []
+    infoBreaker = 4
+    for item in form:
+        formList.append(item)
+        labelList.append(item.label)
+    return [formList, labelList, infoBreaker]
 
 
 def update_product(request, slug):
@@ -87,9 +92,14 @@ def update_product(request, slug):
                 return redirect("view_all_products")
         else:
             form = ProductCreateForm(instance=product)
-        return render(request, "staff/create_product.html", {'form': form, 'Title': 'Breyta upplýsingum',
-                                                             'images': product.image.all(), 'path': 'update_product',
-                                                             'slug': slug})
+        formList, labelList, infoBreaker = splitForm(form)
+        return render(request, "staff/create_product.html", {'generalInfo': formList[:infoBreaker]
+                                                            ,'moreInfo': formList[infoBreaker:-1],
+                                                             'images': product.image.all()
+                                                            , 'Title': 'Breyta upplýsingum',
+                                                            'path': 'update_product', 'slug': slug})
+
+
     else:
         return redirect("login_staff")
 
@@ -247,8 +257,3 @@ def update_customer(request, slug):
     return render(request, "staff/update_customer.html", {
         "customer": customer
     })
-
-
-def view_all_orders(request):
-    orders = Order.objects.all()
-    return render(request, "staff/view_all_orders.html", {'orders': orders})
