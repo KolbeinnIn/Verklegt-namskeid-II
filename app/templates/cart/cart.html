@@ -6,67 +6,78 @@
     <div class="row">
         <div class="col-12">
             <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="d-none d-md-block">Mynd</th>
-                            <th scope="col">Nafn</th>
-                            <th scope="col">Magn</th>
-                            <th scope="col">Verð</th>
-                            <th scope="col">Eyða</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Setja for loop frá hér -->
-                        <tr class="col-12">
-                            <td class="d-none d-md-block">
-                                <img src="https://dummyimage.com/50x50/55595c/fff"/>
-                            </td>
-                            <td>{{ name }}</td>
-                            <td>
-                                <div class="input-group ">
-                                    <span class="input-group-btn d-none d-md-block">
-                                        <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">-</button>
-                                    </span>
-                                    <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="{{ amount }}">
-                                    <span class="input-group-btn d-none d-md-block">
-                                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">+</button>
-                                    </span>
-                                </div>
-                            </td>
-                            <td>{{ price }} kr</td>
-                            <td><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
-                        </tr>
-                        <!-- Til hér -->
-                        <tr class="column">
-                            <td></td>
-                            <td>
-                                <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
-                                  <label class="form-check-label" for="inlineRadio1">Sótt</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                  <label class="form-check-label" for="inlineRadio2">Heimsending</label>
-                                </div>
-                            </td>
-                            <td></td>
-                            <td class="column">
-                                <strong>Verð</strong>
-                                <strong class="text-right">{{ total }} kr</strong>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                {% if products %}
+                    {% csrf_token %}
+                    <table id="og-cart" class="table table-striped" cart="{{ cart_id }}">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="d-none d-md-table-cell">Mynd</th>
+                                <th scope="col">Nafn</th>
+                                <th scope="col">Magn</th>
+                                <th scope="col">Verð</th>
+                                <th scope="col">Eyða</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Setja for loop frá hér -->
+                            {% for product, image in products.items %}
+                                <tr class="col-12" unit-price="{{ product.unit_price }}" prod-id="{{ product.prod_id }}" cart-item="{{ product.id }}">
+                                    <td class="d-none d-md-block align-self-center py-1">
+                                        <img class="small_image_thumbnail" alt="" src="{{ image }}"/>
+                                    </td>
+                                    <td class="align-self-center">{{ product.prod_name }}</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <span class="input-group-btn d-none d-md-block">
+                                                <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">-</button>
+                                            </span>
+                                            <input type="text" id="quantity-{{ product.prod_id }}" name="quantity" class="quantity form-control input-number" value="{{ product.quantity }}" min="1" max="1000">
+                                            <span class="input-group-btn d-none d-md-block">
+                                                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">+</button>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="align-self-center">{% widthratio product.quantity 1 product.unit_price %} kr</td>
+                                    <td class="align-self-center"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></td>
+                                </tr>
+                            {% endfor %}
+                            <!-- Til hér -->
+                            <tr class="column">
+                                <td class="d-none d-md-table-cell"></td>
+                                <td>
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+                                      <label class="form-check-label" for="inlineRadio1">Sótt</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                      <label class="form-check-label" for="inlineRadio2">Heimsending</label>
+                                    </div>
+                                </td>
+                                <td class="text-right pr-0">
+                                    <strong>Samtals:</strong>
+                                </td>
+                                <td colspan="2" class="column text-left">
+                                    <strong class="text-right">{{ total }} kr</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                {% else %}
+                <h2>Karfan er tóm</h2>
+                {% endif %}
             </div>
         </div>
         <div class="col mb-2">
             <div class="row">
+                <!--div class="col-12 text-center">
+                    <button class="btn border yellow-background">Vista körfu</button>
+                </div-->
                 <div class="col-sm-12 col-md-6 text-center">
-                    <a class="btn btn-primary text-center text-dark yellow-background" href="/" role="button">Aftur á forsíðu</a>
+                    <a class="btn border text-center text-dark yellow-background" href="/" role="button">Aftur á forsíðu</a>
                 </div>
                 <div class="col-sm-12 col-md-6 text-center">
-                    <a ref="#step-1" class="btn btn-primary text-center text-dark yellow-background nextBtn" type="button">Áfram</a>
+                    <a ref="#step-1" class="btn border text-center text-dark yellow-background nextBtn" type="button">Áfram</a>
                 </div>
             </div>
         </div>

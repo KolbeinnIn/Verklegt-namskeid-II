@@ -67,7 +67,7 @@ def create_cart(request):
             request.session.create()
         # get the session_id and cart associated with it
         session_id = request.session.session_key
-        cart = Cart.objects.filter(session_id=session_id).first()
+        cart = Cart.objects.filter(session_id=session_id).last()
 
     # If cart that we tried to get doesn't exists we need to create it
     if not cart:
