@@ -6,23 +6,46 @@
             <h1 class="col-8 col-md-9">{{ Title }}</h1>
             <a class="col-4 col-md-3 btn bg-danger text-light" href="{% url 'view_all_products' %}"><h5 class="my-2">Til baka</h5></a>
         </div>
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Almenn gögn</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Nánari gögn</a>
+            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Myndir</a>
+          </div>
+        </nav>
+        <form class="form my-5" action="{% if slug %}{% url path slug%}{% else %}{% url path%}{% endif %}" method = "post">
+            {% csrf_token %}
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                  {% for item in generalInfo %}
+                    <label>{{ item.label }}:</label>
+                    {{ item }}
+                  {% endfor %}
+                  <!-- nafn, verð, lýsing, afsláttur, samtals -->
+              </div>
+              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                  {% for item in moreInfo %}
+                    <label>{{ item.label }}:</label>
+                    {{ item }}
+                  {% endfor %}
+                  <!-- Magn, flokkar, ur, strikamerki, staða, framleiðandi -->
+              </div>
+              <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"><label>Images:</label>
+                <div id = "image_input" class="row mx-0">
+                    {% for img in images %}
+                        <img class="col-2 staff_product_img mt-2 align-self-center" src="{{ img.relative_path }}"/>
+                    {% endfor %}
+                </div>
+                <button type="button" class="col" onclick="create_img_input()">+</button>
+              </div>
+            </div>
+            <input type="submit" class="bg-success float-right py-3 px-4 mx-5 mt-3" value="Vista vöru">
+        </form>
         {% if path == 'update_product' %}
         <a href={% url 'delete_product' slug %}>
             <button type="button" class="btn bg-danger text-light">Eyða vöru </button>
         </a>
         {% endif %}
-        <form class="form my-5" action="{% if slug %}{% url path slug%}{% else %}{% url path%}{% endif %}" method = "post">
-            {% csrf_token %}
-            {{ form }}
-            <label>Images:</label>
-            <div id = "image_input" class="row mx-0">
-                {% for img in images %}
-                    <img class="col-2 staff_product_img mt-2 align-self-center" src="{{ img.relative_path }}"/>
-                {% endfor %}
-            </div>
-            <button type="button" class="col" onclick="create_img_input()">+</button>
-            <input type="submit" class="bg-success float-right py-3 px-4 mx-5 mt-3" value="Vista vöru">
-        </form>
     </div>
 
     <div class="p-5"></div>
