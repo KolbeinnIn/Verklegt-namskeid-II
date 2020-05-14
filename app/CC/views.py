@@ -45,6 +45,7 @@ def add_item_to_cart(request):
         cart_item.prod_name = product.name
         cart_item.unit_price = product.total
         cart_item.save()
+        request.session['cart_quantity'] += int(quantity)
         return redirect("/vara/" + product.URL_keyword)
     else:
         # Item dosnt exist so we send them to the front page
@@ -67,7 +68,7 @@ def create_cart(request):
             request.session.create()
         # get the session_id and cart associated with it
         session_id = request.session.session_key
-        cart = Cart.objects.filter(session_id=session_id).first()
+        cart = Cart.objects.filter(session_id=session_id).last()
 
     # If cart that we tried to get doesn't exists we need to create it
     if not cart:
