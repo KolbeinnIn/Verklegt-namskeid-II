@@ -53,13 +53,16 @@ function get_personal_info(){
         ["Country",country[country.value].textContent],
     ]
     for (let i of info_list){
-        info_piece = create_elem(i[0], i[1])
+        let info_piece = create_elem(i[0], i[1])
         sth.append(info_piece)
     }
+
+    let cart_id = $("#og-cart")[0].getAttribute("cart")
+    update_personal_info(cart_id, info_list)
 }
 
-function get_payment_info(card){
 
+function get_payment_info(card){
     let sth = $("#payment_info_review")
     sth.children("p").remove()
     let last_digits = card.substr(card.length-4)
@@ -74,39 +77,23 @@ function get_payment_info(card){
         let info_piece = create_elem(i[0], i[1])
         sth.append(info_piece)
     }
+
 }
-
-
 
 let first_btn = $('a[ref="#step-1"]')[0]
 
-
-$('.quantity-right-plus').click(function(e){
-    e.preventDefault();
-
-    let qty = get_qty($(this))
-    let quantity = parseInt(qty.value);
-    let table = $($(this).closest("table")[0])
-    let cart = table.attr("cart");
-    let url = table.attr("qty-url")
-    let cart_item_id = $($(this).closest("tr")[0]).attr("cart-item");
-
-    if(quantity<1000){
-        qty.value = quantity + 1;
-        update_qty(cart, cart_item_id, qty.value, url)
-    }
-    else{
-        qty.value = 1000;
-    }
-
-});
-
-$('.quantity-left-minus').click(function(e){
-
-});
-
-function get_qty(item){
-    return item.parent().parent().children('input[id^="quantity-"]')[0]
+function update_personal_info(cart_id, info_list){
+    let csrf = $('[name="csrfmiddlewaretoken"]')[0].value;
+    $.ajax(url, {
+        type: 'POST',
+        headers: {
+            'X-CSRFToken': csrf
+        },
+        data: {
+            "cart_id": cart_id,
+            "personal_info": info_list
+        },
+    })
 }
 
 function update_qty(cart_id, cart_item_id, quantity, url){
@@ -121,12 +108,11 @@ function update_qty(cart_id, cart_item_id, quantity, url){
             "cart_item_id": cart_item_id,
             "quantity": quantity
         },
-        success: function(obj){
-            console.log("ayy lmao", obj)
+        success: function(){
+            console.log("Ayy lmao")
         }
     })
 }
-
 
 function recieve_updated_cart(){
     $.ajax("/recieve-updated-cart", {
@@ -197,13 +183,12 @@ function create_review_table(products){
     table.append(new_tr)
 }
 
-nextBtn = $('.nextBtn')[0].addEventListener("click", recieve_updated_cart)
+$('.nextBtn')[0].addEventListener("click", recieve_updated_cart)
 
 
-$($('input[id^="quantity-"]')[0]).change(function(e){
-    e.preventDefault()
-    let qty = get_qty($(this))
-    console.log("lala", qty)
+function change_qty(e){
+    let qty = $(this)[0]
+    let row = $(qty).closest("tr")
     let quantity = parseInt(qty.value);
     let table = $($(this).closest("table")[0])
     let cart = table.attr("cart");
@@ -211,6 +196,39 @@ $($('input[id^="quantity-"]')[0]).change(function(e){
     let cart_item_id = $($(this).closest("tr")[0]).attr("cart-item");
     if(quantity>1){
             qty.value = quantity;
-            update_qty(cart, cart_item_id, qty.value, url)
+    }
+    if(quantity > 1000){
+            qty.value = 1000;
+    }
+    if (quantity < 1){
+            qty.value = 1;
+    }
+    console.log("for inn")
+    update_qty(cart, cart_item_id, qty.value, url)
+    update_total(row, qty.value);
+}
+
+let qty_input = ($('input[id^="quantity-"]'))
+
+qty_input.keydown(function(e) {
+    var keycode = (e.keyCode ? e.keyCode : e.which);
+    if(keycode === 13){
+        e.preventDefault()
     }
 });
+
+qty_input.change(change_qty);
+
+
+function update_total(row, qty){
+    let unit_price = parseInt(row.attr("unit-price"))
+    let new_price = unit_price*qty
+    let price_str = row.find(".price")[0].textContent
+    let price = parseInt(price_str.substring(0, price_str.length-3));
+    row.find(".price")[0].textContent = new_price.toString() + " kr"
+    let total_str = $("#cart-total")[0]
+    let total = parseInt(total_str.textContent.substring(0, total_str.textContent.length-3));
+    total_str.textContent = ((total-price)+new_price).toString() + " kr"
+    console.log(total_str.textContent)
+    console.log(total, price, new_price, (total-price)+new_price)
+}
