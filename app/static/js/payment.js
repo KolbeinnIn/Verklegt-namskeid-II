@@ -43,14 +43,32 @@ function get_personal_info(){
     let sth = $("#personal_info_review")
     sth.children("p").remove()
     let country = document.getElementById("id_country")
+    let fn = document.getElementById("id_first_name").value
+    let ln = document.getElementById("id_last_name").value
+    let phone = document.getElementById("id_phone_nr").value
+    let city = document.getElementById("id_city").value
+    let address = document.getElementById("id_address").value
+    let zip = document.getElementById("id_zip_code").value
+    let country_str = country[country.value].textContent
+
+    let info_obj = {
+        "first_name":fn,
+        "last_name": ln,
+        "phone":phone,
+        "city": city,
+        "address": address,
+        "zip":zip,
+        "country": country_str
+    }
+
     let info_list = [
-        ["First name",document.getElementById("id_first_name").value],
-        ["Last name",document.getElementById("id_last_name").value],
-        ["Phone",document.getElementById("id_phone_nr").value],
-        ["City",document.getElementById("id_city").value],
-        ["Address",document.getElementById("id_address").value],
-        ["Zip code",document.getElementById("id_zip_code").value],
-        ["Country",country[country.value].textContent],
+        ["First name",fn],
+        ["Last name",ln],
+        ["Phone",phone],
+        ["City", city],
+        ["Address",address],
+        ["Zip code",zip],
+        ["Country",country_str],
     ]
     for (let i of info_list){
         let info_piece = create_elem(i[0], i[1])
@@ -60,7 +78,8 @@ function get_personal_info(){
     let og_cart = $("#og-cart")[0]
     let cart_id = og_cart.getAttribute("cart")
     let url = og_cart.getAttribute("person-info")
-    update_personal_info(cart_id, info_list, url)
+    console.log(info_obj)
+    update_personal_info(cart_id, info_obj, url)
 }
 
 
