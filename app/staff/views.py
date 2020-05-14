@@ -55,8 +55,16 @@ def create_product(request):
                 return redirect("view_all_products")
         else:
             form = ProductCreateForm()
-        return render(request, "staff/create_product.html", {'form': form, 'Title': 'Búa til vöru',
-                                                             'path': 'create_product', 'slug': ''})
+        formList = []
+        labelList = []
+        infoBreaker = 4
+        for item in form:
+            formList.append(item)
+            labelList.append(item.label)
+        return render(request, "staff/create_product.html", {'generalInfo': formList[:infoBreaker]
+                                                            ,'moreInfo': formList[infoBreaker:]
+                                                            , 'Title': 'Búa til vöru',
+                                                            'path': 'create_product', 'slug': ''})
     else:
         return redirect("login_staff")
 
