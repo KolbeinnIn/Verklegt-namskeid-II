@@ -67,7 +67,6 @@ def update_product(request, slug):
         if request.method == 'POST':
             form = ProductCreateForm(data=request.POST)
             if form.is_valid():
-                print(form)
                 product = form.save(commit=False)
                 product.id = slug
                 images = dict(request.POST)['image']

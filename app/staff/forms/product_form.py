@@ -20,6 +20,8 @@ class ProductCreateForm(ModelForm):
             'status': 'Staða',
             'category': 'Flokkar',
         }
+        fields = ['name', 'description', 'price', 'discount', 'manufacturer', 'P_EAN', 'quantity', 'URL_keyword',
+                  'status', 'category']
         widgets = {
             'name': widgets.TextInput(attrs={'class': 'form-control'}),
             'manufacturer': widgets.TextInput(attrs={'class': 'form-control'}),
@@ -29,7 +31,7 @@ class ProductCreateForm(ModelForm):
             'price': widgets.NumberInput(attrs={'class': 'form-control'}),
             'discount': widgets.NumberInput(attrs={'class': 'form-control'}),
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
-            'status': widgets.Select(attrs={'class': 'form-control'}, choices=[(True, 'Enabled'), (False, 'Disabled')]),
+            'status': widgets.Select(attrs={'class': 'form-control'}, choices=[(True, 'Virkt'), (False, 'Óvirkt')]),
             'category': widgets.SelectMultiple(attrs={'class': 'form-control'})
         }
 
@@ -38,9 +40,15 @@ class CategoryCreateForm(ModelForm):
     class Meta:
         model = Category
         exclude = ['id', 'full_name']
+        labels = {
+            'name': 'Nafn',
+            'status': 'Staða',
+            'URL_keyword': 'URL',
+            'parent': 'Yfirflokkur'
+        }
         widgets = {
             'name': widgets.TextInput(attrs={'class': 'form-control'}),
-            'status': widgets.Select(attrs={'class': 'form-control'}, choices=[(True, 'Enabled'), (False, 'Disabled')]),
+            'status': widgets.Select(attrs={'class': 'form-control'}, choices=[(True, 'Virkt'), (False, 'Óvirkt')]),
             'URL_keyword': widgets.TextInput(attrs={'class': 'form-control'}),
             'parent': widgets.Select(attrs={'class': 'form-control'})
         }
