@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from CC.models import CartItem, Product
 from CC.views import create_cart
@@ -14,10 +15,14 @@ def index(request):
     prod_dict = {}
     total = 0
     for item in products:
-        actual_product = get_object_or_404(Product, pk=item.prod_id)
-        image = actual_product.image.first()
-        prod_dict[item] = image.relative_path
-        total += (item.unit_price*item.quantity)
+        # Try except ef varan er ekki til þá eyða henni úr cart items
+        try:
+            actual_product = get_object_or_404(Product, pk=item.prod_id)
+            image = actual_product.image.first()
+            prod_dict[item] = image.relative_path
+            total += (item.unit_price * item.quantity)
+        except Http404:
+            item.delete()
 
     return render(request, "cart/index.html",
                   context={
@@ -26,8 +31,7 @@ def index(request):
                       "payment_info_form": PaymentInfoForm,
                       "total": total,
                       "cart_id": cart.id,
-                  }
-                  )
+                  })
 
 
 def success(request):
