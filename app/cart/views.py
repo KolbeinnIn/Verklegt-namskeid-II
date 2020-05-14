@@ -1,6 +1,6 @@
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
-from CC.models import CartItem, Product
+from CC.models import CartItem, Product, Order
 from CC.views import create_cart
 from cart.forms.cart_forms import PersonalInfoForm, PaymentInfoForm
 from user.models import profile_info
@@ -35,5 +35,22 @@ def index(request):
 
 
 def success(request):
+    # shipping = request.POST.get("shipping")
+    cart = create_cart(request)
+    cart_items = list(CartItem.objects.filter(cart=cart))
 
-    return render(request, "cart/success.html", context={"email": "icehot1@hotmail.com"})
+    # Check if there are any products in the cart
+    if cart_items:
+        # Get the total amount for products in cart
+        total = 0
+        for item in cart_items:
+            total += (item.unit_price * item.quantity)
+
+        # Create order with given parameters
+        order = Order()
+        order.cart = cart
+        order.total = total
+        # order.shipping = shipping
+        order.shipping = "Sótt"
+        order.save()
+    return render(request, "cart/success.html")

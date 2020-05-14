@@ -138,3 +138,7 @@ def recieve_updated_cart(request):
         cart_item = {"name": item.prod_name, "quantity": item.quantity, "price": item.unit_price, "image": image.relative_path}
         updated_cart.append(cart_item)
     return JsonResponse(updated_cart, safe=False)
+
+
+def update_create_person_info(request):
+    return HttpResponse("Update/create successful")
