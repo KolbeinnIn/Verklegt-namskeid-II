@@ -9,7 +9,10 @@ def register(request):
     if request.method == "POST":
         form = RegisterCustomerForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            user_info = profile_info()
+            user_info.user = user
+            user_info.save()
             return redirect("login")
         else:
             return render(request, "user/register.html", {

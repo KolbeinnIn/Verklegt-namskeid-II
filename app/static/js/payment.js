@@ -7,14 +7,11 @@ $('#id_card_number').on('keypress change', function () {
 review = document.getElementById("review_btn")
 review.addEventListener("click", function(){
     let number = document.getElementById("id_card_number").value
-
     let name = document.getElementById("id_cardholder_name").value
     let exp = document.getElementById("id_expiration_date").value
     let cvc = document.getElementById("id_cvc").value
-
-    console.log(number)
     number = number.replace(/ /g, '');
-    console.log(number)
+
     let regex = new RegExp("^[0-9]{16}$");
     if (!regex.test(number) || (name === "" || exp === "" || cvc === "")){
         $("#payment_warning").remove()
@@ -27,9 +24,11 @@ review.addEventListener("click", function(){
     else{
         get_personal_info()
         get_payment_info(number)
-        $("#step-3").hide()
-        $("#step-4").show()
+        next_step()
+        $("#payment_warning").remove()
+
     }
+
 })
 
 

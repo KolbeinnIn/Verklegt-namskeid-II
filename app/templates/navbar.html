@@ -4,14 +4,14 @@
         <div id="inner_navbar" class="row w-100 justify-content-center">
             <div class="col-12">
                 <div class="row justify-content-center mx-auto">
-                    <div class="col-12 col-md-3 order-md-1 order-1 text-center">
+                    <div class="col-12 col-md-2 order-md-1 order-1 text-center">
                         <a href="/">
                             <img src="{% static 'images/logo.png' %}" class="main_logo rounded-lg" alt="Captain Console logo">
                         </a>
                     </div><!--Logo-->
-                    <div class="col-12 col-md-6 order-md-2 order-3 align-self-center px-0 px-md-3">
+                    <div class="col-12 col-md-7 order-md-2 order-3 align-self-center px-0 px-md-3">
                         <div class="row mx-auto justify-content-between justify-content-md-start px-sm-4">
-                            <div class="col-10 col-md-11 align-self-center pl-0">
+                            <div class="col-10 col-md-12 align-self-center px-0">
                                 <form action="{% url 'leit' %}">
                                     <div class="input-group">
                                         <input class="form-control border-dark border-right-0" type="text" placeholder="Leita..." name="leit" aria-label="Search">
@@ -37,12 +37,12 @@
                             <div class="col-6 col-md-8 text-center p-0">
                                     <a href="{% url 'profile' %}">
                                     <div class="row">
-                                        <div class="col-12 col-md-3">
+                                        <div class="col-12 col-md-3 px-0">
                                             <svg class="bi bi-person icon account-icon" viewBox="0 0 16 16" fill="yellow" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 00.014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 00.022.004zm9.974.056v-.002.002zM8 7a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0z" clip-rule="evenodd"/>
                                             </svg>
                                         </div>
-                                        <div class="text-left align-self-center text-dark col-md d-none d-md-block">
+                                        <div class="text-left align-self-center text-dark col-md d-none d-md-block px-0">
                                             {% if user.is_authenticated %}
                                                 {{ user.username }}
                                             {% else %}
@@ -53,11 +53,14 @@
                                 </a>
                             </div>
                             <div class="col-6 col-md-4 text-center">
-                                <a href="/cart/" class="">
-                                    <svg class="bi bi-bag icon cart-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                <a href="/cart/" class="row px-0 align-items-center">
+                                    <svg class="bi bi-bag icon cart-icon col px-0" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M14 5H2v9a1 1 0 001 1h10a1 1 0 001-1V5zM1 4v10a2 2 0 002 2h10a2 2 0 002-2V4H1z" clip-rule="evenodd"/>
                                         <path d="M8 1.5A2.5 2.5 0 005.5 4h-1a3.5 3.5 0 117 0h-1A2.5 2.5 0 008 1.5z"/>
                                     </svg>
+                                    {% if request.session.cart_quantity > 0 %}
+                                        <p class="d-inline text-light text-left col px-0 my-0">({{ request.session.cart_quantity }})</p>
+                                    {% endif %}
                                 </a>
                             </div>
                         </div>
