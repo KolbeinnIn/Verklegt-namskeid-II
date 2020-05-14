@@ -6,7 +6,12 @@
             <h1 class="col-8 col-md-9">{{ Title }}</h1>
             <a class="col-4 col-md-3 btn bg-danger text-light" href="{% url 'view_all_products' %}"><h5 class="my-2">Til baka</h5></a>
         </div>
-        <form class="form my-5" action="{% url 'create_product' %}" method = "post">
+        {% if path == 'update_product' %}
+        <a href={% url 'delete_product' slug %}>
+            <button type="button" class="btn bg-danger text-light">Eyða vöru </button>
+        </a>
+        {% endif %}
+        <form class="form my-5" action="{% if slug %}{% url path slug%}{% else %}{% url path%}{% endif %}" method = "post">
             {% csrf_token %}
             {{ form }}
             <label>Images:</label>
@@ -16,7 +21,7 @@
                 {% endfor %}
             </div>
             <button type="button" class="col" onclick="create_img_input()">+</button>
-            <input type="submit" class="bg-success float-right py-3 px-4 mx-5 mt-3" value="Búa til vöru">
+            <input type="submit" class="bg-success float-right py-3 px-4 mx-5 mt-3" value="Vista vöru">
         </form>
     </div>
 

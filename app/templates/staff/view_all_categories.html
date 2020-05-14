@@ -1,0 +1,21 @@
+{% extends "staffbase.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row my-5">
+            <h1 class="col-8 col-md-9">Flokkar</h1>
+            <a class="col-4 col-md-3 btn bg-success text-light" href="{% url 'create_category' %}"><h5 class="my-2">Búa til flokk</h5></a>
+        </div>
+        <div class="row border-bottom border-dark">
+            <h5 class="col-8 border-dark text-weight-bold mb-0 py-2">Nafn</h5>
+            <h5 class="col-3 border-left border-dark text-weight-bold mb-0 py-2">URL</h5>
+            <h5 class="col-1 border-left border-dark text-weight-bold mb-0 py-2">Breyta</h5>
+        </div>
+        {% for cat in category %}
+            <div class="row border-bottom border-dark">
+                <p class="col-8 mb-0 py-3">{{ cat }}</p>
+                <p class="col-3 border-left border-dark mb-0 py-3">{{ cat.URL_keyword }}</p>
+                <a class="col-1 border-left border-dark text-dark" href="{%url 'update_category' cat.id %}"><span class="fas fa-pencil-alt my-4 mx-md-4"></span></a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

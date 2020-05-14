@@ -30,8 +30,16 @@ def dashboard(request):
 
 
 def products(request):
-    product = Product.objects.all()
+    product = Product.objects.all().order_by("name")
     return render(request, "staff/view_all_products.html", {'products': product})
+
+# HELPER CLASS MOVE LATER
+def create_images_product(images, product):
+    for img in images:
+        if img != '':
+            image = Image(name='Placeholder', relative_path=img)
+            image.save()
+            product.image.add(image)
 
 
 def create_product(request):
@@ -42,15 +50,13 @@ def create_product(request):
                 product = form.save()
                 product.initialize()
                 images = dict(request.POST)['image']
-                for img in images:
-                    if img != '':
-                        image = Image(name='Placeholder', relative_path=img)
-                        image.save()
-                        product.image.add(image)
+                create_images_product(images, product)
+                product.save()
                 return redirect("view_all_products")
         else:
             form = ProductCreateForm()
-        return render(request, "staff/create_product.html", {'form': form, 'Title': 'Búa til vöru'})
+        return render(request, "staff/create_product.html", {'form': form, 'Title': 'Búa til vöru',
+                                                             'path': 'create_product', 'slug': ''})
     else:
         return redirect("login_staff")
 
@@ -61,14 +67,37 @@ def update_product(request, slug):
         if request.method == 'POST':
             form = ProductCreateForm(data=request.POST)
             if form.is_valid():
-
+                product = form.save(commit=False)
+                product.id = slug
+                images = dict(request.POST)['image']
+                old_images = product.image.all()
+                for img in old_images:
+                    img.delete()
+                product.save()
+                create_images_product(images, product)
+                product.initialize()
                 return redirect("view_all_products")
         else:
             form = ProductCreateForm(instance=product)
         return render(request, "staff/create_product.html", {'form': form, 'Title': 'Breyta upplýsingum',
-                                                             'images': product.image.all()})
+                                                             'images': product.image.all(), 'path': 'update_product',
+                                                             'slug': slug})
     else:
         return redirect("login_staff")
+
+
+def delete_product(request, slug):
+    product = Product.objects.get(id=slug)
+    images = product.image.all()
+    for img in images:
+        img.delete()
+    product.delete()
+    return redirect("view_all_products")
+
+
+def categories(request):
+    category = Category.objects.all().order_by("full_name")
+    return render(request, "staff/view_all_categories.html", {'category': category})
 
 
 def create_category(request):
@@ -78,12 +107,29 @@ def create_category(request):
             if form.is_valid():
                 category = form.save()
                 category.initialize()
-                return redirect('/')
+                return redirect('view_all_categories')
         else:
             form = CategoryCreateForm()
-        return render(request, "staff/create_category.html", {
-            'form': form
-        })
+        return render(request, "staff/create_category.html", {'form': form, 'path': 'create_category',
+                                                              'Title': 'Búa til flokk'})
+    else:
+        return redirect("login_staff")
+
+
+def update_category(request, slug):
+    if request.user.is_staff or request.user.is_superuser:
+        category = Category.objects.get(id=slug)
+        if request.method == 'POST':
+            form = CategoryCreateForm(data=request.POST)
+            if form.is_valid():
+                category = form.save(commit=False)
+                category.id = slug
+                category.initialize()
+                return redirect('view_all_categories')
+        else:
+            form = CategoryCreateForm(instance=category)
+        return render(request, "staff/create_category.html", {'form': form, 'slug': slug, 'path': 'update_category',
+                                                              'Title': 'Uppfæra flokk'})
     else:
         return redirect("login_staff")
 
