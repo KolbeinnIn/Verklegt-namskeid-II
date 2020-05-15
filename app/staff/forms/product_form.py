@@ -6,6 +6,9 @@ from CC.models import Product, Category
 class ProductCreateForm(ModelForm):
     image = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control col-9 form-control mt-2 align-self-center', 'id': '0', 'oninput': 'load_img(this)'}))
+    cat = Category.objects.all().order_by("full_name")
+
+    category = forms.ModelMultipleChoiceField(queryset=cat, widget=forms.SelectMultiple(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Product
@@ -24,6 +27,7 @@ class ProductCreateForm(ModelForm):
         }
         fields = ['name', 'description', 'price', 'discount', 'manufacturer', 'P_EAN', 'quantity', 'URL_keyword',
                   'status', 'category']
+
         widgets = {
             'name': widgets.TextInput(attrs={'class': 'form-control'}),
             'manufacturer': widgets.TextInput(attrs={'class': 'form-control'}),
@@ -33,8 +37,7 @@ class ProductCreateForm(ModelForm):
             'price': widgets.NumberInput(attrs={'class': 'form-control'}),
             'discount': widgets.NumberInput(attrs={'class': 'form-control'}),
             'description': widgets.TextInput(attrs={'class': 'form-control'}),
-            'status': widgets.Select(attrs={'class': 'form-control'}, choices=[(True, 'Virkt'), (False, 'Óvirkt')]),
-            'category': widgets.SelectMultiple(attrs={'class': 'form-control'})
+            'status': widgets.Select(attrs={'class': 'form-control'}, choices=[(True, 'Virkt'), (False, 'Óvirkt')])
         }
 
 
