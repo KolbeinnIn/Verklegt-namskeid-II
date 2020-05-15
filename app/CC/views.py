@@ -165,7 +165,6 @@ def update_create_person_info(request):
     person_info_dict = request_body["personal_info"]
     cart_id = int(request_body["cart_id"])
     shipping = request_body["shipping"]
-    print(shipping)
     cart = Cart.objects.get(id=cart_id)
     cart.shipping = shipping
 

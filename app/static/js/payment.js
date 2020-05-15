@@ -4,6 +4,12 @@ $('#id_card_number').on('keypress change', function () {
   });
 });
 
+$('#id_expiration_date').on('keypress change', function () {
+  $(this).val(function (index, value) {
+    return value.replace(/\W/gi, '').replace(/(.{2})/g, '$1 ');
+  });
+});
+
 review = document.getElementById("review_btn")
 review.addEventListener("click", function(){
     //the review-btn is in the payment details part of the site,
@@ -14,23 +20,58 @@ review.addEventListener("click", function(){
     let cvc = document.getElementById("id_cvc").value
     number = number.replace(/ /g, '');
 
+    let og_exp = exp
+    let exp_arr = new Array()
+    exp_arr.push(og_exp.slice(0,2))
+    exp_arr.push(og_exp.slice(3,5))
+
     let regex = new RegExp("^[0-9]{16}$");
-    if (!regex.test(number) || (name === "" || exp === "" || cvc === "")){
+    let correct = false
+    if (!regex.test(number) || (name === "" || og_exp === "" || cvc.toString().length !== 3 || !isInt(cvc))){
         //if the card number is "valid" (16 integers) or any of the other fields are empty then display an error
         $("#payment_warning").remove()
-        let new_warning = document.createElement("div")
-        new_warning.setAttribute("id", "payment_warning")
-        new_warning.setAttribute("class", "alert alert-danger")
-        new_warning.textContent = "Þessar kortaupplýsingar eru ekki gildar!"
-        $("#payment_form_parent").prepend(new_warning);
+        create_error("payment_form_parent")
     }
-    else{ //if everything is A-okay then I write all of the information to the review page and then display it
-        get_personal_info()
-        get_payment_info(number)
-        next_step()
-        $("#payment_warning").remove()
+    else{
+        correct = true
+    }
+    if (correct){
+        if (((parseInt(exp_arr[0]) < 0) || (parseInt(exp_arr[0]) > 31)) || ((parseInt(exp_arr[1]) < 0) || (parseInt(exp_arr[1]) > 12))){
+            $("#payment_warning").remove()
+            create_error("payment_form_parent")
+        }
+        else{ //if everything is A-okay then I write all of the information to the review page and then display it
+            let exp_1 = parseInt(exp_arr[0])
+            let exp_2 = parseInt(exp_arr[1])
+            get_personal_info()
+            get_payment_info(number, exp_1, exp_2)
+            next_step()
+            $("#payment_warning").remove()
+        }
     }
 })
+
+function isInt(num){
+    return !isNaN(num)
+}
+
+function create_error(id){
+    let elem = $("#"+id)
+    let new_warning = document.createElement("div")
+    new_warning.setAttribute("id", "payment_warning")
+    new_warning.setAttribute("class", "alert alert-danger")
+    new_warning.textContent = "Þessar kortaupplýsingar eru ekki gildar!"
+    elem.prepend(new_warning);
+}
+
+function create_person_error(){
+    let elem = $("#personal_info_form")
+    let new_warning = document.createElement("div")
+    new_warning.setAttribute("id", "payment_warning")
+    new_warning.setAttribute("class", "alert alert-danger")
+    new_warning.textContent = "Þetta símanúmer er ekki gilt!"
+    elem.prepend(new_warning);
+}
 
 function create_elem(name, inner){ //just to create the elements that display the payment and personal information
     let new_elem = document.createElement("p")
@@ -74,7 +115,6 @@ function get_personal_info(){ //writes the personal info on the review page
         let info_piece = create_elem(i[0], i[1])
         sth.append(info_piece)
     }
-
     let og_cart = $("#og-cart")[0]
     let cart_id = og_cart.getAttribute("cart")
     let url = og_cart.getAttribute("person-info")
@@ -82,7 +122,7 @@ function get_personal_info(){ //writes the personal info on the review page
 }
 
 
-function get_payment_info(card){ //writes the payment information on the review page as well as shipping
+function get_payment_info(card, exp_1, exp_2){ //writes the payment information on the review page as well as shipping
     let sth = $("#payment_info_review")
     sth.children("p").remove()
     let last_digits = card.substr(card.length-4)
@@ -90,7 +130,7 @@ function get_payment_info(card){ //writes the payment information on the review 
     let info_list = [
         ["Nafn korthafa",document.getElementById("id_cardholder_name").value],
         ["Kortanúmer",card],
-        ["Gildistími",document.getElementById("id_expiration_date").value],
+        ["Gildistími",exp_1.toString()+" "+exp_2.toString()],
         ["CVC",document.getElementById("id_cvc").value]
     ]
     for (let i of info_list){
@@ -121,6 +161,7 @@ function update_personal_info(cart_id, info_list, url){
         }),
     })
 }
+
 function update_qty(cart_id, cart_item_id, quantity, url){
     let csrf = $('[name="csrfmiddlewaretoken"]')[0].value;
     $.ajax(url, {
@@ -311,7 +352,6 @@ function get_shipping_str(){
         }
     }
 }
-
 
 
 

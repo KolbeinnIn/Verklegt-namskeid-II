@@ -26,6 +26,9 @@ if (!empty){
     allNextBtn.click(next_step);
 }
 
+function get_phone(){
+    return document.getElementById("id_phone_nr")
+}
 
 
 function next_step(){
@@ -33,6 +36,7 @@ function next_step(){
     if (empty){
         return false
     }
+
     let next = get_next_step()
     let $item = $(this);
 
@@ -40,6 +44,14 @@ function next_step(){
     var curStep = $item.closest(".setup-content"),
         curInputs = curStep.find("input[type='text'],select"),
         isValid = true;
+    let step = curStep[0].getAttribute("id")
+    let phone_input = $(get_phone())[0].value
+    if ((step === "step-2") && (phone_input.length < 7)){
+        create_person_error()
+        return false;
+    }
+
+
 
     for(let i=0; i< curInputs.length; i++){
         if (!curInputs[i].validity.valid){

@@ -19,8 +19,8 @@ class ProfileForm(ModelForm):
         widgets = {
             "first_name": widgets.TextInput(attrs={"class": "form-control"}),
             "last_name": widgets.TextInput(attrs={"class": "form-control"}),
-            "image_path": widgets.TextInput(attrs={"class": "form-control"}),
-            "phone_nr": widgets.TextInput(attrs={"class": "form-control"}),
+            "image_path": widgets.TextInput(attrs={"class": "form-control", "placeholder": "https://example.com/image.jpg"}),
+            "phone_nr": widgets.NumberInput(attrs={"class": "form-control"}),
             "city": widgets.TextInput(attrs={"class": "form-control"}),
             "zip_code": widgets.TextInput(attrs={"class": "form-control"}),
             "address": widgets.TextInput(attrs={"class": "form-control"}),

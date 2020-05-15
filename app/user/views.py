@@ -38,9 +38,13 @@ def info(request):
             s = True
             profile = form.save(commit=False)
             profile.user_id = request.user.id
-            profile.save()
+            phone_length = len(str(profile.phone_nr))
+            if phone_length < 7 and phone_length != 0:
+                s = False
+            else:
+                profile.save()
         else:
-            s= False
+            s = False
         return render(request, "user/profile_info.html", {
             "form": ProfileForm(instance=profile), "success": s
         })

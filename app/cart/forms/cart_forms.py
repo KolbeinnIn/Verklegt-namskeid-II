@@ -20,7 +20,7 @@ class PersonalInfoForm(ProfileForm):
         widgets = {
             "first_name": widgets.TextInput(attrs={"class": "form-control", 'required': True}),
             "last_name": widgets.TextInput(attrs={"class": "form-control"}),
-            "phone_nr": widgets.TextInput(attrs={"class": "form-control"}),
+            "phone_nr": widgets.NumberInput(attrs={"class": "form-control"}),
             "city": widgets.TextInput(attrs={"class": "form-control"}),
             "zip_code": widgets.TextInput(attrs={"class": "form-control"}),
             "address": widgets.TextInput(attrs={"class": "form-control"}),
@@ -31,5 +31,5 @@ class PersonalInfoForm(ProfileForm):
 class PaymentInfoForm(forms.Form):
     cardholder_name = forms.CharField(label="Cardholder name", widget=forms.TextInput(attrs={"class": "form-control"}))
     card_number = forms.CharField(label="Card number", widget=forms.TextInput(attrs={"class": "form-control", "value":""}))
-    expiration_date = forms.CharField(label="Exipration date", widget=forms.TextInput(attrs={"class": "form-control"}))
+    expiration_date = forms.CharField(label="Exipration date", widget=forms.TextInput(attrs={"class": "form-control", "placeholder":"DD MM"}))
     cvc = forms.CharField(label="CVC", widget=forms.TextInput(attrs={"class": "form-control"}))
