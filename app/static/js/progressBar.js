@@ -22,6 +22,10 @@ $("#step-1").show()
 
 
 function next_step(){
+    let empty = document.getElementById("empty-cart")
+    if (empty){
+        return false
+    }
     let next = get_next_step()
     let $item = $(this);
 

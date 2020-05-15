@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.urls import path, include
 
+handler404 = 'CC.views.handler404'
+handler500 = 'CC.views.handler500'
 
 urlpatterns = [
     path('', include("CC.urls")),

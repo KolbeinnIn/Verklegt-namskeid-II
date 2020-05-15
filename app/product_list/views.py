@@ -1,12 +1,7 @@
+from django.http import Http404
 from CC.models import Product, Category
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import Http404
 from user.models import SearchHistory
-
-
-def error404(request, exception):
-    print(exception)
-    return render(request, "sida fannst ekki.html")
 
 
 def search(request):
@@ -77,7 +72,7 @@ def _get_sub_categories(category, all):
     return temp_list
 
 
-def get_category_sidebar(all):
+def get_category_sidebar(all):  # used in search
     cat1 = all.get(URL_keyword="leikjatolvur")
     cat2 = all.get(URL_keyword="leikir")
     cat3 = all.get(URL_keyword="aukahlutir")
@@ -91,7 +86,6 @@ def get_category_sidebar(all):
 
 
 def category(request, hierarchy):  # the "hierarchy" parameter needs to be there even though it is not used.
-    get_object_or_404(Category, URL_keyword="k.nasd7ty8")
     categories = request.path_info.split("/")[2:]
     if categories[-1] == "":
         categories = categories[:-1]
@@ -101,7 +95,7 @@ def category(request, hierarchy):  # the "hierarchy" parameter needs to be there
     cat = all.get(URL_keyword=last_url)
 
     if not cat.status:  # if the category is disabled
-        return render(request, "sida fannst ekki.html")
+        return render(request, "404.html")
 
     if _is_complete_url(cat, categories):
 

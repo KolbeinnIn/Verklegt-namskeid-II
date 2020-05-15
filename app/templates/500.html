@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="align-self-center mx-auto row text-center py-5 my-5">
+        <div class="col-12 py-5 my-5">
+        <h3>Úps, eitthvað kom upp og það er ekki þér að kenna</h3>
+        </div>
+        <div class="col-12 mb-5">
+            <a href="{% url "CC-index" %}">
+                <button class="btn yellow-background border">Aftur á forsíðu</button>
+            </a>
+        </div>
+    </div>
+{% endblock%}

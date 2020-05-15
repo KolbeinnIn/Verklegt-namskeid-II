@@ -236,3 +236,48 @@ function update_total(row, qty){
     let total = parseInt(total_str.textContent.substring(0, total_str.textContent.length-3));
     total_str.textContent = ((total-price)+new_price).toString() + " kr"
 }
+
+
+let remove_buttons = $('.remove_item')
+remove_buttons.click(remove_item)
+
+function remove_item(e){
+    e.preventDefault()
+    let button = $(this)
+    let row = button.closest("tr")
+    let table = $("#og-cart")[0]
+    let url = table.getAttribute("trash-url")
+    update_total(row, 0) //update the cart total
+
+    let cart_id = table.getAttribute("cart");
+    let cart_item_id = $($(this).closest("tr")[0]).attr("cart-item");
+
+    remove_item_ajax(cart_id, cart_item_id, url)
+    $(row).remove()
+
+    let children = $($(table)[0]).find("tbody tr").length //get number of rows in the table (products + row that displays total price)
+    if (children === 1){ //=== 1 because cart total will be the only row in the table aka no products in the cart,
+        // then I add an indicator to tell customer that the cart is empty with id = "empty-cart", the id will block the "Áfram" button.
+        let table_parent = $(table).parent()
+        $(table).remove()
+        let empty_cart = document.createElement("h2")
+        $(empty_cart).attr("id", "empty-cart").text("Karfan er tóm")
+        table_parent.append(empty_cart)
+    }
+
+
+}
+
+function remove_item_ajax(cart_id, cart_item_id, url){
+    let csrf = $('[name="csrfmiddlewaretoken"]')[0].value;
+    $.ajax(url, {
+        type: 'POST',
+        headers: {
+            'X-CSRFToken': csrf
+        },
+        data: {
+            "cart_id": cart_id,
+            "cart_item_id": cart_item_id
+        }
+    })
+}
