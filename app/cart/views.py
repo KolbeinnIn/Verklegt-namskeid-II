@@ -35,7 +35,7 @@ def index(request):
 
 
 def success(request):
-    # shipping = request.POST.get("shipping")
+    # Get parameters from request
     cart = create_cart(request)
     cart_items = list(CartItem.objects.filter(cart=cart))
 
@@ -50,7 +50,5 @@ def success(request):
         order = Order()
         order.cart = cart
         order.total = total
-        # order.shipping = shipping
-        order.shipping = "Sótt"
         order.save()
     return render(request, "cart/success.html")

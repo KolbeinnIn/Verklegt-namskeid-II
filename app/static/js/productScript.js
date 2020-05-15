@@ -33,7 +33,6 @@ $(document).ready(function(){
     $('#addCart').click(function(e){
         let quantity = $('#quantity').val();
         let custom = $(this).attr("custom-link") + "&quantity=" + quantity
-        console.log(custom)
         $('#addCart').attr("href", custom);
     });
 });
