@@ -19,7 +19,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Setja for loop frá hér -->
                             {% for product, image in products.items %}
                                 <tr class="col-12" unit-price="{{ product.unit_price }}" prod-id="{{ product.prod_id }}" cart-item="{{ product.id }}">
                                     <td class="d-none d-md-block align-self-center py-1">
@@ -35,7 +34,7 @@
                                     <td class="align-self-center"><button class="btn btn-sm btn-danger remove_item"><i class="fa fa-trash"></i></button></td>
                                 </tr>
                             {% endfor %}
-                            <!-- Til hér -->
+
                             <tr class="column">
                                 <td class="d-none d-md-table-cell"></td>
                                 <td id="shipping">

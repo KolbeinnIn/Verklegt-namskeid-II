@@ -10,24 +10,15 @@ class URL:
         self.replace_with_empty = ['%', '&', "'", '"', '(', ')', ',', '.']
 
     # Make sure the url does not exist. Adds number if url already exists
-    def _does_url_exist_questionmark(self, url):
+    def _does_url_exist_questionmark(self, url, id):
         categories = Category.objects.all()
         products = Product.objects.all()
         i = 0
         while True:
             not_changed = True
             for category in categories:
-                if url == category.URL_keyword:
-                    i += 1
-                    if i > 1:
-                        url = url[:-1] + str(i)
-                    else:
-                        url += "-" + str(i)
-                    not_changed = False
-                    break
-            if not_changed:
-                for product in products:
-                    if url == product.URL_keyword:
+                if int(id) != category.id:
+                    if url == category.URL_keyword:
                         i += 1
                         if i > 1:
                             url = url[:-1] + str(i)
@@ -36,10 +27,21 @@ class URL:
                         not_changed = False
                         break
             if not_changed:
+                for product in products:
+                    if int(id) != product.id:
+                        if url == product.URL_keyword:
+                            i += 1
+                            if i > 1:
+                                url = url[:-1] + str(i)
+                            else:
+                                url += "-" + str(i)
+                            not_changed = False
+                            break
+            if not_changed:
                 break
         return url
 
-    def _make_url(self, name):
+    def _make_url(self, name, id):
         url = name.lower()
         # Replace symbols and icelandic letters
         for x in self.replace_arr:
@@ -48,7 +50,7 @@ class URL:
             url = url.replace(i, '-')
         for y in self.replace_with_empty:
             url = url.replace(y, '')
-        url = self._does_url_exist_questionmark(url)
+        url = self._does_url_exist_questionmark(url, id)
         return url
 
 
@@ -73,9 +75,9 @@ class Category(models.Model, URL):
 
     def check_url(self):
         if self.URL_keyword == "":
-            self.URL_keyword = self._make_url(self.name)
+            self.URL_keyword = self._make_url(self.name, self.id)
         else:
-            self.URL_keyword = self._make_url(self.URL_keyword)
+            self.URL_keyword = self._make_url(self.URL_keyword, self.id)
         self.save()
 
     def __str__(self):
@@ -116,9 +118,9 @@ class Product(models.Model, URL):
 
     def check_url(self):
         if self.URL_keyword == "":
-            self.URL_keyword = self._make_url(self.name)
+            self.URL_keyword = self._make_url(self.name, self.id)
         else:
-            self.URL_keyword = self._make_url(self.URL_keyword)
+            self.URL_keyword = self._make_url(self.URL_keyword, self.id)
         self.save()
 
     def __str__(self):

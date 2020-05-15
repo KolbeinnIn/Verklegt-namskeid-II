@@ -3,7 +3,14 @@ var navListItems = $('div.setup-panel div p:first-child'),
         allNextBtn = $('.nextBtn'),
         allPrevBtn = $('.prevBtn');
 
-allWells.hide();
+allWells.hide(); //because the payment process is a single application with 4 steps, I hide all the steps
+$("#step-1").show() //and only show the first step
+
+//this code is sort of complicated, basically it finds the step that you are currently on using the background of the
+//progress bar at the top
+//The navigation buttons at the bottom "Til baka" and "Áfram"
+
+
 allPrevBtn.click(function(){
     let next = get_next_step()
     let uppi_takki_c = navListItems[next-1]
@@ -18,7 +25,7 @@ let empty = document.getElementById("empty-cart")
 if (!empty){
     allNextBtn.click(next_step);
 }
-$("#step-1").show()
+
 
 
 function next_step(){

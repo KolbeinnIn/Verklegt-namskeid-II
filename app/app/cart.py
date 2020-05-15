@@ -1,6 +1,5 @@
-from CC.models import Cart, CartItem, Order
+from CC.models import CartItem, Order
 from CC.views import create_cart
-from user.models import profile_info
 
 
 def cart_middleware(get_response):

@@ -16,6 +16,7 @@ review.addEventListener("click", function(){
 
     let regex = new RegExp("^[0-9]{16}$");
     if (!regex.test(number) || (name === "" || exp === "" || cvc === "")){
+        //if the card number is "valid" (16 integers) or any of the other fields are empty then display an error
         $("#payment_warning").remove()
         let new_warning = document.createElement("div")
         new_warning.setAttribute("id", "payment_warning")
@@ -23,7 +24,7 @@ review.addEventListener("click", function(){
         new_warning.textContent = "Þessar kortaupplýsingar eru ekki gildar!"
         $("#payment_form_parent").prepend(new_warning);
     }
-    else{
+    else{ //if everything is A-okay then I write all of the information to the review page and then display it
         get_personal_info()
         get_payment_info(number)
         next_step()
@@ -31,7 +32,7 @@ review.addEventListener("click", function(){
     }
 })
 
-function create_elem(name, inner){
+function create_elem(name, inner){ //just to create the elements that display the payment and personal information
     let new_elem = document.createElement("p")
     let inner_elem = document.createElement("b")
     new_elem.textContent = name+": "
@@ -40,7 +41,7 @@ function create_elem(name, inner){
     return new_elem
 }
 
-function get_personal_info(){
+function get_personal_info(){ //writes the personal info on the review page
     let sth = $("#personal_info_review")
     sth.children("p").remove()
     let country = document.getElementById("id_country")
@@ -51,8 +52,7 @@ function get_personal_info(){
     let address = document.getElementById("id_address").value
     let zip = document.getElementById("id_zip_code").value
     let country_str = country[country.value].textContent
-
-    let info_obj = {
+    let info_obj = { //this object gets sent through an ajax request
         "first_name":fn,
         "last_name": ln,
         "phone":phone,
@@ -61,15 +61,14 @@ function get_personal_info(){
         "zip":zip,
         "country": country_str
     }
-
-    let info_list = [
-        ["First name",fn],
-        ["Last name",ln],
-        ["Phone",phone],
-        ["City", city],
-        ["Address",address],
-        ["Zip code",zip],
-        ["Country",country_str],
+    let info_list = [ //this list is used to display the data on the review page
+        ["Fornafn",fn],
+        ["Eftirnafn",ln],
+        ["Sími",phone],
+        ["Borg/bær", city],
+        ["Heimilisfang",address],
+        ["Póstnúmer",zip],
+        ["Land",country_str],
     ]
     for (let i of info_list){
         let info_piece = create_elem(i[0], i[1])
@@ -79,11 +78,11 @@ function get_personal_info(){
     let og_cart = $("#og-cart")[0]
     let cart_id = og_cart.getAttribute("cart")
     let url = og_cart.getAttribute("person-info")
-    update_personal_info(cart_id, info_obj, url)
+    update_personal_info(cart_id, info_obj, url) //this function sends an ajax request to update the personal information associated with the cart
 }
 
 
-function get_payment_info(card){
+function get_payment_info(card){ //writes the payment information on the review page as well as shipping
     let sth = $("#payment_info_review")
     sth.children("p").remove()
     let last_digits = card.substr(card.length-4)
@@ -143,6 +142,7 @@ function recieve_updated_cart(){
     })
 }
 function create_review_table(products){ // Create table from the updated product list that I got from the ajax request
+    //this function looks very long and complicated but it's really not, just takes a list of products displays them on review page
     let table = $("#review-table")
     $(table).find("tbody").empty()
     let total = 0
@@ -203,9 +203,12 @@ function create_review_table(products){ // Create table from the updated product
     table.append(new_tr)
 }
 
+//the first "Áfram" button on the cart page recieves the updated cart through an ajax request and sends the cart to the function above (create_review_table)
 $('.nextBtn')[0].addEventListener("click", recieve_updated_cart)
 
 function change_qty(e){
+    //this function gathers all the required information about the cart and its items and sends ajax request to update the quantity in the database
+    //and of course display the new quantity
     let qty = $(this)[0]
     let row = $(qty).closest("tr")
     let quantity = parseInt(qty.value);
@@ -229,13 +232,17 @@ function change_qty(e){
 let qty_input = ($('input[id^="quantity-"]'))
 
 qty_input.keydown(function(e) {
+    //this is only here because the payment process uses only a single page,
+    //the page has 2 different forms on two different steps (personal info and payment info)
+    //so if you press enter on the cart portion you submit the forms that are empty and that causes and error in the console
+    //this function prevents that
     var keycode = (e.keyCode ? e.keyCode : e.which);
     if(keycode === 13){
         e.preventDefault()
     }
 });
 
-qty_input.change(change_qty);
+qty_input.change(change_qty); //sends ajax request every time the quantity of any product in the cart is updated
 
 function update_total(row, qty){
     let unit_price = parseInt(row.attr("unit-price"))
@@ -251,7 +258,7 @@ function update_total(row, qty){
 let remove_buttons = $('.remove_item')
 remove_buttons.click(remove_item)
 
-function remove_item(e){
+function remove_item(e){ //removes a product from the cart and updates the cart total accordingly
     e.preventDefault()
     let button = $(this)
     let row = button.closest("tr")
@@ -262,8 +269,8 @@ function remove_item(e){
     let cart_id = table.getAttribute("cart");
     let cart_item_id = $($(this).closest("tr")[0]).attr("cart-item");
 
-    remove_item_ajax(cart_id, cart_item_id, url)
-    $(row).remove()
+    remove_item_ajax(cart_id, cart_item_id, url) //sends an ajax request to update the database with the product removed from the cart
+    $(row).remove() //removes the product visually
 
     let children = $($(table)[0]).find("tbody tr").length //get number of rows in the table (products + row that displays total price)
     if (children === 1){ //=== 1 because cart total will be the only row in the table aka no products in the cart,
@@ -275,7 +282,7 @@ function remove_item(e){
         table_parent.append(empty_cart)
     }
 }
-function remove_item_ajax(cart_id, cart_item_id, url){
+function remove_item_ajax(cart_id, cart_item_id, url){ //tells the backend which product was removed
     let csrf = $('[name="csrfmiddlewaretoken"]')[0].value;
     $.ajax(url, {
         type: 'POST',
@@ -289,6 +296,8 @@ function remove_item_ajax(cart_id, cart_item_id, url){
     })
 }
 function get_shipping_str(){
+    //this is to create the string necessary to display what type of shipping the user selected
+    //this function is also used to send what type of shipping the cart should store in the database
     let shipping = $("#shipping").find("input")
     for (let i of shipping){
         if (i.checked){
