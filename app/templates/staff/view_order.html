@@ -1,10 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "staffbase.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row my-5">
+            <h1 class="col-8 col-md-9">Pöntun {{ order.id }}</h1>
+            <a class="col-3 btn bg-danger text-light" href=" {% url 'view_all_orders' %}"><h5 class="my-2">Til baka</h5></a>
+        </div>
 
-</body>
-</html>
+        <table id="review-table" class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Nafn</th>
+                    <th scope="col">Magn</th>
+                    <th scope="col">Verð</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in orderItem %}
+                    <tr>
+                        <td>{{ item.prod_name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{% widthratio item.quantity 1 item.unit_price %} kr</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+        <div class="row mx-0">
+            <div id="personal_info_review" class="col-12 col-md-6">
+                <h4><u>Persónuupplýsingar</u></h4>
+                <p><b>Fornafn:</b> {{ personalInfo.first_name }}</p>
+                <p><b>Eftirnafn:</b> {{ personalInfo.last_name }}</p>
+                <p><b>Símanúmer:</b> {{ personalInfo.phone_nr }}</p>
+                <p><b>Borg/bær:</b> {{ personalInfo.city }}</p>
+                <p><b>Heimilisfang:</b> {{ personalInfo.address }}</p>
+                <p><b>Póstnúmer:</b> {{ personalInfo.zip_code }}</p>
+                <p><b>Land:</b> {{ personalInfo.country }}</p>
+            </div>
+            <h3 class="col-md-5">Heildar verð: {{ order.total }} kr</h3>
+        </div>
+    </div>
+{% endblock %}
