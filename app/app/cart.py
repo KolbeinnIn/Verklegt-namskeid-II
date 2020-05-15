@@ -37,4 +37,4 @@ def calculate_cart_quantity(request):
         request.session['cart_quantity'] = quantity
     # Reset the quantity
     else:
-        request.session['cart_quantity'] = None
+        request.session['cart_quantity'] = 0

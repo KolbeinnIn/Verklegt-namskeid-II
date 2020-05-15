@@ -8,6 +8,15 @@ class PersonalInfoForm(ProfileForm):
     class Meta:
         model = profile_info
         exclude = ["user", "image_path"]
+        labels = {
+            'first_name': 'Fornafn',
+            'last_name': 'Eftirnafn',
+            'phone_nr': 'Símanúmer',
+            'City': 'Borg/bær',
+            'zip_code': 'Póstnúmer',
+            'address': 'Heimilisfang',
+            'country': 'Land',
+        }
         widgets = {
             "first_name": widgets.TextInput(attrs={"class": "form-control", 'required': True}),
             "last_name": widgets.TextInput(attrs={"class": "form-control"}),
