@@ -1,4 +1,5 @@
 let img_counter = 0
+// loads image when input is changed
 function load_img(element){
 	let id = element.id
 	let img = document.getElementById('img_'+id)
@@ -12,9 +13,9 @@ function load_img(element){
 	else{
 		img.setAttribute('src', element.value);
 	}
-
 }
 
+// Deletes image, input and button for image input field
 function delete_input(element){
 	let id = element.id.split('_')[1];
 	let input = document.getElementById(id);
@@ -27,6 +28,7 @@ function delete_input(element){
 		}
 	}
 
+// Creates images inputs
 function create_img_input(value = ''){
 	let element = document.getElementById('image_input');
 	var input = document.createElement('input');
@@ -47,6 +49,7 @@ function create_img_input(value = ''){
 	img_counter +=1;
 }
 
+// initialize image inputs for update_product
 function initialize_images(){
 	let container = document.getElementById('image_input');
 	let children = [...container.children];
