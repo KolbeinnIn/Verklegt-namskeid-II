@@ -110,10 +110,10 @@ function update_personal_info(cart_id, info_list, url){
         headers: {
             'X-CSRFToken': csrf
         },
-        data: {
+        data: JSON.stringify({
             "cart_id": cart_id,
             "personal_info": info_list
-        },
+        }),
     })
 }
 
