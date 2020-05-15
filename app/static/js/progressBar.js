@@ -26,8 +26,6 @@ function next_step(){
     if (empty){
         return false
     }
-    confirm_order()
-    return false
     let next = get_next_step()
     let $item = $(this);
 

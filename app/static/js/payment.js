@@ -109,7 +109,8 @@ function update_personal_info(cart_id, info_list, url){
         },
         data: JSON.stringify({
             "cart_id": cart_id,
-            "personal_info": info_list
+            "personal_info": info_list,
+            "shipping": get_shipping_str()
         }),
     })
 }
@@ -282,9 +283,14 @@ function get_shipping_str(){
     let shipping = $("#shipping").find("input")
     for (let i of shipping){
         if (i.checked){
-            let ship_str;
+            let ship_id = i.value;
+            if (ship_id == 1){
+                return "Sótt í verslun"
+            }
+            else{
+                return "Heimsending"
+            }
         }
-        console.log(i.checked)
     }
 }
 
