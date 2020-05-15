@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     path("", views.login_staff_view, name="login_staff"),
     path("logout", LogoutView.as_view(next_page="login_staff"), name="logout_staff"),
-    path("dashboard", views.dashboard, name="dashboard"),
+    path("dashboard", views.products, name="dashboard"),
     path("create-product", views.create_product, name="create_product"),
     path("delete-product/<str:slug>", views.delete_product, name="delete_product"),
     path("products", views.products, name="view_all_products"),

@@ -78,7 +78,6 @@ function get_personal_info(){
     let og_cart = $("#og-cart")[0]
     let cart_id = og_cart.getAttribute("cart")
     let url = og_cart.getAttribute("person-info")
-    console.log(info_obj)
     update_personal_info(cart_id, info_obj, url)
 }
 
@@ -98,10 +97,7 @@ function get_payment_info(card){
         let info_piece = create_elem(i[0], i[1])
         sth.append(info_piece)
     }
-
 }
-
-let first_btn = $('a[ref="#step-1"]')[0]
 
 function update_personal_info(cart_id, info_list, url){
     let csrf = $('[name="csrfmiddlewaretoken"]')[0].value;
@@ -116,7 +112,6 @@ function update_personal_info(cart_id, info_list, url){
         },
     })
 }
-
 function update_qty(cart_id, cart_item_id, quantity, url){
     let csrf = $('[name="csrfmiddlewaretoken"]')[0].value;
     $.ajax(url, {
@@ -128,21 +123,16 @@ function update_qty(cart_id, cart_item_id, quantity, url){
             "cart_id": cart_id,
             "cart_item_id": cart_item_id,
             "quantity": quantity
-        },
-        success: function(){
-            console.log("Ayy lmao")
         }
     })
 }
-
 function recieve_updated_cart(){
     $.ajax("/recieve-updated-cart", {
         type: 'GET',
         success: create_review_table
     })
 }
-
-function create_review_table(products){
+function create_review_table(products){ // Create table from the updated product list that I got from the ajax request
     let table = $("#review-table")
     let total = 0
     for (let i of products){
@@ -160,7 +150,6 @@ function create_review_table(products){
         let td_name = $(document.createElement("td"))
         td_name.text(i.name)
         tr.append(td_name)
-
 
         let td_qty = $(document.createElement("td"))
         let p_qty = $(document.createElement("p"))
@@ -196,7 +185,6 @@ function create_review_table(products){
     total_stronk.text(total.toString()+ " kr")
     total_td.append(total_stronk)
 
-
     new_tr.append(filler_td)
     new_tr.append(document.createElement("td"))
     new_tr.append(samtals_td)
@@ -205,7 +193,6 @@ function create_review_table(products){
 }
 
 $('.nextBtn')[0].addEventListener("click", recieve_updated_cart)
-
 
 function change_qty(e){
     let qty = $(this)[0]
@@ -224,7 +211,6 @@ function change_qty(e){
     if (quantity < 1){
             qty.value = 1;
     }
-    console.log("for inn")
     update_qty(cart, cart_item_id, qty.value, url)
     update_total(row, qty.value);
 }
@@ -240,7 +226,6 @@ qty_input.keydown(function(e) {
 
 qty_input.change(change_qty);
 
-
 function update_total(row, qty){
     let unit_price = parseInt(row.attr("unit-price"))
     let new_price = unit_price*qty
@@ -250,6 +235,4 @@ function update_total(row, qty){
     let total_str = $("#cart-total")[0]
     let total = parseInt(total_str.textContent.substring(0, total_str.textContent.length-3));
     total_str.textContent = ((total-price)+new_price).toString() + " kr"
-    console.log(total_str.textContent)
-    console.log(total, price, new_price, (total-price)+new_price)
 }

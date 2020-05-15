@@ -14,7 +14,10 @@ allPrevBtn.click(function(){
     $(allWells[next-2]).show()
 });
 
-allNextBtn.click(next_step);
+let empty = document.getElementById("empty-cart")
+if (!empty){
+    allNextBtn.click(next_step);
+}
 $("#step-1").show()
 
 
