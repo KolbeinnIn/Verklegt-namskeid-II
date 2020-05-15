@@ -3,7 +3,7 @@
     <div class="container pb-5">
         <div class="row my-5">
             <h1 class="col-8 col-md-9">{{ Title }}</h1>
-            <a class="col-4 col-md-3 btn bg-danger text-light" href="{% url 'view_all_products' %}"><h5 class="my-2">Til baka</h5></a>
+            <a class="col-4 col-md-3 btn bg-danger text-light" href="{% url 'view_all_categories' %}"><h5 class="my-2">Til baka</h5></a>
         </div>
         <form class="form my-5" action="{% if slug %}{% url path slug%}{% else %}{% url path%}{% endif %}" method = "post">
             {% csrf_token %}
