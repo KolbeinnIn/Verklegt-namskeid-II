@@ -16,7 +16,6 @@ class URL:
         i = 0
         while True:
             not_changed = True
-            # TODO Breyta forloops í function
             for category in categories:
                 if url == category.URL_keyword:
                     i += 1

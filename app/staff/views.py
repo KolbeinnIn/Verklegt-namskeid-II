@@ -87,6 +87,11 @@ def update_product(request, slug):
                 for img in old_images:
                     img.delete()
                 product.save()
+                category_list = dict(request.POST)["category"]
+                product.category.clear()
+                for category in category_list:
+                    category = Category.objects.get(id=int(category))
+                    product.category.add(category)
                 create_images_product(images, product)
                 product.initialize()
                 return redirect("view_all_products")
