@@ -44,11 +44,13 @@ function next_step(){
     var curStep = $item.closest(".setup-content"),
         curInputs = curStep.find("input[type='text'],select"),
         isValid = true;
-    let step = curStep[0].getAttribute("id")
+    let step = curStep[0]
     let phone_input = $(get_phone())[0].value
-    if ((step === "step-2") && (phone_input.length < 7)){
-        create_person_error()
-        return false;
+    if (step !== undefined){
+        if ((step.getAttribute("id") === "step-2") && (phone_input.length < 7)){
+            create_person_error()
+            return false;
+        }
     }
 
 
