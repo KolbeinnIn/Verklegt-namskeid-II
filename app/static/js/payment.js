@@ -98,6 +98,14 @@ function get_payment_info(card){
         let info_piece = create_elem(i[0], i[1])
         sth.append(info_piece)
     }
+    let afh = document.createElement("h4")
+    let afh_u = document.createElement("u")
+    afh_u.textContent = "Afhendingarmáti"
+    afh.appendChild(afh_u)
+    sth.append(afh)
+    let shipping = document.createElement("p")
+    shipping.textContent = get_shipping_str()
+    sth.append(shipping)
 }
 
 function update_personal_info(cart_id, info_list, url){
