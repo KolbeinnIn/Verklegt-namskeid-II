@@ -13,7 +13,7 @@
             <div class="row border-bottom border-dark">
                 <p class="col-8 mb-0 py-3">{{ order.cart.person_info.first_name }} {{ order.cart.person_info.last_name }}</p>
                 <p class="col-3 border-left border-dark mb-0 py-3">{{ order.total }} kr.</p>
-                <a class="col-1 border-left border-dark text-dark" href="{%url 'view_order' order.id %}"><span class="fas fa-pencil-alt my-4 mx-md-4"></span></a>
+                <a class="col-1 border-left border-dark text-dark" href="{%url 'view_order' order.id %}"><span class="fas fa-eye my-4 mx-md-4"></span></a>
             </div>
         {% endfor %}
     </div>
