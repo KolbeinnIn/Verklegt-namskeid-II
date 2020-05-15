@@ -6,6 +6,8 @@ $('#id_card_number').on('keypress change', function () {
 
 review = document.getElementById("review_btn")
 review.addEventListener("click", function(){
+    //the review-btn is in the payment details part of the site,
+    //this function adds the personal and payment information to the review site
     let number = document.getElementById("id_card_number").value
     let name = document.getElementById("id_cardholder_name").value
     let exp = document.getElementById("id_expiration_date").value
@@ -26,7 +28,6 @@ review.addEventListener("click", function(){
         get_payment_info(number)
         next_step()
         $("#payment_warning").remove()
-
     }
 })
 
@@ -237,7 +238,6 @@ function update_total(row, qty){
     total_str.textContent = ((total-price)+new_price).toString() + " kr"
 }
 
-
 let remove_buttons = $('.remove_item')
 remove_buttons.click(remove_item)
 
@@ -264,10 +264,7 @@ function remove_item(e){
         $(empty_cart).attr("id", "empty-cart").text("Karfan er tóm")
         table_parent.append(empty_cart)
     }
-
-
 }
-
 function remove_item_ajax(cart_id, cart_item_id, url){
     let csrf = $('[name="csrfmiddlewaretoken"]')[0].value;
     $.ajax(url, {
@@ -281,3 +278,16 @@ function remove_item_ajax(cart_id, cart_item_id, url){
         }
     })
 }
+function get_shipping_str(){
+    let shipping = $("#shipping").find("input")
+    for (let i of shipping){
+        if (i.checked){
+            let ship_str;
+        }
+        console.log(i.checked)
+    }
+}
+
+
+
+

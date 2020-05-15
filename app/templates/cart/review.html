@@ -1,35 +1,35 @@
 {% load static %}
-    <div class="container text-center">
-        <h1 class="jumbotron-heading">Yfirlit</h1>
-    </div>
-    <table id="review-table" class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col" class="d-none d-sm-table-cell text-center">Mynd</th>
-                <th scope="col">Nafn</th>
-                <th scope="col" class="text-center">Magn</th>
-                <th scope="col" class="text-center">Verð</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <div class="row mx-0">
-        <div id="personal_info_review" class="col-12 col-md-6">
-            <h4><u>Persónuupplýsingar</u></h4>
+<div class="container text-center">
+    <h1 class="jumbotron-heading">Yfirlit</h1>
+</div>
+<table id="review-table" class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col" class="d-none d-sm-table-cell text-center">Mynd</th>
+            <th scope="col">Nafn</th>
+            <th scope="col" class="text-center">Magn</th>
+            <th scope="col" class="text-center">Verð</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<div class="row mx-0">
+    <div id="personal_info_review" class="col-12 col-md-6">
+        <h4><u>Persónuupplýsingar</u></h4>
 
-        </div>
-        <div id="payment_info_review" class="col-12 col-md-6">
-            <h4><u>Greiðsluupplýsingar</u></h4>
-        </div>
     </div>
-    <div class="row my-3">
-        <div class="col-sm-12 col-md-6 text-center">
-            <button class="btn border text-center text-dark yellow-background prevBtn" type="button">Til baka</button>
-        </div>
-        <div class="col-sm-12 col-md-6 text-center">
-            <button class="btn text-uppercase">
-                <a class="btn border text-center text-dark yellow-background" href="{% url 'cart-success' %}" role="button">Staðfesta</a>
-            </button>
-        </div>
+    <div id="payment_info_review" class="col-12 col-md-6">
+        <h4><u>Greiðsluupplýsingar</u></h4>
     </div>
+</div>
+<div class="row my-3">
+    <div class="col-sm-12 col-md-6 text-center">
+        <button class="btn border text-center text-dark yellow-background prevBtn" type="button">Til baka</button>
+    </div>
+    <div class="col-sm-12 col-md-6 text-center">
+        <button class="btn text-uppercase">
+            <a id="confirm-order" class="btn border text-center text-dark yellow-background" href="{% url 'cart-success' %}" role="button">Staðfesta</a>
+        </button>
+    </div>
+</div>
