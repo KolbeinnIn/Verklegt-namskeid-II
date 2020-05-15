@@ -18,5 +18,6 @@ urlpatterns = [
     path("view-customers", views.view_customers, name="view_all_customers"),
     path("register-customers", views.register_customer, name="register_customer"),
     path("update-customer/<str:slug>", views.update_customer, name="update_customer"),
-    path("view-orders", views.view_all_orders, name="view_all_orders")
+    path("view-orders", views.view_all_orders, name="view_all_orders"),
+    path("view-order/<str:slug>", views.view_order, name="view_order")
 ]
