@@ -164,7 +164,10 @@ def update_create_person_info(request):
     request_body = json.loads(request.body)
     person_info_dict = request_body["personal_info"]
     cart_id = int(request_body["cart_id"])
+    shipping = request_body["shipping"]
+    print(shipping)
     cart = Cart.objects.get(id=cart_id)
+    cart.shipping = shipping
 
     # Check if user has already a person info associated with his cart
     if cart.person_info:
@@ -173,7 +176,6 @@ def update_create_person_info(request):
     else:
         person_info = profile_info()
         cart.person_info = person_info
-        cart.save()
 
     # Set the new parameters of person info to the ones from request
     person_info.first_name = person_info_dict["first_name"]
@@ -187,6 +189,7 @@ def update_create_person_info(request):
 
     # save the new parameters
     person_info.save()
+    cart.save()
     return HttpResponse("Update/create successful")
 
 
