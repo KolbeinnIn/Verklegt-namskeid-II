@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
     <div class="row my-4">
         <div class="col-md-auto">
@@ -17,9 +18,21 @@
         </div>
         <form id="profile_info_template" class="form form-horizontal col" method="POST">
             <h3 class="font-weight-bold mb-4">Notendaupplýsingar:</h3>
+            {% if success %}
+            <div class="alert alert-success" role="alert">
+              Notendaupplýsingar hafa verið uppfærðar!
+            </div>
+            {% elif success == False %}
+            <div class="alert alert-danger" role="alert">
+              Eitthvað fór úrskeiðis!
+            </div>
+            {% endif %}
             {% csrf_token %}
             {{ form }}
             <input type="submit" class="btn btn-primary mt-3" value="Update" />
         </form>
     </div>
+    {% block script %}
+        <script src="{% static 'js/profile.js' %}"></script>
+    {% endblock %}
 {% endblock %}
