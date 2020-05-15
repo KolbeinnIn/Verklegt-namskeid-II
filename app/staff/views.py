@@ -294,16 +294,16 @@ def view_all_orders(request):
     else:
         return redirect("login_staff")
 
+
 def view_order(request, slug):
     if request.user.is_staff or request.user.is_superuser:
         order = Order.objects.get(id=slug)
-        order_items = list(CartItem.objects.filter(cart = order.cart))
+        order_items = list(CartItem.objects.filter(cart=order.cart))
         personal_info = order.cart.person_info
-        print(personal_info.__doc__)
         return render(request, "staff/view_order.html", {
             "order": order,
             "orderItem": order_items,
-            "personalInfo": personal_info
+            "personalInfo": personal_info,
         })
     else:
         return redirect("login_staff")
