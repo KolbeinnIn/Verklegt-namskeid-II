@@ -295,3 +295,8 @@ input[type=submit]:hover  {
 #addCart{
     cursor: pointer !important;
 }
+
+.fp-banner{
+    height: 350px;
+    width:1490px;
+}

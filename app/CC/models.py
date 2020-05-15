@@ -2,7 +2,10 @@ from django.db import models
 from user.models import profile_info
 
 
-class URL:
+class URL:  # this class exists to make sure that all category and product urls are unique
+    # example: if a product is created with the name "Playstation-game" and a product already exists with that name
+    # the product will get the URL_keyword/slug playstation-game-1, if that already exists then it will get "playstation-game-2"
+    # there also cannot be a category and product with the same slug
     def __init__(self):
         self.replace_arr = [('á', 'a'), ('ð', 'd'), ('ö', 'o'), ('ó', 'o'), ('í', 'i'), ('ý', 'y'), ('ó', 'o'),
                             ('æ', 'ae'), ('ø', 'o'), ('ú', 'u'), ('þ', 'th'), ('é', 'e')]
@@ -126,10 +129,10 @@ class Product(models.Model, URL):
     def __str__(self):
         return self.name
 
-    def initialize(self):
+    def initialize(self):  # checks if the url is unique, if not, fix it
         self.check_url()
-        self.calculate_total()
-        self.save()
+        self.calculate_total()  # calculates the total from price and discount
+        self.save()  # saves product to database
 
 
 class Cart(models.Model):

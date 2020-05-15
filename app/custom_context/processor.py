@@ -1,5 +1,6 @@
 from CC.models import Category
-
+# this exists to serve the categories globally
+# so the header works anywhere
 
 CONTEXT = {
     "cat_1": Category.objects.get(pk=1),
