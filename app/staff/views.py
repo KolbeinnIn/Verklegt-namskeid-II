@@ -2,10 +2,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from staff.forms.product_form import ProductCreateForm, CategoryCreateForm
-from CC.models import Image, Category, Product, Order
+from CC.models import Image, Category, Product, Order, CartItem
 from django.contrib.auth.models import User
 from staff.forms.staff_register_form import RegisterStaffForm
 from user.forms.user_register_form import RegisterCustomerForm
+from user.models import profile_info
 
 
 def login_staff_view(request):
@@ -290,5 +291,19 @@ def view_all_orders(request):
     if request.user.is_staff or request.user.is_superuser:
         orders = Order.objects.all()
         return render(request, "staff/view_all_orders.html", {'orders': orders})
+    else:
+        return redirect("login_staff")
+
+def view_order(request, slug):
+    if request.user.is_staff or request.user.is_superuser:
+        order = Order.objects.get(id=slug)
+        order_items = list(CartItem.objects.filter(cart = order.cart))
+        personal_info = order.cart.person_info
+        print(personal_info.__doc__)
+        return render(request, "staff/view_order.html", {
+            "order": order,
+            "orderItem": order_items,
+            "personalInfo": personal_info
+        })
     else:
         return redirect("login_staff")
