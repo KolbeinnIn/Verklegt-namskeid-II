@@ -55,18 +55,23 @@ def create_product(request):
                 return redirect("view_all_products")
         else:
             form = ProductCreateForm()
-        formList = []
-        labelList = []
-        infoBreaker = 4
-        for item in form:
-            formList.append(item)
-            labelList.append(item.label)
+        formList, labelList, infoBreaker = splitForm(form)
         return render(request, "staff/create_product.html", {'generalInfo': formList[:infoBreaker]
-                                                            ,'moreInfo': formList[infoBreaker:]
+                                                            ,'moreInfo': formList[infoBreaker:-1],
+                                                             'image': formList[-1]
                                                             , 'Title': 'Búa til vöru',
                                                             'path': 'create_product', 'slug': ''})
     else:
         return redirect("login_staff")
+
+def splitForm(form):
+    formList = []
+    labelList = []
+    infoBreaker = 4
+    for item in form:
+        formList.append(item)
+        labelList.append(item.label)
+    return [formList, labelList, infoBreaker]
 
 
 def update_product(request, slug):
@@ -87,9 +92,14 @@ def update_product(request, slug):
                 return redirect("view_all_products")
         else:
             form = ProductCreateForm(instance=product)
-        return render(request, "staff/create_product.html", {'form': form, 'Title': 'Breyta upplýsingum',
-                                                             'images': product.image.all(), 'path': 'update_product',
-                                                             'slug': slug})
+        formList, labelList, infoBreaker = splitForm(form)
+        return render(request, "staff/create_product.html", {'generalInfo': formList[:infoBreaker]
+                                                            ,'moreInfo': formList[infoBreaker:-1],
+                                                             'images': product.image.all()
+                                                            , 'Title': 'Breyta upplýsingum',
+                                                            'path': 'update_product', 'slug': slug})
+
+
     else:
         return redirect("login_staff")
 
@@ -251,4 +261,4 @@ def update_customer(request, slug):
 
 def view_all_orders(request):
     orders = Order.objects.all()
-    return render(request, "staff/view_all_orders.html", {'orders': orders})
+    return render(request, "staff/view_all_orders.html", {'orders': orders}) 

@@ -1,7 +1,8 @@
+import json
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from CC.models import Product, Cart, CartItem, Order
-from user.models import profile_info
+from user.models import profile_info, country
 
 
 def index(request):
@@ -141,4 +142,33 @@ def recieve_updated_cart(request):
 
 
 def update_create_person_info(request):
+    # Get parameters from request
+    request_body = json.loads(request.body)
+    person_info_dict = request_body["personal_info"]
+    cart_id = int(request_body["cart_id"])
+    cart = Cart.objects.get(id=cart_id)
+
+    # Check if user has already a person info associated with his cart
+    if cart.person_info:
+        person_info = cart.person_info
+    # Else we create a new profile info for the user and link it to his cart
+    else:
+        person_info = profile_info()
+        cart.person_info = person_info
+        cart.save()
+
+    # Set the new parameters of person info to the ones from request
+    person_info.first_name = person_info_dict["first_name"]
+    person_info.last_name = person_info_dict["last_name"]
+    person_info.phone_nr = person_info_dict["phone"]
+    person_info.city = person_info_dict["city"]
+    person_info.zip_code = person_info_dict["zip"]
+    person_info.address = person_info_dict["address"]
+    country_obj = country.objects.get(name=person_info_dict["country"])
+    person_info.country = country_obj
+
+    # save the new parameters
+    person_info.save()
     return HttpResponse("Update/create successful")
+
+
