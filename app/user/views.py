@@ -35,10 +35,16 @@ def info(request):
     if request.method == "POST":
         form = ProfileForm(instance=profile, data=request.POST)
         if form.is_valid():
+            s = True
             profile = form.save(commit=False)
             profile.user_id = request.user.id
             profile.save()
-            return redirect("profile")
+        else:
+            s= False
+        return render(request, "user/profile_info.html", {
+            "form": ProfileForm(instance=profile), "success": s
+        })
+
     return render(request, "user/profile_info.html", {
         "form": ProfileForm(instance=profile)
     })
