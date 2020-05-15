@@ -25,10 +25,14 @@ def calculate_cart_quantity(request):
         session_id = request.session.session_key
         cart = Cart.objects.filter(session_id=session_id).last()
 
-    cart_item_list = list(CartItem.objects.filter(cart=cart))
+    order = Order.objects.filter(cart_id=cart.id).first()
+    if not order:
+        cart_item_list = list(CartItem.objects.filter(cart=cart))
 
-    quantity = 0
-    for cart_item in cart_item_list:
-        quantity += int(cart_item.quantity)
+        quantity = 0
+        for cart_item in cart_item_list:
+            quantity += int(cart_item.quantity)
 
-    request.session['cart_quantity'] = quantity
+        request.session['cart_quantity'] = quantity
+    else:
+        request.session['cart_quantity'] = None
