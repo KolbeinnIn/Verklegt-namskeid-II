@@ -1,6 +1,6 @@
 import json
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, redirect
+from django.http import HttpResponse, JsonResponse, Http404
+from django.shortcuts import render, redirect, get_object_or_404
 from CC.models import Product, Cart, CartItem, Order
 from user.models import profile_info, country
 
@@ -74,7 +74,13 @@ def create_cart(request):
 
     if request.user.is_authenticated:
         # get the person info of user and cart associated with it
-        person_info = profile_info.objects.get(user=request.user)
+        try:
+            person_info = get_object_or_404(profile_info, user=request.user)
+        except Http404:
+            person_info = profile_info()
+            person_info.user = request.user
+            person_info.save()
+
         cart = Cart.objects.filter(person_info=person_info).last()
     else:
         # if user is not in and there is not a session we must create one
