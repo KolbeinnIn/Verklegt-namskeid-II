@@ -136,6 +136,7 @@ function recieve_updated_cart(){
 }
 function create_review_table(products){ // Create table from the updated product list that I got from the ajax request
     let table = $("#review-table")
+    $(table).find("tbody").empty()
     let total = 0
     for (let i of products){
         let tr = $(document.createElement("tr"))
