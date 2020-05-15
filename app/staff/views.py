@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from staff.forms.product_form import ProductCreateForm, CategoryCreateForm
-from CC.models import Image, Category, Product
+from CC.models import Image, Category, Product, Order
 from django.contrib.auth.models import User
 from staff.forms.staff_register_form import RegisterStaffForm
 from user.forms.user_register_form import RegisterCustomerForm
@@ -257,3 +257,8 @@ def update_customer(request, slug):
     return render(request, "staff/update_customer.html", {
         "customer": customer
     })
+
+
+def view_all_orders(request):
+    orders = Order.objects.all()
+    return render(request, "staff/view_all_orders.html", {'orders': orders}) 
