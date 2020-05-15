@@ -17,7 +17,7 @@ def login_staff_view(request):
         if user is not None:
             if user.is_staff or user.is_superuser:
                 login(request, user)
-                return redirect("dashboard")
+                return redirect("view_all_products")
         form = AuthenticationForm(request.POST)
         return render(request, "staff/login.html", {'form': form})
     else:
@@ -25,15 +25,14 @@ def login_staff_view(request):
         return render(request, "staff/login.html", {'form': form})
 
 
-def dashboard(request):
-    return render(request, "staff/dashboard.html")
-
-
 def products(request):
-    product = Product.objects.all().order_by("name")
-    return render(request, "staff/view_all_products.html", {'products': product})
+    if request.user.is_staff or request.user.is_superuser:
+        product = Product.objects.all().order_by("name")
+        return render(request, "staff/view_all_products.html", {'products': product})
+    else:
+        return redirect("login_staff")
 
-# HELPER CLASS MOVE LATER
+
 def create_images_product(images, product):
     for img in images:
         if img != '':
@@ -63,6 +62,7 @@ def create_product(request):
                                                             'path': 'create_product', 'slug': ''})
     else:
         return redirect("login_staff")
+
 
 def splitForm(form):
     formList = []
@@ -98,24 +98,28 @@ def update_product(request, slug):
                                                              'images': product.image.all()
                                                             , 'Title': 'Breyta upplýsingum',
                                                             'path': 'update_product', 'slug': slug})
-
-
     else:
         return redirect("login_staff")
 
 
 def delete_product(request, slug):
-    product = Product.objects.get(id=slug)
-    images = product.image.all()
-    for img in images:
-        img.delete()
-    product.delete()
-    return redirect("view_all_products")
+    if request.user.is_staff or request.user.is_superuser:
+        product = Product.objects.get(id=slug)
+        images = product.image.all()
+        for img in images:
+            img.delete()
+        product.delete()
+        return redirect("view_all_products")
+    else:
+        return redirect("login_staff")
 
 
 def categories(request):
-    category = Category.objects.all().order_by("full_name")
-    return render(request, "staff/view_all_categories.html", {'category': category})
+    if request.user.is_staff or request.user.is_superuser:
+        category = Category.objects.all().order_by("full_name")
+        return render(request, "staff/view_all_categories.html", {'category': category})
+    else:
+        return redirect("login_staff")
 
 
 def create_category(request):
@@ -153,112 +157,133 @@ def update_category(request, slug):
 
 
 def view_staff(request):
-    all_users = User.objects.all()
-    staff_list = []
-    for user in all_users:
-        if user.is_superuser or user.is_staff:
-            staff_list.append(user)
-    return render(request, "staff/view_all_staff.html", {
-        'staff_list': staff_list
-    })
+    if request.user.is_staff or request.user.is_superuser:
+        all_users = User.objects.all()
+        staff_list = []
+        for user in all_users:
+            if user.is_superuser or user.is_staff:
+                staff_list.append(user)
+        return render(request, "staff/view_all_staff.html", {
+            'staff_list': staff_list
+        })
+    else:
+        return redirect("login_staff")
 
 
 def register_staff(request):
-    if request.method == "POST":
-        form = RegisterStaffForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("view_all_staff")
-        else:
-            return render(request, "staff/register_staff.html", {
-                "form": RegisterStaffForm(),
-                "form_errors": form.errors
-            })
-    return render(request, "staff/register_staff.html", {
-        "form": RegisterStaffForm()
-    })
+    if request.user.is_staff or request.user.is_superuser:
+        if request.method == "POST":
+            form = RegisterStaffForm(data=request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect("view_all_staff")
+            else:
+                return render(request, "staff/register_staff.html", {
+                    "form": RegisterStaffForm(),
+                    "form_errors": form.errors
+                })
+        return render(request, "staff/register_staff.html", {
+            "form": RegisterStaffForm()
+        })
+    else:
+        return redirect("login_staff")
 
 
 def update_staff(request, slug):
-    staff = User.objects.get(username=slug)
-    if request.method == "POST":
-        first_name = request.POST["first_name"]
-        last_name = request.POST["last_name"]
-        is_superuser = request.POST.get("is_superuser")
-        if first_name != "" and last_name != "":
-            staff.first_name = first_name
-            staff.last_name = last_name
-            if is_superuser == "on":
-                staff.is_superuser = True
+    if request.user.is_staff or request.user.is_superuser:
+        staff = User.objects.get(username=slug)
+        if request.method == "POST":
+            first_name = request.POST["first_name"]
+            last_name = request.POST["last_name"]
+            is_superuser = request.POST.get("is_superuser")
+            if first_name != "" and last_name != "":
+                staff.first_name = first_name
+                staff.last_name = last_name
+                if is_superuser == "on":
+                    staff.is_superuser = True
+                else:
+                    staff.is_superuser = False
+                staff.save()
+                return render(request, "staff/update_staff.html", {
+                    "staff": staff,
+                    "success": "Upplýsingar hafa verið vistaðar"
+                })
             else:
-                staff.is_superuser = False
-            staff.save()
-            return render(request, "staff/update_staff.html", {
-                "staff": staff,
-                "success": "Upplýsingar hafa verið vistaðar"
-            })
-        else:
-            return render(request, "staff/update_staff.html", {
-                "staff": staff,
-                "error": "Fornafn og eftirnafn verða að vera fylltir inn"
-            })
-    return render(request, "staff/update_staff.html", {
-        "staff": staff
-    })
+                return render(request, "staff/update_staff.html", {
+                    "staff": staff,
+                    "error": "Fornafn og eftirnafn verða að vera fylltir inn"
+                })
+        return render(request, "staff/update_staff.html", {
+            "staff": staff
+        })
+    else:
+        return redirect("login_staff")
 
 
 def view_customers(request):
-    all_users = User.objects.all()
-    customer_list = []
-    for user in all_users:
-        if not user.is_superuser and not user.is_staff:
-            customer_list.append(user)
-    return render(request, "staff/view_all_customers.html", {
-        'customer_list': customer_list
-    })
+    if request.user.is_staff or request.user.is_superuser:
+        all_users = User.objects.all()
+        customer_list = []
+        for user in all_users:
+            if not user.is_superuser and not user.is_staff:
+                customer_list.append(user)
+        return render(request, "staff/view_all_customers.html", {
+            'customer_list': customer_list
+        })
+    else:
+        return redirect("login_staff")
 
 
 def register_customer(request):
-    if request.method == "POST":
-        form = RegisterCustomerForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("view_all_customers")
-        else:
-            return render(request, "staff/register_customer.html", {
-                "form": RegisterCustomerForm(),
-                "form_errors": form.errors
-            })
-    return render(request, "staff/register_customer.html", {
-        "form": RegisterCustomerForm()
-    })
+    if request.user.is_staff or request.user.is_superuser:
+        if request.method == "POST":
+            form = RegisterCustomerForm(data=request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect("view_all_customers")
+            else:
+                return render(request, "staff/register_customer.html", {
+                    "form": RegisterCustomerForm(),
+                    "form_errors": form.errors
+                })
+        return render(request, "staff/register_customer.html", {
+            "form": RegisterCustomerForm()
+        })
+    else:
+        return redirect("login_staff")
 
 
 def update_customer(request, slug):
-    customer = User.objects.get(username=slug)
-    if request.method == "POST":
-        first_name = request.POST["first_name"]
-        last_name = request.POST["last_name"]
-        email = request.POST.get("email")
-        if first_name != "" and last_name != "" and email != "":
-            customer.first_name = first_name
-            customer.last_name = last_name
-            customer.email = email
-            customer.save()
-            return render(request, "staff/update_customer.html", {
-                "customer": customer,
-                "success": "Upplýsingar hafa verið vistaðar"
-            })
-        else:
-            return render(request, "staff/update_customer.html", {
-                "customer": customer,
-                "error": "Fornafn og eftirnafn verða að vera fylltir inn"
-            })
-    return render(request, "staff/update_customer.html", {
-        "customer": customer
-    })
+    if request.user.is_staff or request.user.is_superuser:
+        customer = User.objects.get(username=slug)
+        if request.method == "POST":
+            first_name = request.POST["first_name"]
+            last_name = request.POST["last_name"]
+            email = request.POST.get("email")
+            if first_name != "" and last_name != "" and email != "":
+                customer.first_name = first_name
+                customer.last_name = last_name
+                customer.email = email
+                customer.save()
+                return render(request, "staff/update_customer.html", {
+                    "customer": customer,
+                    "success": "Upplýsingar hafa verið vistaðar"
+                })
+            else:
+                return render(request, "staff/update_customer.html", {
+                    "customer": customer,
+                    "error": "Fornafn og eftirnafn verða að vera fylltir inn"
+                })
+        return render(request, "staff/update_customer.html", {
+            "customer": customer
+        })
+    else:
+        return redirect("login_staff")
 
 
 def view_all_orders(request):
-    orders = Order.objects.all()
-    return render(request, "staff/view_all_orders.html", {'orders': orders}) 
+    if request.user.is_staff or request.user.is_superuser:
+        orders = Order.objects.all()
+        return render(request, "staff/view_all_orders.html", {'orders': orders})
+    else:
+        return redirect("login_staff")
